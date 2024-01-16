@@ -1,0 +1,62 @@
+body {
+  background-color: #f2f2f2; /* Light gray background */
+  font-family: "Arial", sans-serif; /* Change the font for the entire page */
+}
+
+.container {
+  margin-top: 5%; /* Add some top margin for the content */
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Add a subtle box shadow to cards */
+}
+
+.card-title {
+  font-size: 24px;
+  margin-bottom: 10px; /* Adjust spacing below card title */
+}
+
+.form-control {
+  border-radius: 10px;
+  padding: 10px 20px; /* Increase padding for text inputs */
+}
+
+.btn-primary {
+  border-radius: 10px;
+  padding: 10px 20px; /* Increase padding for buttons */
+  background-color: #007bff; /* Blue primary button color */
+  border: none; /* Remove button border */
+}
+
+.btn-primary:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Additional styles for links */
+a {
+  text-decoration: none; /* Remove underlines from links */
+  color: #007bff; /* Blue link color */
+}
+
+a:hover {
+  color: #0056b3; /* Darker blue on hover */
+}
+
+.bg-light-grey {
+  background-color: #d6d8db; /* A slightly darker shade of light grey */
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.card {
+  margin-bottom: 10px; /* Adjust the space between cards */
+}
+
+.contact-cards-container {
+  overflow-y: hidden;
+}

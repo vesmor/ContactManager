@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contacts Manager</title>
+    <link href="css/styles.css" rel="stylesheet" />
+    <!-- Ensure the path to your CSS file is correct -->
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+
+  <body>
+    <div style="height: 100vh; overflow: hidden">
+      <!-- Top Ribbon -->
+      <nav class="navbar navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Contacts Manager</a>
+        <span class="navbar-text">
+          Signed in as: <span id="username">User</span>
+        </span>
+      </nav>
+
+      <!-- Main Container -->
+      <div class="container-fluid">
+        <div class="row">
+          <!-- Left Column -->
+          <div class="col-md-4 bg-light" style="overflow-y: auto">
+            <div class="py-2">
+              <input
+                class="form-control"
+                id="searchContact"
+                type="search"
+                placeholder="Search Contacts"
+              />
+            </div>
+
+            <!-- Contact Cards -->
+            <!-- 110 comes from height of nav and search bars -->
+            <div
+              class="contact-cards-container"
+              style="height: calc(100vh - 110px); overflow-y: auto"
+            >
+              <!-- Contact Card 1 -->
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Alice Johnson</h5>
+                  <p class="card-text">Email: alice@example.com</p>
+                  <p class="card-text">Phone: 123-456-7890</p>
+                </div>
+              </div>
+
+              <!-- Contact Card 2 -->
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Bob Smith</h5>
+                  <p class="card-text">Email: bob@example.com</p>
+                  <p class="card-text">Phone: 234-567-8901</p>
+                </div>
+              </div>
+
+              <!-- Contact Card 3 -->
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Carol White</h5>
+                  <p class="card-text">Email: carol@example.com</p>
+                  <p class="card-text">Phone: 345-678-9012</p>
+                </div>
+              </div>
+
+              <!-- Contact Card 4 -->
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Carol White</h5>
+                  <p class="card-text">Email: carol@example.com</p>
+                  <p class="card-text">Phone: 345-678-9012</p>
+                </div>
+              </div>
+
+              <!-- Contact Card 5 -->
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Carol White</h5>
+                  <p class="card-text">Email: carol@example.com</p>
+                  <p class="card-text">Phone: 345-678-9012</p>
+                </div>
+              </div>
+
+              <!-- Contact Card 6 -->
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Carol White</h5>
+                  <p class="card-text">Email: carol@example.com</p>
+                  <p class="card-text">Phone: 345-678-9012</p>
+                </div>
+              </div>
+
+              <!-- Contact Card 7 -->
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Carol White</h5>
+                  <p class="card-text">Email: carol@example.com</p>
+                  <p class="card-text">Phone: 345-678-9012</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="col-md-8 bg-light-grey">
+            <div id="contactInfo" class="p-3">
+              <!-- Contact Information will be displayed here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.7.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+    <!-- Ensure the path to your JS file is correct -->
+  </body>
+</html>
