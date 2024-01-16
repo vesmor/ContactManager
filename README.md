@@ -9,6 +9,6 @@ Check out our website (if we still pay for it lol):<br>
 ### Front End
 - [DeAndre Hendrix](https://github.com/deandrehendrix)
 ### API
-- [Batman Yousuf](shinobi-404)
+- [Batman Yousuf](https://github.com/shinobi-404)
 ### Database
 - [Romsev Charles](https://github.com/vesmor)
