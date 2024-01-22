@@ -4,14 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign Up - Contacts Manager</title>
-    <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       crossorigin="anonymous"
     />
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css" />
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <div class="container">
@@ -19,24 +21,36 @@
         <div class="col-md-6">
           <div class="card my-5">
             <div class="card-body">
-              <form id="signup-form">
+              <form
+                id="signup-form"
+                onsubmit="event.preventDefault(); doSignup();"
+              >
                 <h3 class="card-title text-center">Sign Up</h3>
                 <div class="form-group">
-                  <label for="fullName">Full Name</label>
+                  <label for="firstName">First Name</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="fullName"
-                    placeholder="Enter your full name"
+                    id="firstName"
+                    placeholder="Enter your first name"
                   />
                 </div>
                 <div class="form-group">
-                  <label for="email">Email</label>
+                  <label for="lastName">Last Name</label>
                   <input
-                    type="email"
+                    type="text"
                     class="form-control"
-                    id="email"
-                    placeholder="Enter your email"
+                    id="lastName"
+                    placeholder="Enter your last name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="userId">User ID</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="userId"
+                    placeholder="Choose a user ID"
                   />
                 </div>
                 <div class="form-group">
@@ -51,29 +65,16 @@
                 <button type="submit" class="btn btn-primary btn-block">
                   Sign Up
                 </button>
+                <div class="text-center mt-3">
+                  <a href="login_page.html">Back to Login</a>
+                </div>
               </form>
-              <!-- End of Signup form -->
-              <!-- Back to Login link within card-body -->
-              <div class="text-center mt-3">
-                <a href="login_page.html">Back to Login</a>
-              </div>
-              <!-- End of Back to Login link -->
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery, Popper.js, Bootstrap JS -->
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="code.js"></script>
     <script
       src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
       crossorigin="anonymous"
