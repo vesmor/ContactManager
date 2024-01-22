@@ -1,4 +1,4 @@
-const urlBase = "http://group23poosd2024.xyz/";
+const urlBase = "http://group23poosd2024.xyz";
 const extension = "php";
 
 let userId = 0;
@@ -14,7 +14,7 @@ async function doLogin() {
   let tmp = { userId: userId, password: password };
   let jsonPayload = JSON.stringify(tmp);
 
-  let url = `${urlBase}`;
+  let url = `${urlBase}LAMPAPI/login.${extension}`;
 
   try {
     const response = await fetch(url, {
