@@ -1,4 +1,4 @@
-const urlBase = "http://group23poosd2024.xyz";
+const urlBase = "http://group23poosd2024.xyz/LAMPAPI/";
 const extension = "php";
 
 let userId = 0;
@@ -14,7 +14,7 @@ async function doLogin() {
   let tmp = { userId: userId, password: password };
   let jsonPayload = JSON.stringify(tmp);
 
-  let url = `${urlBase}LAMPAPI/login.${extension}`;
+  let url = `${urlBase}login.${extension}`;
 
   try {
     const response = await fetch(url, {
@@ -31,7 +31,6 @@ async function doLogin() {
 
     const jsonObject = await response.json();
 
-    // Assuming jsonObject contains an ID to indicate successful login
     userId = jsonObject.id;
 
     if (userId < 1) {
@@ -54,17 +53,15 @@ async function doLogin() {
 }
 
 async function doSignup() {
-  // Assuming you have the necessary elements in your form like signupUserId, signupPassword, etc.
   let userId = document.getElementById("signupUserId").value;
   let password = document.getElementById("signupPassword").value;
-  // Add other fields as necessary
 
-  document.getElementById("signupError").innerHTML = ""; // Assuming you have a signupError div in your HTML
+  document.getElementById("signupError").innerHTML = "";
 
-  let tmp = { userId: userId, password: password }; // Add other fields as necessary
+  let tmp = { userId: userId, password: password };
   let jsonPayload = JSON.stringify(tmp);
 
-  let url = `${urlBase}/Signup.${extension}`; // Adjust the endpoint as per your API
+  let url = `${urlBase}signup.${extension}`;
 
   try {
     const response = await fetch(url, {
@@ -80,8 +77,6 @@ async function doSignup() {
     }
 
     const jsonObject = await response.json();
-
-    // Handle successful signup here. Adjust based on your API response structure
   } catch (err) {
     document.getElementById("signupError").innerHTML = err.message;
     document.getElementById("signupError").classList.remove("hidden");
