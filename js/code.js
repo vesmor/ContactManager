@@ -64,7 +64,7 @@ async function doSignup() {
   let tmp = { userId: userId, password: password }; // Add other fields as necessary
   let jsonPayload = JSON.stringify(tmp);
 
-  let url = `${urlBase}/Signup.${extension}`; // Adjust the endpoint as per your API
+  let url = `${urlBase}/LAMPAPI/signup.${extension}`; // Adjust the endpoint as per your API
 
   try {
     const response = await fetch(url, {
