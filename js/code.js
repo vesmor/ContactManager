@@ -11,7 +11,7 @@ async function doLogin() {
 
   document.getElementById("loginError").innerHTML = "";
 
-  let tmp = { userId: userId, password: password };
+  let tmp = { login: userId, password: password };
   let jsonPayload = JSON.stringify(tmp);
 
   let url = `${urlBase}login.${extension}`;
