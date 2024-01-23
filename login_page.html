@@ -3,71 +3,156 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login/Signup - Contacts Manager</title>
-    <!-- Bootstrap CSS -->
+    <title>Login/Sign Up - Contacts Manager</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      crossorigin="anonymous"
     />
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
-</head>
+    <style>
+      .form-container {
+        position: relative;
+        width: 100%;
+        transition: all 0.6s ease-in-out;
+      }
+      .form-toggle {
+        cursor: pointer;
+        font-weight: bold;
+      }
+      .form-group {
+        margin-top: 15px;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-6">
-          <h2 class="text-center mt-5">Contacts Manager</h2>
           <div class="card my-5">
             <div class="card-body">
-              <form id="login-form">
+              <!-- Login Form -->
+              <div id="login-form" class="form-container">
                 <h3 class="card-title text-center">Login</h3>
-                <div class="form-group">
-                  <label for="email">Email</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="email"
-                    placeholder="Enter email"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="password">Password</label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="password"
-                    placeholder="Password"
-                  />
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">
-                  Login
-                </button>
-                <div class="text-center mt-3">
-                  <a href="signup_page.html">Sign Up</a>
-                </div>
-              </form>
+                <form onsubmit="event.preventDefault(); doLogin();">
+                  <div class="form-group">
+                    <label for="loginUserId">User ID</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="loginUserId"
+                      placeholder="Enter your user ID"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="loginPassword"
+                      placeholder="Password"
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-block">
+                    Login
+                  </button>
+
+                  <div
+                    id="loginError"
+                    class="alert alert-danger hidden"
+                    role="alert"
+                  ></div>
+
+                  <div
+                    class="text-center form-toggle mt-3"
+                    onclick="toggleForms();"
+                  >
+                    Sign Up
+                  </div>
+                </form>
+              </div>
+
+              <!-- Signup Form -->
+              <div id="signup-form" class="form-container hidden">
+                <h3 class="card-title text-center">Sign Up</h3>
+                <form onsubmit="event.preventDefault(); doSignup();">
+                  <div class="form-group">
+                    <label for="signupFirstName">First Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="signupFirstName"
+                      placeholder="Enter your first name"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="signupLastName">Last Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="signupLastName"
+                      placeholder="Enter your last name"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="signupUserId">User ID</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="signupUserId"
+                      placeholder="Choose a user ID"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="signupPassword"
+                      placeholder="Choose a password"
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-block">
+                    Sign Up
+                  </button>
+
+                  <div
+                    id="signupError"
+                    class="alert alert-danger hidden"
+                    role="alert"
+                  ></div>
+
+                  <div
+                    class="text-center form-toggle mt-3"
+                    onclick="toggleForms();"
+                  >
+                    Back to Login
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery, Popper.js, Bootstrap JS -->
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="js/code.js"></script>
+    <script>
+      function toggleForms() {
+        const loginForm = document.getElementById("login-form");
+        const signupForm = document.getElementById("signup-form");
+        if (loginForm.classList.contains("hidden")) {
+          signupForm.classList.add("hidden");
+          loginForm.classList.remove("hidden");
+        } else {
+          loginForm.classList.add("hidden");
+          signupForm.classList.remove("hidden");
+        }
+      }
+    </script>
   </body>
 </html>

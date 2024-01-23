@@ -1,85 +1,53 @@
-const urlBase = "http://group23poosd2024.xyz/LAMPAPI/";
+const urlBase = "http://COP4331-5.com/LAMPAPI";
 const extension = "php";
 
 let userId = 0;
 let firstName = "";
 let lastName = "";
 
-async function doLogin() {
-  let userId = document.getElementById("loginUserId").value;
+function doLogin() {
+  userId = 0;
+  firstName = "";
+  lastName = "";
+
+  let login = document.getElementById("loginName").value;
   let password = document.getElementById("loginPassword").value;
+  //	var hash = md5( password );
 
-  document.getElementById("loginError").innerHTML = "";
+  document.getElementById("loginResult").innerHTML = "";
 
-  let tmp = { login: userId, password: password };
+  let tmp = { login: login, password: password };
+  //	var tmp = {login:login,password:hash};
   let jsonPayload = JSON.stringify(tmp);
 
-  let url = `${urlBase}login.${extension}`;
+  let url = urlBase + "/Login." + extension;
 
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
   try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json; charset=UTF-8",
-      },
-      body: jsonPayload,
-    });
+    xhr.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        let jsonObject = JSON.parse(xhr.responseText);
+        userId = jsonObject.id;
 
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
+        if (userId < 1) {
+          document.getElementById("loginResult").innerHTML =
+            "User/Password combination incorrect";
+          return;
+        }
 
-    const jsonObject = await response.json();
+        firstName = jsonObject.firstName;
+        lastName = jsonObject.lastName;
 
-    userId = jsonObject.id;
+        saveCookie();
 
-    if (userId < 1) {
-      document.getElementById("loginError").innerHTML =
-        "User/Password combination incorrect";
-      document.getElementById("loginError").classList.remove("hidden");
-      return;
-    }
-
-    firstName = jsonObject.firstName;
-    lastName = jsonObject.lastName;
-
-    saveCookie();
-
-    window.location.href = "contacts_manager_page.html";
+        window.location.href = "color.html";
+      }
+    };
+    xhr.send(jsonPayload);
   } catch (err) {
-    document.getElementById("loginError").innerHTML = err.message;
-    document.getElementById("loginError").classList.remove("hidden");
-  }
-}
-
-async function doSignup() {
-  let userId = document.getElementById("signupUserId").value;
-  let password = document.getElementById("signupPassword").value;
-
-  document.getElementById("signupError").innerHTML = "";
-
-  let tmp = { userId: userId, password: password };
-  let jsonPayload = JSON.stringify(tmp);
-
-  let url = `${urlBase}signup.${extension}`;
-
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json; charset=UTF-8",
-      },
-      body: jsonPayload,
-    });
-
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-
-    const jsonObject = await response.json();
-  } catch (err) {
-    document.getElementById("signupError").innerHTML = err.message;
-    document.getElementById("signupError").classList.remove("hidden");
+    document.getElementById("loginResult").innerHTML = err.message;
   }
 }
 
