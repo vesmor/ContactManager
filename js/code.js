@@ -55,10 +55,17 @@ async function doLogin() {
 async function doSignup() {
   let userId = document.getElementById("signupUserId").value;
   let password = document.getElementById("signupPassword").value;
+  let firstName = document.getElementById("signupFirstName").value;
+  let lastName = document.getElementById("signupLastName").value;
 
   document.getElementById("signupError").innerHTML = "";
 
-  let tmp = { userId: userId, password: password };
+  let tmp = {
+    Username: userId,
+    Password: password,
+    FirstName: firstName,
+    LastName: lastName,
+  };
   let jsonPayload = JSON.stringify(tmp);
 
   let url = `${urlBase}signup.${extension}`;
