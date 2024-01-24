@@ -198,3 +198,28 @@ function searchColor() {
     document.getElementById("colorSearchResult").innerHTML = err.message;
   }
 }
+
+document.querySelectorAll(".contact-card").forEach((card) => {
+  card.addEventListener("click", function () {
+    // Example of retrieving data - replace this with actual data retrieval
+    const contactData = {
+      firstName: "John",
+      lastName: "Doe",
+      phone: "123-456-7890",
+      email: "johndoe@example.com",
+      userId: "1001",
+    };
+
+    // Update the right column with the contact's information
+    document.getElementById("contactFirstName").textContent =
+      "First Name: " + contactData.firstName;
+    document.getElementById("contactLastName").textContent =
+      "Last Name: " + contactData.lastName;
+    document.getElementById("contactPhone").textContent =
+      "Phone: " + contactData.phone;
+    document.getElementById("contactEmail").textContent =
+      "Email: " + contactData.email;
+    document.getElementById("contactUserID").textContent =
+      "UserID: " + contactData.userId;
+  });
+});

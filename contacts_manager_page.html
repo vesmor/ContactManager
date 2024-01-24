@@ -109,8 +109,40 @@
 
           <!-- Right Column -->
           <div class="col-md-8 bg-light-grey">
-            <div id="contactInfo" class="p-3">
-              <!-- Contact Information will be displayed here -->
+            <!-- Contact Information will be displayed here -->
+            <div id="contactDetails" class="container">
+              <!-- Row for Image and Name centered horizontally -->
+              <div class="row justify-content-center text-center mb-4">
+                <div class="col">
+                  <img
+                    id="contactImage"
+                    src="images/mr_sins.jpg"
+                    alt="Contact Image"
+                    class="rounded-circle"
+                    style="width: 200px; height: 200px; object-fit: cover"
+                  />
+                  <h2 id="contactName">Johnny Sins</h2>
+                </div>
+              </div>
+
+              <!-- Row for the rest of the contact info with two columns -->
+              <div class="row">
+                <!-- Column for Phone and Email centered within the column -->
+                <div class="col-6 text-left">
+                  <p id="contactPhone" class="contact-detail">
+                    <strong>Phone:</strong> 420-696-1234
+                  </p>
+                  <p id="contactEmail" class="contact-detail">
+                    <strong>Email:</strong> mrsins@example.com
+                  </p>
+                </div>
+                <!-- Column for UserID also centered within the column -->
+                <div class="col-6 text-left">
+                  <p id="contactUserID" class="contact-detail">
+                    <strong>User ID:</strong> JSins95
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
