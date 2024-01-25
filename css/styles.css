@@ -118,3 +118,12 @@ a:hover {
 .icon {
   margin-right: 5px;
 }
+
+.button {
+  margin-right: 5px;
+}
+
+#addContactBtn {
+  /* margin-top: 10px; */
+  /* margin-bottom: 10px; */
+}

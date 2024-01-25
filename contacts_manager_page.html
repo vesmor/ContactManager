@@ -12,7 +12,7 @@
     />
   </head>
 
-  <body>
+  <body class="d-flex flex-column vh-100">
     <div style="height: 100vh; overflow: hidden">
       <!-- Top Ribbon -->
       <nav class="navbar navbar-dark bg-primary">
@@ -23,17 +23,19 @@
       </nav>
 
       <!-- Main Container -->
-      <div class="container-fluid">
+      <div class="container-fluid flex-fill">
         <div class="row">
           <!-- Left Column -->
           <div class="col-md-4 bg-light" style="overflow-y: auto">
-            <div class="py-2">
+            <div class="d-flex align-items-center py-2">
               <input
                 class="form-control"
                 id="searchContact"
                 type="search"
                 placeholder="Search Contacts"
+                style="flex-grow: 1; margin-right: 8px"
               />
+              <button class="btn btn-primary" id="addContactBtn">+</button>
             </div>
 
             <!-- Contact Cards -->
@@ -153,7 +155,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.7.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
-    <!-- Ensure the path to your JS file is correct -->
+    <script src="js/code.js"></script>
   </body>
 </html>

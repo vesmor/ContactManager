@@ -223,3 +223,34 @@ document.querySelectorAll(".contact-card").forEach((card) => {
       "UserID: " + contactData.userId;
   });
 });
+
+document.getElementById("addContactBtn").addEventListener("click", function () {
+  document.getElementById("contactDetails").innerHTML = `
+    <div class="row justify-content-center text-center mb-4">
+      <div class="col">
+        <img
+          id="contactImageDisplay"
+          src="images/default_img.png"
+          alt="Contact Image"
+          class="rounded-circle mb-2"
+          style="width: 200px; height: 200px; object-fit: cover"
+        />
+        <input type="text" id="contactNameInput" class="form-control" placeholder="Contact Name" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6 text-left">
+        <input type="text" id="contactPhoneInput" class="form-control mb-2" placeholder="Phone">
+        <input type="email" id="contactEmailInput" class="form-control mb-2" placeholder="Email">
+      </div>
+      <div class="col-6 text-left">
+        <input type="text" id="contactUserIDInput" class="form-control mb-2" placeholder="User ID">
+      </div>
+    </div>
+
+    <div class="text-center mt-3">
+      <button type="button" id="saveContactBtn" class="btn btn-primary">Save Contact</button>
+    </div>
+  `;
+});
