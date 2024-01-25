@@ -241,10 +241,12 @@ document.getElementById("addContactBtn").addEventListener("click", function () {
 
     <div class="row">
       <div class="col-6 text-left">
+        <input type="text" id="contactFirstName" class="form-control mb-2" placeholder="First Name">
         <input type="text" id="contactPhoneInput" class="form-control mb-2" placeholder="Phone">
         <input type="email" id="contactEmailInput" class="form-control mb-2" placeholder="Email">
       </div>
       <div class="col-6 text-left">
+        <input type="text" id="contactLastName" class="form-control mb-2" placeholder="Last Name">
         <input type="text" id="contactUserIDInput" class="form-control mb-2" placeholder="User ID">
       </div>
     </div>
