@@ -14,8 +14,8 @@ if( $conn->connect_error )
 }
 else
 {
-    $stmt = $conn->prepare("DELETE FROM Users WHERE ID=?");
-    $stmt->bind_param("s", $inData["userID"]);
+    $stmt = $conn->prepare("UPDATE Users, SET firstName=?, lastName=?, Phone=?, Email=? WHERE ID=?");
+    $stmt->bind_param("sssss", $inData["firstname"], $inData["lastname"]), $inData["phone"], $inData["email"], $inData["userID"];
     $stmt->execute();
     $result = $stmt->get_result();
 
