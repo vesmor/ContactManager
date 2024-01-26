@@ -2,7 +2,7 @@
     $inData = getRequestInfo();
     
     $searchTerm = $inData["searchTerm"];
-    $userId = $inData["userId"];
+    $userID = $inData["userID"];
 
     $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
     if ($conn->connect_error) 
@@ -11,9 +11,9 @@
     } 
     else
     {
-        $stmt = $conn->prepare("SELECT * FROM Contacts WHERE UserId=? AND Name LIKE ?");
+        $stmt = $conn->prepare("SELECT * FROM Contacts WHERE UserID=? AND Name LIKE ?");
         $searchTerm = "%" . $searchTerm . "%";
-        $stmt->bind_param("ss", $userId, $searchTerm);
+        $stmt->bind_param("ss", $userID, $searchTerm);
         $stmt->execute();
         $result = $stmt->get_result();
 
