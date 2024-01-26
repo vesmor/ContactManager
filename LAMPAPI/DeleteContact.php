@@ -3,9 +3,7 @@
 
 $inData = getRequestInfo();
 
-$id = 0;
-$firstName = "";
-$lastName = "";
+$ID = $inData["ID"];
 
 $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");     
 if( $conn->connect_error )
@@ -15,18 +13,18 @@ if( $conn->connect_error )
 else
 {
     $stmt = $conn->prepare("DELETE FROM Contacts WHERE ID=?");
-    $stmt->bind_param("s", $inData["ID"]);
+    $stmt->bind_param("s", $ID);
     $stmt->execute();
     $result = $stmt->get_result();
-
-    if( $row = $result->fetch_assoc()  )
-    {
-        returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
-    }
-    else
-    {
-        returnWithError("No Records Found");
-    }
+    returnWithError("");
+    // if( $row = $result->fetch_assoc()  )
+    // {
+    //     returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
+    // }
+    // else
+    // {
+    //     returnWithError("No Records Found");
+    // }
 
     $stmt->close();
     $conn->close();
@@ -45,7 +43,7 @@ function sendResultInfoAsJson( $obj )
 
 function returnWithError( $err )
 {
-    $retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+    $retValue = '{"error":"' . $err . '"}';
     sendResultInfoAsJson( $retValue );
 }
 
