@@ -116,24 +116,24 @@ Array JSON object named "results" with ID, FirstName, LastName, Phone, Email, Us
 ```json
 {
 
-"results": [
+"results":[
 
-	{
-
-	"ID": int,
-	"FirstName": string,
-	"LastName": string,
-	"Phone": string,
-	"Email": string,
-	"UserID": int
-
-	},
-
-	{
-		"ID": int,
-		"FirstName": string,
-		...etc
-	}
+		{
+	
+			"ID": int,
+			"FirstName": string,
+			"LastName": string,
+			"Phone": string,
+			"Email": string,
+			"UserID": int
+	
+		},
+	
+		{
+			"ID": int,
+			"FirstName": string,
+			...etc
+		}
 
 	]
 
