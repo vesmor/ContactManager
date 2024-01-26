@@ -14,19 +14,19 @@ if( $conn->connect_error )
 }
 else
 {
-    $stmt = $conn->prepare("UPDATE Users, SET firstName=?, lastName=?, Phone=?, Email=? WHERE ID=?");
+    $stmt = $conn->prepare("UPDATE Contacts, SET firstName=?, lastName=?, Phone=?, Email=? WHERE ID=?");
     $stmt->bind_param("sssss", $inData["firstname"], $inData["lastname"]), $inData["phone"], $inData["email"], $inData["userID"];
     $stmt->execute();
     $result = $stmt->get_result();
-
-    if( $row = $result->fetch_assoc()  )
-    {
-        returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
-    }
-    else
-    {
-        returnWithError("No Records Found");
-    }
+    returnWithError("");
+    // if( $row = $result->fetch_assoc()  )
+    // {
+    //     returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
+    // }
+    // else
+    // {
+    //     returnWithError("No Records Found");
+    // }
 
     $stmt->close();
     $conn->close();
@@ -45,7 +45,7 @@ function sendResultInfoAsJson( $obj )
 
 function returnWithError( $err )
 {
-    $retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+    $retValue = '{"error":"' . $err . '"}';
     sendResultInfoAsJson( $retValue );
 }
 
