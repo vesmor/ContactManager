@@ -16,7 +16,7 @@
     {
         $stmt = $conn->prepare("DELETE FROM Contacts WHERE UserID=? AND Name LIKE ?");
         $searchTerm = "%" . $searchTerm . "%";
-        $stmt->bind_param("ss", $userId, $searchTerm);
+        $stmt->bind_param("ss", $userID, $searchTerm);
         $stmt->execute();
         $result = $stmt->get_result();
 
