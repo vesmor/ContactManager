@@ -95,11 +95,34 @@ Empty error string
 
 <br>
 
+## DeleteContacts
+
+### POST
+#### Request
+Delete the contact with the ID number passed in. ID can be found through doing a SearchContact request.
+```json 
+{
+	"ID": int,
+}
+
+```
+#### Returns
+json body \
+Empty error string
+```json 
+{
+	"error": ""
+}
+
+```
+
+<br>
+
 ## SearchContacts
 
 Searches for Contact entries that belong to userID, and match partially with a searchTerm. \ 
 For example if looking for all contacts that contain an "a" but belong to userID 4. \
-ProTip: It's possible to load all contacts available by passing an empty searchTerm string "" and the userID you wish to receive
+ProTip: It's possible to load all contacts available to a certain user by passing an empty searchTerm string "" and the UserID it belongs to.
 ### POST
 #### Request
 ```json
@@ -142,3 +165,29 @@ Array JSON object named "results" with ID, FirstName, LastName, Phone, Email, Us
 Note: ID is the ID the Contact is identified as in it's table. And userID is the ID of the User that this contact belongs to. \
 &nbsp; IE: The Contact, John, may have the ID of 4 in its table but belongs to the User Mark, who has the UserID of 8.
 
+<br>
+
+## UpdateContacts
+Updates the names, phone, and email fields of the Contact found with the ID number passed in.
+### POST
+#### Request
+
+```json 
+{
+	"FirstName": string,
+	"LastName": string,
+	"Phone": string,
+	"Email": string,
+	"ID": int
+}
+
+```
+#### Returns
+json body \
+Empty error string
+```json 
+{
+	"error": ""
+}
+
+```
