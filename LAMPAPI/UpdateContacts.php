@@ -1,9 +1,11 @@
 <?php
 
-//.
+
 $inData = getRequestInfo();
 
-$ID = $inData["ID"];
+$id = 0;
+$firstName = "";
+$lastName = "";
 
 $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");     
 if( $conn->connect_error )
@@ -12,8 +14,9 @@ if( $conn->connect_error )
 }
 else
 {
-    $stmt = $conn->prepare("DELETE FROM Contacts WHERE ID=?");
-    $stmt->bind_param("s", $ID);
+    //UPDATE Contacts SET FirstName="Ben", LastName="Hill", Phone="954-954-8954", Email="hill@gmail.com" WHERE ID=4;
+    $stmt = $conn->prepare("UPDATE Contacts SET FirstName=?, LastName=?, Phone=?, Email=? WHERE ID=?");
+    $stmt->bind_param("sssss", $inData["FirstName"], $inData["LastName"], $inData["Phone"], $inData["Email"], $inData["ID"]);
     $stmt->execute();
     $result = $stmt->get_result();
     returnWithError("");
