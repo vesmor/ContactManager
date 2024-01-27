@@ -198,3 +198,104 @@ function searchColor() {
     document.getElementById("colorSearchResult").innerHTML = err.message;
   }
 }
+
+document.querySelectorAll(".contact-card").forEach((card) => {
+  card.addEventListener("click", function () {
+    // Example of retrieving data - replace this with actual data retrieval
+    const contactData = {
+      firstName: "John",
+      lastName: "Doe",
+      phone: "123-456-7890",
+      email: "johndoe@example.com",
+      userId: "1001",
+    };
+
+    // Update the right column with the contact's information
+    document.getElementById("contactFirstName").textContent =
+      "First Name: " + contactData.firstName;
+    document.getElementById("contactLastName").textContent =
+      "Last Name: " + contactData.lastName;
+    document.getElementById("contactPhone").textContent =
+      "Phone: " + contactData.phone;
+    document.getElementById("contactEmail").textContent =
+      "Email: " + contactData.email;
+    document.getElementById("contactUserID").textContent =
+      "UserID: " + contactData.userId;
+  });
+});
+
+document.getElementById("addContactBtn").addEventListener("click", function () {
+  document.getElementById("contactDetails").innerHTML = `
+    <div class="row justify-content-center text-center mb-4">
+      <div class="col">
+        <img
+          id="contactImageDisplay"
+          src="images/default_img.png"
+          alt="Contact Image"
+          class="rounded-circle mb-2"
+          style="width: 200px; height: 200px; object-fit: cover"
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6 text-left">
+        <input type="text" id="contactFirstName" class="form-control mb-2" placeholder="First Name">
+        <input type="text" id="contactPhoneInput" class="form-control mb-2" placeholder="Phone">
+        <input type="email" id="contactEmailInput" class="form-control mb-2" placeholder="Email">
+      </div>
+      <div class="col-6 text-left">
+        <input type="text" id="contactLastName" class="form-control mb-2" placeholder="Last Name">
+        <input type="text" id="contactUserIDInput" class="form-control mb-2" placeholder="User ID">
+      </div>
+    </div>
+
+    <div class="text-center mt-3">
+      <button type="button" id="saveContactBtn" class="btn btn-primary">Save Contact</button>
+    </div>
+  `;
+  document
+    .getElementById("saveContactBtn")
+    .addEventListener("click", async function (e) {
+      e.preventDefault();
+
+      const firstName = document.getElementById("contactFirstName").value;
+      const lastName = document.getElementById("contactLastName").value;
+      const phone = document.getElementById("contactPhoneInput").value;
+      const email = document.getElementById("contactEmailInput").value;
+      const userId = parseInt(
+        document.getElementById("contactUserIDInput").value
+      );
+
+      const payload = {
+        FirstName: firstName,
+        LastName: lastName,
+        Phone: phone,
+        Email: email,
+        UserID: userId,
+      };
+      const jsonPayload = JSON.stringify(payload);
+
+      const url = `${urlBase}AddContacts.${extension}`;
+
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+          body: jsonPayload,
+        });
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const jsonObject = await response.json();
+        // Handle the response here, e.g., show success message, clear the form, etc.
+      } catch (error) {
+        console.error("Error:", error);
+        // Handle the error here, e.g., show error message
+      }
+    });
+});
