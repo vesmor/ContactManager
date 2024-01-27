@@ -235,7 +235,6 @@ document.getElementById("addContactBtn").addEventListener("click", function () {
           class="rounded-circle mb-2"
           style="width: 200px; height: 200px; object-fit: cover"
         />
-        <input type="text" id="contactNameInput" class="form-control" placeholder="Contact Name" />
       </div>
     </div>
 
@@ -255,4 +254,48 @@ document.getElementById("addContactBtn").addEventListener("click", function () {
       <button type="button" id="saveContactBtn" class="btn btn-primary">Save Contact</button>
     </div>
   `;
+  document
+    .getElementById("saveContactBtn")
+    .addEventListener("click", async function (e) {
+      e.preventDefault();
+
+      const firstName = document.getElementById("contactFirstName").value;
+      const lastName = document.getElementById("contactLastName").value;
+      const phone = document.getElementById("contactPhoneInput").value;
+      const email = document.getElementById("contactEmailInput").value;
+      const userId = parseInt(
+        document.getElementById("contactUserIDInput").value
+      );
+
+      const payload = {
+        FirstName: firstName,
+        LastName: lastName,
+        Phone: phone,
+        Email: email,
+        UserID: userId,
+      };
+      const jsonPayload = JSON.stringify(payload);
+
+      const url = `${urlBase}AddContacts.${extension}`;
+
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+          body: jsonPayload,
+        });
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const jsonObject = await response.json();
+        // Handle the response here, e.g., show success message, clear the form, etc.
+      } catch (error) {
+        console.error("Error:", error);
+        // Handle the error here, e.g., show error message
+      }
+    });
 });
