@@ -14,10 +14,18 @@
 		- [POST](#post-2)
 			- [Request](#request-2)
 			- [Returns](#returns-2)
-	- [SearchContacts](#searchcontacts)
+	- [DeleteContacts](#deletecontacts)
 		- [POST](#post-3)
 			- [Request](#request-3)
 			- [Returns](#returns-3)
+	- [SearchContacts](#searchcontacts)
+		- [POST](#post-4)
+			- [Request](#request-4)
+			- [Returns](#returns-4)
+	- [UpdateContacts](#updatecontacts)
+		- [POST](#post-5)
+			- [Request](#request-5)
+			- [Returns](#returns-5)
 
 ## login
 ### POST
