@@ -42,6 +42,7 @@ async function doLogin() {
 
     firstName = jsonObject.firstName;
     lastName = jsonObject.lastName;
+    userId = jsonObject.id;
 
     saveCookie();
 
