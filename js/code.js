@@ -6,12 +6,12 @@ let firstName = "";
 let lastName = "";
 
 async function doLogin() {
-  let userId = document.getElementById("loginUserId").value;
+  let login = document.getElementById("loginUsername").value;
   let password = document.getElementById("loginPassword").value;
 
   document.getElementById("loginError").innerHTML = "";
 
-  let tmp = { login: userId, password: password };
+  let tmp = { login: login, password: password };
   let jsonPayload = JSON.stringify(tmp);
 
   let url = `${urlBase}login.${extension}`;
@@ -53,7 +53,7 @@ async function doLogin() {
 }
 
 async function doSignup() {
-  let userId = document.getElementById("signupUserId").value;
+  let username = document.getElementById("signupUsername").value;
   let password = document.getElementById("signupPassword").value;
   let firstName = document.getElementById("signupFirstName").value;
   let lastName = document.getElementById("signupLastName").value;
@@ -61,7 +61,7 @@ async function doSignup() {
   document.getElementById("signupError").innerHTML = "";
 
   let tmp = {
-    Username: userId,
+    Username: username,
     Password: password,
     FirstName: firstName,
     LastName: lastName,
@@ -137,68 +137,6 @@ function doLogout() {
   window.location.href = "index.html";
 }
 
-function addColor() {
-  let newColor = document.getElementById("colorText").value;
-  document.getElementById("colorAddResult").innerHTML = "";
-
-  let tmp = { color: newColor, userId, userId };
-  let jsonPayload = JSON.stringify(tmp);
-
-  let url = urlBase + "/AddColor." + extension;
-
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
-  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-  try {
-    xhr.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("colorAddResult").innerHTML =
-          "Color has been added";
-      }
-    };
-    xhr.send(jsonPayload);
-  } catch (err) {
-    document.getElementById("colorAddResult").innerHTML = err.message;
-  }
-}
-
-function searchColor() {
-  let srch = document.getElementById("searchText").value;
-  document.getElementById("colorSearchResult").innerHTML = "";
-
-  let colorList = "";
-
-  let tmp = { search: srch, userId: userId };
-  let jsonPayload = JSON.stringify(tmp);
-
-  let url = urlBase + "/SearchColors." + extension;
-
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
-  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-  try {
-    xhr.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("colorSearchResult").innerHTML =
-          "Color(s) has been retrieved";
-        let jsonObject = JSON.parse(xhr.responseText);
-
-        for (let i = 0; i < jsonObject.results.length; i++) {
-          colorList += jsonObject.results[i];
-          if (i < jsonObject.results.length - 1) {
-            colorList += "<br />\r\n";
-          }
-        }
-
-        document.getElementsByTagName("p")[0].innerHTML = colorList;
-      }
-    };
-    xhr.send(jsonPayload);
-  } catch (err) {
-    document.getElementById("colorSearchResult").innerHTML = err.message;
-  }
-}
-
 document.querySelectorAll(".contact-card").forEach((card) => {
   card.addEventListener("click", function () {
     // Example of retrieving data - replace this with actual data retrieval
@@ -254,6 +192,7 @@ document.getElementById("addContactBtn").addEventListener("click", function () {
       <button type="button" id="saveContactBtn" class="btn btn-primary">Save Contact</button>
     </div>
   `;
+
   document
     .getElementById("saveContactBtn")
     .addEventListener("click", async function (e) {
@@ -298,4 +237,55 @@ document.getElementById("addContactBtn").addEventListener("click", function () {
         // Handle the error here, e.g., show error message
       }
     });
+});
+
+async function loadContacts() {
+  let url = `${urlBase}SearchContacts.${extension}`;
+
+  const payload = {
+    searchTerm: "",
+    userID: userId,
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+    populateContacts(data.results);
+  } catch (error) {
+    console.error("Error:", error);
+    // Handle errors, e.g., show an error message
+  }
+}
+
+function populateContacts(contacts) {
+  const container = document.getElementById(contactCards);
+  container.innerHTML = ""; // Clear any existing content
+
+  contacts.forEach((contact) => {
+    const contactCard = `
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">${contact.FirstName} ${contact.LastName}</h5>
+                <p class="card-text">Email: ${contact.Email}</p>
+                <p class="card-text">Phone: ${contact.Phone}</p>
+              </div>
+            </div>
+        `;
+    container.innerHTML += contactCard;
+  });
+}
+
+document.addEventListener("DOMContentLoaded", (event) => {
+  loadContacts();
 });
