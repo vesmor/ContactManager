@@ -30,7 +30,6 @@ async function doLogin() {
     }
 
     const jsonObject = await response.json();
-    console.log(jsonObject);
 
     userId = jsonObject.id;
 
@@ -44,6 +43,8 @@ async function doLogin() {
     firstName = jsonObject.firstName;
     lastName = jsonObject.lastName;
     userId = jsonObject.id;
+
+    console.log(jsonObject);
 
     saveCookie();
 
@@ -92,44 +93,44 @@ async function doSignup() {
   }
 }
 
-function saveCookie() {
-  let minutes = 20;
-  let date = new Date();
-  date.setTime(date.getTime() + minutes * 60 * 1000);
-  document.cookie =
-    "firstName=" +
-    firstName +
-    ",lastName=" +
-    lastName +
-    ",userId=" +
-    userId +
-    ";expires=" +
-    date.toGMTString();
-}
+// function saveCookie() {
+//   let minutes = 20;
+//   let date = new Date();
+//   date.setTime(date.getTime() + minutes * 60 * 1000);
+//   document.cookie =
+//     "firstName=" +
+//     firstName +
+//     ",lastName=" +
+//     lastName +
+//     ",userId=" +
+//     userId +
+//     ";expires=" +
+//     date.toGMTString();
+// }
 
-function readCookie() {
-  userId = -1;
-  let data = document.cookie;
-  let splits = data.split(",");
-  for (var i = 0; i < splits.length; i++) {
-    let thisOne = splits[i].trim();
-    let tokens = thisOne.split("=");
-    if (tokens[0] == "firstName") {
-      firstName = tokens[1];
-    } else if (tokens[0] == "lastName") {
-      lastName = tokens[1];
-    } else if (tokens[0] == "userId") {
-      userId = parseInt(tokens[1].trim());
-    }
-  }
+// function readCookie() {
+//   userId = -1;
+//   let data = document.cookie;
+//   let splits = data.split(",");
+//   for (var i = 0; i < splits.length; i++) {
+//     let thisOne = splits[i].trim();
+//     let tokens = thisOne.split("=");
+//     if (tokens[0] == "firstName") {
+//       firstName = tokens[1];
+//     } else if (tokens[0] == "lastName") {
+//       lastName = tokens[1];
+//     } else if (tokens[0] == "userId") {
+//       userId = parseInt(tokens[1].trim());
+//     }
+//   }
 
-  if (userId < 0) {
-    window.location.href = "index.html";
-  } else {
-    document.getElementById("userName").innerHTML =
-      "Logged in as " + firstName + " " + lastName;
-  }
-}
+//   if (userId < 0) {
+//     window.location.href = "index.html";
+//   } else {
+//     document.getElementById("userName").innerHTML =
+//       "Logged in as " + firstName + " " + lastName;
+//   }
+// }
 
 function doLogout() {
   userId = 0;
