@@ -240,7 +240,7 @@ function populateContacts(contacts) {
                         <div class="col">
                             <img
                                 id="contactImageDisplay"
-                                src="images/default_img.jpg"
+                                src="images/default_img.png"
                                 alt="Contact Image"
                                 class="rounded-circle mb-2"
                                 style="width: 200px; height: 200px; object-fit: cover"
