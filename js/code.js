@@ -244,7 +244,6 @@ async function loadContacts() {
 }
 
 function populateContacts(contacts) {
-  const contacts = JSON.parse(sessionStorage.getItem("allContacts"));
   if (!contacts) {
     console.log("No contacts found");
     return;
