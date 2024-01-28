@@ -136,12 +136,14 @@ function doLogout() {
 
 async function loadContacts() {
   let url = `${urlBase}SearchContacts.${extension}`;
-  const userId = sessionStorage.getItem("userId");
+  const userId = parseInt(sessionStorage.getItem("userId"), 10);
 
   const payload = {
     searchTerm: "",
     userID: userId,
   };
+
+  let jsonPayload = JSON.stringify(payload);
 
   try {
     const response = await fetch(url, {
@@ -149,7 +151,7 @@ async function loadContacts() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(payload),
+      body: jsonPayload,
     });
 
     if (!response.ok) {
@@ -157,11 +159,16 @@ async function loadContacts() {
     }
 
     const data = await response.json();
-    sessionStorage.setItem("allContacts", JSON.stringify(data.results));
-    populateContacts(data.results);
+
+    if (data.results) {
+      sessionStorage.setItem("allContacts", JSON.stringify(data.results));
+      populateContacts(data.results);
+    } else {
+      // Handle the scenario where no contacts are returned
+      console.log("No contacts found");
+    }
   } catch (error) {
     console.error("Error:", error);
-    // Handle errors, e.g., show an error message
   }
 }
 
