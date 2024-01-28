@@ -280,11 +280,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 function updateSignedInAs() {
   document.addEventListener("DOMContentLoaded", () => {
-    const userName = sessionStorage.getItem("userName");
-    if (userName && document.getElementById("signedInAs")) {
+    const firstName = sessionStorage.getItem("firstName");
+    const lastName = sessionStorage.getItem("lastName");
+    if (firstName && lastName && document.getElementById("username")) {
       document.getElementById(
-        "signedInAs"
-      ).textContent = `Signed in as: ${userName}`;
+        "username"
+      ).textContent = `${firstName} ${lastName}`;
     }
   });
 }
