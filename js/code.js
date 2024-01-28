@@ -214,6 +214,7 @@ document.getElementById("addContactBtn").addEventListener("click", function () {
 
 async function loadContacts() {
   let url = `${urlBase}SearchContacts.${extension}`;
+  const userId = sessionStorage.getItem("userId");
 
   const payload = {
     searchTerm: "",
@@ -234,7 +235,7 @@ async function loadContacts() {
     }
 
     const data = await response.json();
-    allContacts = data.results;
+    sessionStorage.setItem("allContacts", JSON.stringify(data.results));
     populateContacts(data.results);
 
     // Optionally, store the contacts in local storage
