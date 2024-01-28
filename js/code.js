@@ -1,6 +1,7 @@
 const urlBase = "http://group23poosd2024.xyz/LAMPAPI/";
 const extension = "php";
 
+//
 async function doLogin() {
   let login = document.getElementById("loginUsername").value;
   let password = document.getElementById("loginPassword").value;
@@ -27,7 +28,11 @@ async function doLogin() {
 
     const jsonObject = await response.json();
 
-    userId = jsonObject.id;
+    // Store the user's ID and name in session storage
+    const userId = parseInt(jsonObject.id, 10); // Convert userId to an integer
+    sessionStorage.setItem("userId", userId); // Storing the user's ID as an integer
+    sessionStorage.setItem("firstName", jsonObject.firstName);
+    sessionStorage.setItem("lastName", jsonObject.lastName);
 
     if (userId < 1) {
       document.getElementById("loginError").innerHTML =
@@ -36,14 +41,9 @@ async function doLogin() {
       return;
     }
 
-    // Save cookies
-    sessionStorage.setItem("userId", jsonObject.id); // Storing the user's ID
-    sessionStorage.setItem("firstName", jsonObject.firstName);
-    sessionStorage.setItem("lastName", jsonObject.lastName);
-
     console.log(jsonObject);
 
-    window.location.href = "contacts_manager_page.html";
+    // window.location.href = "contacts_manager_page.html";
   } catch (err) {
     document.getElementById("loginError").innerHTML = err.message;
     document.getElementById("loginError").classList.remove("hidden");
@@ -137,12 +137,14 @@ function doLogout() {
 
 async function loadContacts() {
   let url = `${urlBase}SearchContacts.${extension}`;
-  const userId = sessionStorage.getItem("userId");
+  const userId = parseInt(sessionStorage.getItem("userId"), 10);
 
   const payload = {
     searchTerm: "",
     userID: userId,
   };
+
+  let jsonPayload = JSON.stringify(payload);
 
   try {
     const response = await fetch(url, {
@@ -150,7 +152,7 @@ async function loadContacts() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(payload),
+      body: jsonPayload,
     });
 
     if (!response.ok) {
@@ -158,11 +160,16 @@ async function loadContacts() {
     }
 
     const data = await response.json();
-    sessionStorage.setItem("allContacts", JSON.stringify(data.results));
-    populateContacts(data.results);
+
+    if (data.results) {
+      sessionStorage.setItem("allContacts", JSON.stringify(data.results));
+      populateContacts(data.results);
+    } else {
+      // Handle the scenario where no contacts are returned
+      console.log("No contacts found");
+    }
   } catch (error) {
     console.error("Error:", error);
-    // Handle errors, e.g., show an error message
   }
 }
 
