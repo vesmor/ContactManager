@@ -1,10 +1,6 @@
 const urlBase = "http://group23poosd2024.xyz/LAMPAPI/";
 const extension = "php";
 
-let userId = 0;
-let firstName = "";
-let lastName = "";
-
 async function doLogin() {
   let login = document.getElementById("loginUsername").value;
   let password = document.getElementById("loginPassword").value;
@@ -40,13 +36,12 @@ async function doLogin() {
       return;
     }
 
-    firstName = jsonObject.firstName;
-    lastName = jsonObject.lastName;
-    userId = jsonObject.id;
+    // Save cookies
+    sessionStorage.setItem("userId", jsonObject.id); // Storing the user's ID
+    sessionStorage.setItem("firstName", jsonObject.firstName);
+    sessionStorage.setItem("lastName", jsonObject.lastName);
 
     console.log(jsonObject);
-
-    saveCookie();
 
     window.location.href = "contacts_manager_page.html";
   } catch (err) {
@@ -93,44 +88,44 @@ async function doSignup() {
   }
 }
 
-// function saveCookie() {
-//   let minutes = 20;
-//   let date = new Date();
-//   date.setTime(date.getTime() + minutes * 60 * 1000);
-//   document.cookie =
-//     "firstName=" +
-//     firstName +
-//     ",lastName=" +
-//     lastName +
-//     ",userId=" +
-//     userId +
-//     ";expires=" +
-//     date.toGMTString();
-// }
+function saveCookie() {
+  let minutes = 20;
+  let date = new Date();
+  date.setTime(date.getTime() + minutes * 60 * 1000);
+  document.cookie =
+    "firstName=" +
+    firstName +
+    ",lastName=" +
+    lastName +
+    ",userId=" +
+    userId +
+    ";expires=" +
+    date.toGMTString();
+}
 
-// function readCookie() {
-//   userId = -1;
-//   let data = document.cookie;
-//   let splits = data.split(",");
-//   for (var i = 0; i < splits.length; i++) {
-//     let thisOne = splits[i].trim();
-//     let tokens = thisOne.split("=");
-//     if (tokens[0] == "firstName") {
-//       firstName = tokens[1];
-//     } else if (tokens[0] == "lastName") {
-//       lastName = tokens[1];
-//     } else if (tokens[0] == "userId") {
-//       userId = parseInt(tokens[1].trim());
-//     }
-//   }
+function readCookie() {
+  userId = -1;
+  let data = document.cookie;
+  let splits = data.split(",");
+  for (var i = 0; i < splits.length; i++) {
+    let thisOne = splits[i].trim();
+    let tokens = thisOne.split("=");
+    if (tokens[0] == "firstName") {
+      firstName = tokens[1];
+    } else if (tokens[0] == "lastName") {
+      lastName = tokens[1];
+    } else if (tokens[0] == "userId") {
+      userId = parseInt(tokens[1].trim());
+    }
+  }
 
-//   if (userId < 0) {
-//     window.location.href = "index.html";
-//   } else {
-//     document.getElementById("userName").innerHTML =
-//       "Logged in as " + firstName + " " + lastName;
-//   }
-// }
+  if (userId < 0) {
+    window.location.href = "index.html";
+  } else {
+    document.getElementById("userName").innerHTML =
+      "Logged in as " + firstName + " " + lastName;
+  }
+}
 
 function doLogout() {
   userId = 0;
@@ -217,68 +212,79 @@ document.getElementById("addContactBtn").addEventListener("click", function () {
     });
 });
 
-// async function loadContacts() {
-//   let url = `${urlBase}SearchContacts.${extension}`;
+async function loadContacts() {
+  let url = `${urlBase}SearchContacts.${extension}`;
 
-//   const payload = {
-//     searchTerm: "",
-//     userID: userId,
-//   };
+  const payload = {
+    searchTerm: "",
+    userID: userId,
+  };
 
-//   try {
-//     const response = await fetch(url, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(payload),
-//     });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
 
-//     if (!response.ok) {
-//       throw new Error("Network response was not ok");
-//     }
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
 
-//     const data = await response.json();
-//     allContacts = data.results;
-//     populateContacts(data.results);
+    const data = await response.json();
+    allContacts = data.results;
+    populateContacts(data.results);
 
-//     // Optionally, store the contacts in local storage
-//     localStorage.setItem("contacts", JSON.stringify(data.results));
-//   } catch (error) {
-//     console.error("Error:", error);
-//     // Handle errors, e.g., show an error message
-//   }
-// }
+    // Optionally, store the contacts in local storage
+    localStorage.setItem("contacts", JSON.stringify(data.results));
+  } catch (error) {
+    console.error("Error:", error);
+    // Handle errors, e.g., show an error message
+  }
+}
 
-// function populateContacts(contacts) {
-//   const container = document.getElementById(contactCards);
-//   container.innerHTML = ""; // Clear any existing content
+function populateContacts(contacts) {
+  const container = document.getElementById(contactCards);
+  container.innerHTML = ""; // Clear any existing content
 
-//   contacts.forEach((contact) => {
-//     const contactCard = `
-//             <div class="card">
-//               <div class="card-body">
-//                 <h5 class="card-title">${contact.FirstName} ${contact.LastName}</h5>
-//                 <p class="card-text">Email: ${contact.Email}</p>
-//                 <p class="card-text">Phone: ${contact.Phone}</p>
-//               </div>
-//             </div>
-//         `;
-//     container.innerHTML += contactCard;
-//   });
+  contacts.forEach((contact) => {
+    const contactCard = `
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">${contact.FirstName} ${contact.LastName}</h5>
+                <p class="card-text">Email: ${contact.Email}</p>
+                <p class="card-text">Phone: ${contact.Phone}</p>
+              </div>
+            </div>
+        `;
+    container.innerHTML += contactCard;
+  });
 
-//   // Add event listeners to each contact card
-//   document.querySelectorAll(".contact-card").forEach((card) => {
-//     card.addEventListener("click", function () {
-//       const contactId = this.getAttribute("data-id");
-//       // Find the contact details by contactId or fetch from the server
-//       // For example: const contactDetails = contacts.find(c => c.ID === contactId);
-//       // Then populate the right panel
-//       // ...
-//     });
-//   });
-// }
+  // Add event listeners to each contact card
+  document.querySelectorAll(".contact-card").forEach((card) => {
+    card.addEventListener("click", function () {
+      const contactId = this.getAttribute("data-id");
+      // Find the contact details by contactId or fetch from the server
+      // For example: const contactDetails = contacts.find(c => c.ID === contactId);
+      // Then populate the right panel
+      // ...
+    });
+  });
+}
 
 document.addEventListener("DOMContentLoaded", (event) => {
   loadContacts();
 });
+
+function updateSignedInAs() {
+  document.addEventListener("DOMContentLoaded", () => {
+    const userName = sessionStorage.getItem("userName");
+    if (userName && document.getElementById("signedInAs")) {
+      document.getElementById(
+        "signedInAs"
+      ).textContent = `Signed in as: ${userName}`;
+    }
+  });
+}
