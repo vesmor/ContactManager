@@ -198,11 +198,42 @@ function populateContacts(contacts) {
   // Add event listeners to each contact card
   document.querySelectorAll(".contact-card").forEach((card) => {
     card.addEventListener("click", function () {
-      const contactId = this.getAttribute("data-id");
-      // Find the contact details by contactId or fetch from the server
-      // For example: const contactDetails = contacts.find(c => c.ID === contactId);
-      // Then populate the right panel
-      // ...
+      const index = this.getAttribute("data-index");
+      const allContacts = JSON.parse(sessionStorage.getItem("allContacts"));
+      const contact = allContacts[index];
+
+      // Update right panel with contact details
+      const contactDetailsElement = document.getElementById("contactDetails");
+      contactDetailsElement.innerHTML = `
+        <div class="row justify-content-center text-center mb-4">
+          <div class="col">
+            <img
+              id="contactImage"
+              src="images/default_img.png"  // Placeholder, update with contact's image if available
+              alt="Contact Image"
+              class="rounded-circle"
+              style="width: 200px; height: 200px; object-fit: cover"
+            />
+            <h2 id="contactName">${contact.FirstName} ${contact.LastName}</h2>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6 text-left">
+            <p id="contactPhone" class="contact-detail">
+              <strong>Phone:</strong> ${contact.Phone}
+            </p>
+            <p id="contactEmail" class="contact-detail">
+              <strong>Email:</strong> ${contact.Email}
+            </p>
+          </div>
+          <div class="col-6 text-left">
+            <p id="contactUserID" class="contact-detail">
+              <strong>User ID:</strong> ${contact.UserID}
+            </p>
+          </div>
+        </div>
+      `;
     });
   });
 }
