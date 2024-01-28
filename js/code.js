@@ -1,6 +1,7 @@
 const urlBase = "http://group23poosd2024.xyz/LAMPAPI/";
 const extension = "php";
 
+//
 async function doLogin() {
   let login = document.getElementById("loginUsername").value;
   let password = document.getElementById("loginPassword").value;
