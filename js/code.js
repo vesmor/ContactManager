@@ -216,67 +216,67 @@ document.getElementById("addContactBtn").addEventListener("click", function () {
     });
 });
 
-async function loadContacts() {
-  let url = `${urlBase}SearchContacts.${extension}`;
+// async function loadContacts() {
+//   let url = `${urlBase}SearchContacts.${extension}`;
 
-  const payload = {
-    searchTerm: "",
-    userID: userId,
-  };
+//   const payload = {
+//     searchTerm: "",
+//     userID: userId,
+//   };
 
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
+//   try {
+//     const response = await fetch(url, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(payload),
+//     });
 
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
+//     if (!response.ok) {
+//       throw new Error("Network response was not ok");
+//     }
 
-    const data = await response.json();
-    allContacts = data.results;
-    populateContacts(data.results);
+//     const data = await response.json();
+//     allContacts = data.results;
+//     populateContacts(data.results);
 
-    // Optionally, store the contacts in local storage
-    localStorage.setItem("contacts", JSON.stringify(data.results));
-  } catch (error) {
-    console.error("Error:", error);
-    // Handle errors, e.g., show an error message
-  }
-}
+//     // Optionally, store the contacts in local storage
+//     localStorage.setItem("contacts", JSON.stringify(data.results));
+//   } catch (error) {
+//     console.error("Error:", error);
+//     // Handle errors, e.g., show an error message
+//   }
+// }
 
-function populateContacts(contacts) {
-  const container = document.getElementById(contactCards);
-  container.innerHTML = ""; // Clear any existing content
+// function populateContacts(contacts) {
+//   const container = document.getElementById(contactCards);
+//   container.innerHTML = ""; // Clear any existing content
 
-  contacts.forEach((contact) => {
-    const contactCard = `
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">${contact.FirstName} ${contact.LastName}</h5>
-                <p class="card-text">Email: ${contact.Email}</p>
-                <p class="card-text">Phone: ${contact.Phone}</p>
-              </div>
-            </div>
-        `;
-    container.innerHTML += contactCard;
-  });
+//   contacts.forEach((contact) => {
+//     const contactCard = `
+//             <div class="card">
+//               <div class="card-body">
+//                 <h5 class="card-title">${contact.FirstName} ${contact.LastName}</h5>
+//                 <p class="card-text">Email: ${contact.Email}</p>
+//                 <p class="card-text">Phone: ${contact.Phone}</p>
+//               </div>
+//             </div>
+//         `;
+//     container.innerHTML += contactCard;
+//   });
 
-  // Add event listeners to each contact card
-  document.querySelectorAll(".contact-card").forEach((card) => {
-    card.addEventListener("click", function () {
-      const contactId = this.getAttribute("data-id");
-      // Find the contact details by contactId or fetch from the server
-      // For example: const contactDetails = contacts.find(c => c.ID === contactId);
-      // Then populate the right panel
-      // ...
-    });
-  });
-}
+//   // Add event listeners to each contact card
+//   document.querySelectorAll(".contact-card").forEach((card) => {
+//     card.addEventListener("click", function () {
+//       const contactId = this.getAttribute("data-id");
+//       // Find the contact details by contactId or fetch from the server
+//       // For example: const contactDetails = contacts.find(c => c.ID === contactId);
+//       // Then populate the right panel
+//       // ...
+//     });
+//   });
+// }
 
 document.addEventListener("DOMContentLoaded", (event) => {
   loadContacts();
