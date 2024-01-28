@@ -177,18 +177,23 @@ function populateContacts(contacts) {
   const container = document.getElementById("contactCards");
   container.innerHTML = ""; // Clear any existing content
 
-  contacts.forEach((contact, index) => {
-    const contactCard = `
-      <div class="card contact-card" data-index="${index}">
-        <div class="card-body">
-          <h5 class="card-title">${contact.FirstName} ${contact.LastName}</h5>
-          <p class="card-text">Email: ${contact.Email}</p>
-          <p class="card-text">Phone: ${contact.Phone}</p>
+  if (container) {
+    container.innerHTML = ""; // Clear any existing content
+    contacts.forEach((contact) => {
+      const contactCard = `
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">${contact.FirstName} ${contact.LastName}</h5>
+            <p class="card-text">Email: ${contact.Email}</p>
+            <p class="card-text">Phone: ${contact.Phone}</p>
+          </div>
         </div>
-      </div>
-    `;
-    container.innerHTML += contactCard;
-  });
+      `;
+      container.innerHTML += contactCard;
+    });
+  } else {
+    console.error("Element with ID 'contactCards' not found.");
+  }
 
   document.querySelectorAll(".contact-card").forEach((card) => {
     card.addEventListener("click", function () {
