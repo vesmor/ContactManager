@@ -206,7 +206,7 @@ function populateContacts(contacts) {
           <div class="col">
             <img
               id="contactImage"
-              src="images/default_img.jpg"  // Placeholder image
+              src="images/default_img.png"  // Placeholder image
               alt="Contact Image"
               class="rounded-circle"
               style="width: 200px; height: 200px; object-fit: cover"
@@ -281,6 +281,8 @@ function populateContacts(contacts) {
               const editedEmail = document.getElementById("editEmail").value;
               const editedUserID = contact.UserID; // Assuming UserID is not editable
 
+              let url = `${urlBase}UpdateContacts.${extension}`;
+
               const updatePayload = {
                 FirstName: editedFirstName,
                 LastName: editedLastName,
@@ -290,7 +292,7 @@ function populateContacts(contacts) {
               };
 
               try {
-                const response = await fetch("yourAPIEndpointToUpdateContact", {
+                const response = await fetch(url, {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
