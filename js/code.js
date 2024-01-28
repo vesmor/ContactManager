@@ -43,7 +43,7 @@ async function doLogin() {
 
     console.log(jsonObject);
 
-    // window.location.href = "contacts_manager_page.html";
+    window.location.href = "contacts_manager_page.html";
   } catch (err) {
     document.getElementById("loginError").innerHTML = err.message;
     document.getElementById("loginError").classList.remove("hidden");
