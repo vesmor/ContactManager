@@ -196,14 +196,17 @@ function populateContacts(contacts) {
       const allContacts = JSON.parse(sessionStorage.getItem("allContacts"));
       const contact = allContacts[index];
 
-      // Update right panel with contact details
+      // Update right panel with contact details and edit button
       const contactDetailsElement = document.getElementById("contactDetails");
       contactDetailsElement.innerHTML = `
+        <div class="text-right mb-2">
+          <button id="editContactBtn" class="btn btn-primary">Edit</button>
+        </div>
         <div class="row justify-content-center text-center mb-4">
           <div class="col">
             <img
               id="contactImage"
-              src="images/default_img.png"
+              src="images/default_img.jpg"  // Placeholder image
               alt="Contact Image"
               class="rounded-circle"
               style="width: 200px; height: 200px; object-fit: cover"
@@ -213,6 +216,9 @@ function populateContacts(contacts) {
         </div>
         <div class="row">
           <div class="col-6 text-left">
+            <p id="contactFirstName" class="contact-detail">
+              <strong>First Name:</strong> ${contact.FirstName}
+            </p>
             <p id="contactPhone" class="contact-detail">
               <strong>Phone:</strong> ${contact.Phone}
             </p>
@@ -221,12 +227,90 @@ function populateContacts(contacts) {
             </p>
           </div>
           <div class="col-6 text-left">
+            <p id="contactLastName" class="contact-detail">
+              <strong>Last Name:</strong> ${contact.LastName}
+            </p>
             <p id="contactUserID" class="contact-detail">
               <strong>User ID:</strong> ${contact.UserID}
             </p>
           </div>
         </div>
       `;
+
+      document
+        .getElementById("editContactBtn")
+        .addEventListener("click", function () {
+          // Switch to editable form for contact details
+          contactDetailsElement.innerHTML = `
+          <div class="row justify-content-center text-center mb-4">
+            <div class="col">
+              <img
+                id="contactImageDisplay"
+                src="images/default_img.png"
+                alt="Contact Image"
+                class="rounded-circle mb-2"
+                style="width: 200px; height: 200px; object-fit: cover"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6 text-left">
+              <input type="text" id="editFirstName" class="form-control mb-2" placeholder="First Name" value="${contact.FirstName}">
+              <input type="text" id="editPhone" class="form-control mb-2" placeholder="Phone" value="${contact.Phone}">
+              <input type="email" id="editEmail" class="form-control mb-2" placeholder="Email" value="${contact.Email}">
+            </div>
+            <div class="col-6 text-left">
+              <input type="text" id="editLastName" class="form-control mb-2" placeholder="Last Name" value="${contact.LastName}">
+              <input type="text" id="editUserID" class="form-control mb-2" placeholder="User ID" value="${contact.UserID}" readonly>
+            </div>
+          </div>
+          <div class="text-center mt-3">
+            <button type="button" id="saveEditedContactBtn" class="btn btn-primary">Save Contact</button>
+          </div>
+        `;
+
+          // Add event listener for the save button
+          document
+            .getElementById("saveEditedContactBtn")
+            .addEventListener("click", async function () {
+              const editedFirstName =
+                document.getElementById("editFirstName").value;
+              const editedLastName =
+                document.getElementById("editLastName").value;
+              const editedPhone = document.getElementById("editPhone").value;
+              const editedEmail = document.getElementById("editEmail").value;
+              const editedUserID = contact.UserID; // Assuming UserID is not editable
+
+              const updatePayload = {
+                FirstName: editedFirstName,
+                LastName: editedLastName,
+                Phone: editedPhone,
+                Email: editedEmail,
+                ID: editedUserID,
+              };
+
+              try {
+                const response = await fetch("yourAPIEndpointToUpdateContact", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(updatePayload),
+                });
+
+                if (!response.ok) {
+                  throw new Error("Network response was not ok");
+                }
+
+                // Handle the successful update response
+                // Possibly refresh or update the contact list
+                loadContacts();
+              } catch (error) {
+                console.error("Error:", error);
+                // Handle errors, e.g., show an error message
+              }
+            });
+        });
     });
   });
 }
@@ -323,6 +407,7 @@ function addContactButtonListener() {
 
             const jsonObject = await response.json();
             // Handle the response here, e.g., show success message, clear the form, etc.
+            loadContacts();
           } catch (error) {
             console.error("Error:", error);
             // Handle the error here, e.g., show error message
