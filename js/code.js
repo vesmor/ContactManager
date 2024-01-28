@@ -27,7 +27,11 @@ async function doLogin() {
 
     const jsonObject = await response.json();
 
-    userId = jsonObject.id;
+    // Store the user's ID and name in session storage
+    const userId = parseInt(jsonObject.id, 10); // Convert userId to an integer
+    sessionStorage.setItem("userId", userId); // Storing the user's ID as an integer
+    sessionStorage.setItem("firstName", jsonObject.firstName);
+    sessionStorage.setItem("lastName", jsonObject.lastName);
 
     if (userId < 1) {
       document.getElementById("loginError").innerHTML =
@@ -36,14 +40,9 @@ async function doLogin() {
       return;
     }
 
-    // Save cookies
-    sessionStorage.setItem("userId", jsonObject.id); // Storing the user's ID
-    sessionStorage.setItem("firstName", jsonObject.firstName);
-    sessionStorage.setItem("lastName", jsonObject.lastName);
-
     console.log(jsonObject);
 
-    window.location.href = "contacts_manager_page.html";
+    // window.location.href = "contacts_manager_page.html";
   } catch (err) {
     document.getElementById("loginError").innerHTML = err.message;
     document.getElementById("loginError").classList.remove("hidden");
@@ -137,7 +136,7 @@ function doLogout() {
 
 async function loadContacts() {
   let url = `${urlBase}SearchContacts.${extension}`;
-  const userId = parseInt(sessionStorage.getItem("userId"));
+  const userId = sessionStorage.getItem("userId");
 
   const payload = {
     searchTerm: "",
