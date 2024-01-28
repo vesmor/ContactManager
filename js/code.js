@@ -137,7 +137,7 @@ function doLogout() {
 
 async function loadContacts() {
   let url = `${urlBase}SearchContacts.${extension}`;
-  const userId = sessionStorage.getItem("userId");
+  const userId = parseInt(sessionStorage.getItem("userId"));
 
   const payload = {
     searchTerm: "",
