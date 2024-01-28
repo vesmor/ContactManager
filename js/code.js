@@ -174,28 +174,22 @@ async function loadContacts() {
 }
 
 function populateContacts(contacts) {
-  if (!contacts) {
-    console.log("No contacts found");
-    return;
-  }
-
   const container = document.getElementById("contactCards");
   container.innerHTML = ""; // Clear any existing content
 
-  contacts.forEach((contact) => {
+  contacts.forEach((contact, index) => {
     const contactCard = `
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">${contact.FirstName} ${contact.LastName}</h5>
-                <p class="card-text">Email: ${contact.Email}</p>
-                <p class="card-text">Phone: ${contact.Phone}</p>
-              </div>
-            </div>
-        `;
+      <div class="card contact-card" data-index="${index}">
+        <div class="card-body">
+          <h5 class="card-title">${contact.FirstName} ${contact.LastName}</h5>
+          <p class="card-text">Email: ${contact.Email}</p>
+          <p class="card-text">Phone: ${contact.Phone}</p>
+        </div>
+      </div>
+    `;
     container.innerHTML += contactCard;
   });
 
-  // Add event listeners to each contact card
   document.querySelectorAll(".contact-card").forEach((card) => {
     card.addEventListener("click", function () {
       const index = this.getAttribute("data-index");
@@ -209,7 +203,7 @@ function populateContacts(contacts) {
           <div class="col">
             <img
               id="contactImage"
-              src="images/default_img.png"  // Placeholder, update with contact's image if available
+              src="images/default_img.png"
               alt="Contact Image"
               class="rounded-circle"
               style="width: 200px; height: 200px; object-fit: cover"
@@ -217,7 +211,6 @@ function populateContacts(contacts) {
             <h2 id="contactName">${contact.FirstName} ${contact.LastName}</h2>
           </div>
         </div>
-
         <div class="row">
           <div class="col-6 text-left">
             <p id="contactPhone" class="contact-detail">
