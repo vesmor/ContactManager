@@ -30,6 +30,7 @@ async function doLogin() {
     }
 
     const jsonObject = await response.json();
+    console.log(jsonObject);
 
     userId = jsonObject.id;
 
@@ -138,31 +139,6 @@ function doLogout() {
   window.location.href = "index.html";
 }
 
-document.querySelectorAll(".contact-card").forEach((card) => {
-  card.addEventListener("click", function () {
-    // Example of retrieving data - replace this with actual data retrieval
-    const contactData = {
-      firstName: "John",
-      lastName: "Doe",
-      phone: "123-456-7890",
-      email: "johndoe@example.com",
-      userId: "1001",
-    };
-
-    // Update the right column with the contact's information
-    document.getElementById("contactFirstName").textContent =
-      "First Name: " + contactData.firstName;
-    document.getElementById("contactLastName").textContent =
-      "Last Name: " + contactData.lastName;
-    document.getElementById("contactPhone").textContent =
-      "Phone: " + contactData.phone;
-    document.getElementById("contactEmail").textContent =
-      "Email: " + contactData.email;
-    document.getElementById("contactUserID").textContent =
-      "UserID: " + contactData.userId;
-  });
-});
-
 document.getElementById("addContactBtn").addEventListener("click", function () {
   document.getElementById("contactDetails").innerHTML = `
     <div class="row justify-content-center text-center mb-4">
@@ -262,7 +238,11 @@ async function loadContacts() {
     }
 
     const data = await response.json();
+    allContacts = data.results;
     populateContacts(data.results);
+
+    // Optionally, store the contacts in local storage
+    localStorage.setItem("contacts", JSON.stringify(data.results));
   } catch (error) {
     console.error("Error:", error);
     // Handle errors, e.g., show an error message
@@ -284,6 +264,17 @@ function populateContacts(contacts) {
             </div>
         `;
     container.innerHTML += contactCard;
+  });
+
+  // Add event listeners to each contact card
+  document.querySelectorAll(".contact-card").forEach((card) => {
+    card.addEventListener("click", function () {
+      const contactId = this.getAttribute("data-id");
+      // Find the contact details by contactId or fetch from the server
+      // For example: const contactDetails = contacts.find(c => c.ID === contactId);
+      // Then populate the right panel
+      // ...
+    });
   });
 }
 
