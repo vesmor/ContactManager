@@ -237,9 +237,6 @@ async function loadContacts() {
     const data = await response.json();
     sessionStorage.setItem("allContacts", JSON.stringify(data.results));
     populateContacts(data.results);
-
-    // Optionally, store the contacts in local storage
-    localStorage.setItem("contacts", JSON.stringify(data.results));
   } catch (error) {
     console.error("Error:", error);
     // Handle errors, e.g., show an error message
