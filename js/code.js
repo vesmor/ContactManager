@@ -177,23 +177,18 @@ function populateContacts(contacts) {
   const container = document.getElementById("contactCards");
   container.innerHTML = ""; // Clear any existing content
 
-  if (container) {
-    container.innerHTML = ""; // Clear any existing content
-    contacts.forEach((contact) => {
-      const contactCard = `
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">${contact.FirstName} ${contact.LastName}</h5>
-            <p class="card-text">Email: ${contact.Email}</p>
-            <p class="card-text">Phone: ${contact.Phone}</p>
-          </div>
-        </div>
-      `;
-      container.innerHTML += contactCard;
-    });
-  } else {
-    console.error("Element with ID 'contactCards' not found.");
-  }
+  contacts.forEach((contact, index) => {
+    const contactCard = `
+            <div class="card contact-card" data-index="${index}">
+                <div class="card-body">
+                    <h5 class="card-title">${contact.FirstName} ${contact.LastName}</h5>
+                    <p class="card-text">Email: ${contact.Email}</p>
+                    <p class="card-text">Phone: ${contact.Phone}</p>
+                </div>
+            </div>
+        `;
+    container.innerHTML += contactCard;
+  });
 
   document.querySelectorAll(".contact-card").forEach((card) => {
     card.addEventListener("click", function () {
@@ -201,78 +196,72 @@ function populateContacts(contacts) {
       const allContacts = JSON.parse(sessionStorage.getItem("allContacts"));
       const contact = allContacts[index];
 
-      // Update right panel with contact details and edit button
+      // Update right panel with contact details
       const contactDetailsElement = document.getElementById("contactDetails");
       contactDetailsElement.innerHTML = `
-        <div class="text-right mb-2">
-          <button id="editContactBtn" class="btn btn-primary">Edit</button>
-        </div>
-        <div class="row justify-content-center text-center mb-4">
-          <div class="col">
-            <img
-              id="contactImage"
-              src="images/default_img.png"  // Placeholder image
-              alt="Contact Image"
-              class="rounded-circle"
-              style="width: 200px; height: 200px; object-fit: cover"
-            />
-            <h2 id="contactName">${contact.FirstName} ${contact.LastName}</h2>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-6 text-left">
-            <p id="contactFirstName" class="contact-detail">
-              <strong>First Name:</strong> ${contact.FirstName}
-            </p>
-            <p id="contactPhone" class="contact-detail">
-              <strong>Phone:</strong> ${contact.Phone}
-            </p>
-            <p id="contactEmail" class="contact-detail">
-              <strong>Email:</strong> ${contact.Email}
-            </p>
-          </div>
-          <div class="col-6 text-left">
-            <p id="contactLastName" class="contact-detail">
-              <strong>Last Name:</strong> ${contact.LastName}
-            </p>
-            <p id="contactUserID" class="contact-detail">
-              <strong>User ID:</strong> ${contact.UserID}
-            </p>
-          </div>
-        </div>
-      `;
+                <div class="text-right mb-2">
+                    <button id="editContactBtn" class="btn btn-primary">Edit</button>
+                </div>
+                <div class="row justify-content-center text-center mb-4">
+                    <div class="col">
+                        <img
+                            id="contactImage"
+                            src="images/default_img.jpg"
+                            alt="Contact Image"
+                            class="rounded-circle"
+                            style="width: 200px; height: 200px; object-fit: cover"
+                        />
+                        <h2 id="contactName">${contact.FirstName} ${contact.LastName}</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 text-left">
+                        <p id="contactPhone" class="contact-detail">
+                            <strong>Phone:</strong> ${contact.Phone}
+                        </p>
+                        <p id="contactEmail" class="contact-detail">
+                            <strong>Email:</strong> ${contact.Email}
+                        </p>
+                    </div>
+                    <div class="col-6 text-left">
+                        <p id="contactUserID" class="contact-detail">
+                            <strong>User ID:</strong> ${contact.UserID}
+                        </p>
+                    </div>
+                </div>
+            `;
 
       document
         .getElementById("editContactBtn")
         .addEventListener("click", function () {
           // Switch to editable form for contact details
           contactDetailsElement.innerHTML = `
-          <div class="row justify-content-center text-center mb-4">
-            <div class="col">
-              <img
-                id="contactImageDisplay"
-                src="images/default_img.png"
-                alt="Contact Image"
-                class="rounded-circle mb-2"
-                style="width: 200px; height: 200px; object-fit: cover"
-              />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-6 text-left">
-              <input type="text" id="editFirstName" class="form-control mb-2" placeholder="First Name" value="${contact.FirstName}">
-              <input type="text" id="editPhone" class="form-control mb-2" placeholder="Phone" value="${contact.Phone}">
-              <input type="email" id="editEmail" class="form-control mb-2" placeholder="Email" value="${contact.Email}">
-            </div>
-            <div class="col-6 text-left">
-              <input type="text" id="editLastName" class="form-control mb-2" placeholder="Last Name" value="${contact.LastName}">
-              <input type="text" id="editUserID" class="form-control mb-2" placeholder="User ID" value="${contact.UserID}" readonly>
-            </div>
-          </div>
-          <div class="text-center mt-3">
-            <button type="button" id="saveEditedContactBtn" class="btn btn-primary">Save Contact</button>
-          </div>
-        `;
+                    <div class="row justify-content-center text-center mb-4">
+                        <div class="col">
+                            <img
+                                id="contactImageDisplay"
+                                src="images/default_img.jpg"
+                                alt="Contact Image"
+                                class="rounded-circle mb-2"
+                                style="width: 200px; height: 200px; object-fit: cover"
+                            />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-left">
+                            <input type="text" id="editFirstName" class="form-control mb-2" placeholder="First Name" value="${contact.FirstName}">
+                            <input type="text" id="editPhone" class="form-control mb-2" placeholder="Phone" value="${contact.Phone}">
+                            <input type="email" id="editEmail" class="form-control mb-2" placeholder="Email" value="${contact.Email}">
+                        </div>
+                        <div class="col-6 text-left">
+                            <input type="text" id="editLastName" class="form-control mb-2" placeholder="Last Name" value="${contact.LastName}">
+                            <input type="text" id="editUserID" class="form-control mb-2" placeholder="User ID" value="${contact.UserID}" readonly>
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <button type="button" id="saveEditedContactBtn" class="btn btn-primary">Save Contact</button>
+                    </div>
+                `;
 
           // Add event listener for the save button
           document
