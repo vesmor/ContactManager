@@ -320,7 +320,7 @@ function populateContacts(contacts) {
 }
 
 function deleteContact(contactId) {
-  const url = `${urlBase}DeleteContacts.${extension}`;
+  const url = `${urlBase}DeleteContact.${extension}`;
   const payload = { ID: parseInt(contactId, 10) };
 
   fetch(url, {
