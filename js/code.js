@@ -196,11 +196,12 @@ function populateContacts(contacts) {
       const allContacts = JSON.parse(sessionStorage.getItem("allContacts"));
       const contact = allContacts.find((c) => c.ID === parseInt(contactId, 10));
 
-      // Update right panel with contact details
+      // Populate contact details and add Edit and Delete buttons
       const contactDetailsElement = document.getElementById("contactDetails");
       contactDetailsElement.innerHTML = `
                 <div class="text-right mb-2">
                     <button id="editContactBtn" class="btn btn-primary">Edit</button>
+                    <button id="deleteContactBtn" class="btn btn-danger" data-contact-id="${contact.ID}">Delete</button>
                 </div>
                 <div class="row justify-content-center text-center mb-4">
                     <div class="col">
@@ -230,6 +231,12 @@ function populateContacts(contacts) {
                     </div>
                 </div>
             `;
+
+      document
+        .getElementById("deleteContactBtn")
+        .addEventListener("click", function () {
+          deleteContact(this.getAttribute("data-contact-id"));
+        });
 
       document
         .getElementById("editContactBtn")
@@ -310,6 +317,34 @@ function populateContacts(contacts) {
         });
     });
   });
+}
+
+function deleteContact(contactId) {
+  const url = `${urlBase}DeleteContacts.${extension}`;
+  const payload = { ID: parseInt(contactId, 10) };
+
+  fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      if (data.error) {
+        console.error("Error:", data.error);
+      } else {
+        // Successfully deleted, update contact list
+        loadContacts();
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 }
 
 // Call this function after the DOM is fully loaded
