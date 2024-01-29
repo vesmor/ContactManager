@@ -312,7 +312,7 @@ function populateContacts(contacts) {
   });
 }
 
-// Event listener for DOMContentLoaded
+// Call this function after the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", (event) => {
   loadContacts();
   addContactButtonListener();
@@ -322,17 +322,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
   if (searchButton) {
     searchButton.addEventListener("click", handleSearch);
   }
-
-  // Event listener for the 'Enter' key in the search input
-  document
-    .getElementById("searchInput")
-    .addEventListener("keypress", function (event) {
-      if (event.key === "Enter" && this.value.trim() !== "") {
-        event.preventDefault();
-        handleSearch();
-      }
-    });
 });
+
+function handleSearch() {
+  const searchTerm = document.getElementById("searchContact").value;
+  searchContacts(searchTerm);
+}
 
 function updateSignedInAs() {
   document.addEventListener("DOMContentLoaded", () => {
