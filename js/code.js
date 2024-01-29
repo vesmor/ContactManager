@@ -312,10 +312,16 @@ function populateContacts(contacts) {
   });
 }
 
-// Call this function after the DOM is fully loaded
+// Event listener for DOMContentLoaded
 document.addEventListener("DOMContentLoaded", (event) => {
   loadContacts();
   addContactButtonListener();
+
+  // Event listener for the search bar
+  const searchButton = document.getElementById("searchButton");
+  if (searchButton) {
+    searchButton.addEventListener("click", handleSearch);
+  }
 });
 
 function updateSignedInAs() {
@@ -411,5 +417,46 @@ function addContactButtonListener() {
           }
         });
     });
+  }
+}
+
+function handleSearch() {
+  const searchTerm = document.getElementById("searchInput").value;
+  searchContacts(searchTerm);
+}
+
+async function searchContacts(searchTerm) {
+  let url = `${urlBase}SearchContacts.${extension}`;
+  const userId = parseInt(sessionStorage.getItem("userId"), 10);
+
+  const payload = {
+    searchTerm: searchTerm,
+    userID: userId,
+  };
+
+  let jsonPayload = JSON.stringify(payload);
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: jsonPayload,
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+
+    if (data.results) {
+      populateContacts(data.results);
+    } else {
+      console.log("No contacts found");
+    }
+  } catch (error) {
+    console.error("Error:", error);
   }
 }
