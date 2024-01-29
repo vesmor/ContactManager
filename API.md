@@ -103,7 +103,7 @@ Empty error string
 
 <br>
 
-## DeleteContacts
+## DeleteContact
 
 ### POST
 #### Request
