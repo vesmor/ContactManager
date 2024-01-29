@@ -177,9 +177,9 @@ function populateContacts(contacts) {
   const container = document.getElementById("contactCards");
   container.innerHTML = ""; // Clear any existing content
 
-  contacts.forEach((contact, index) => {
+  contacts.forEach((contact) => {
     const contactCard = `
-            <div class="card contact-card" data-index="${index}">
+            <div class="card contact-card" data-contact-id="${contact.ID}">
                 <div class="card-body">
                     <h5 class="card-title">${contact.FirstName} ${contact.LastName}</h5>
                     <p class="card-text">Email: ${contact.Email}</p>
@@ -192,9 +192,9 @@ function populateContacts(contacts) {
 
   document.querySelectorAll(".contact-card").forEach((card) => {
     card.addEventListener("click", function () {
-      const index = this.getAttribute("data-index");
+      const contactId = this.getAttribute("data-contact-id");
       const allContacts = JSON.parse(sessionStorage.getItem("allContacts"));
-      const contact = allContacts[index];
+      const contact = allContacts.find((c) => c.ID === parseInt(contactId, 10));
 
       // Update right panel with contact details
       const contactDetailsElement = document.getElementById("contactDetails");
