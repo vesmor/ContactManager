@@ -317,10 +317,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
   loadContacts();
   addContactButtonListener();
 
-  // Event listener for the search bar
+  // Search button event listener
   const searchButton = document.getElementById("searchButton");
   if (searchButton) {
     searchButton.addEventListener("click", handleSearch);
+  }
+
+  // Enter key event listener for search input
+  const searchInput = document.getElementById("searchContact");
+  if (searchInput) {
+    searchInput.addEventListener("keypress", function (event) {
+      if (event.key === "Enter" && this.value.trim() !== "") {
+        event.preventDefault();
+        handleSearch();
+      }
+    });
   }
 });
 
@@ -423,11 +434,6 @@ function addContactButtonListener() {
         });
     });
   }
-}
-
-function handleSearch() {
-  const searchTerm = document.getElementById("searchInput").value;
-  searchContacts(searchTerm);
 }
 
 async function searchContacts(searchTerm) {
