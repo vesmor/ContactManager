@@ -322,6 +322,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
   if (searchButton) {
     searchButton.addEventListener("click", handleSearch);
   }
+
+  // Event listener for the 'Enter' key in the search input
+  document
+    .getElementById("searchInput")
+    .addEventListener("keypress", function (event) {
+      if (event.key === "Enter" && this.value.trim() !== "") {
+        event.preventDefault();
+        handleSearch();
+      }
+    });
 });
 
 function updateSignedInAs() {
