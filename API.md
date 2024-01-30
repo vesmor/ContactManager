@@ -10,22 +10,26 @@
 		- [POST](#post-1)
 			- [Request](#request-1)
 			- [Returns](#returns-1)
-	- [AddContacts](#addcontacts)
+	- [update](#update)
 		- [POST](#post-2)
 			- [Request](#request-2)
 			- [Returns](#returns-2)
-	- [DeleteContacts](#deletecontacts)
+	- [AddContacts](#addcontacts)
 		- [POST](#post-3)
 			- [Request](#request-3)
 			- [Returns](#returns-3)
-	- [SearchContacts](#searchcontacts)
+	- [DeleteContact](#deletecontact)
 		- [POST](#post-4)
 			- [Request](#request-4)
 			- [Returns](#returns-4)
-	- [UpdateContacts](#updatecontacts)
+	- [SearchContacts](#searchcontacts)
 		- [POST](#post-5)
 			- [Request](#request-5)
 			- [Returns](#returns-5)
+	- [UpdateContacts](#updatecontacts)
+		- [POST](#post-6)
+			- [Request](#request-6)
+			- [Returns](#returns-6)
 
 ## login
 ### POST
@@ -62,6 +66,32 @@ error should usually be empty
 	"FirstName": string,
 	"LastName": string,
 	"Username": string,
+	"Password": string
+}
+
+```
+#### Returns
+Empty error string
+```json
+{
+	"error": ""
+}
+```
+
+<br>
+
+## update
+
+Updates the User with ID's info. \
+If only updating one field, make sure to pass in the same value that User had previously
+### POST
+#### Request
+```json 
+{
+	"ID": int,
+	"FirstName": string,
+	"LastName": string,
+	"Login": string,
 	"Password": string
 }
 
