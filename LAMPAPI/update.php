@@ -17,7 +17,7 @@ if( $conn->connect_error )
 else
 {
     //UPDATE Contacts SET FirstName="Ben", LastName="Hill", Phone="954-954-8954", Email="hill@gmail.com" WHERE ID=4;
-    $stmt = $conn->prepare("UPDATE Users SET FirstName=?, LastName=?, Phone=?, Email=? WHERE ID=?");
+    $stmt = $conn->prepare("UPDATE Users SET FirstName=?, LastName=?, Login=?, Password=? WHERE ID=?");
     $stmt->bind_param("sssss", $FirstName, $LastName, $Login, $Password, $ID);
     $stmt->execute();
     $result = $stmt->get_result();
