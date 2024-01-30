@@ -1,17 +1,14 @@
 const urlBase = "http://group23poosd2024.xyz/LAMPAPI/";
 const extension = "php";
 
-let userId = 0;
-let firstName = "";
-let lastName = "";
-
+//
 async function doLogin() {
-  let userId = document.getElementById("loginUserId").value;
+  let login = document.getElementById("loginUsername").value;
   let password = document.getElementById("loginPassword").value;
 
   document.getElementById("loginError").innerHTML = "";
 
-  let tmp = { login: userId, password: password };
+  let tmp = { login: login, password: password };
   let jsonPayload = JSON.stringify(tmp);
 
   let url = `${urlBase}login.${extension}`;
@@ -31,7 +28,11 @@ async function doLogin() {
 
     const jsonObject = await response.json();
 
-    userId = jsonObject.id;
+    // Store the user's ID and name in session storage
+    const userId = parseInt(jsonObject.id, 10); // Convert userId to an integer
+    sessionStorage.setItem("userId", userId); // Storing the user's ID as an integer
+    sessionStorage.setItem("firstName", jsonObject.firstName);
+    sessionStorage.setItem("lastName", jsonObject.lastName);
 
     if (userId < 1) {
       document.getElementById("loginError").innerHTML =
@@ -40,10 +41,7 @@ async function doLogin() {
       return;
     }
 
-    firstName = jsonObject.firstName;
-    lastName = jsonObject.lastName;
-
-    saveCookie();
+    console.log(jsonObject);
 
     window.location.href = "contacts_manager_page.html";
   } catch (err) {
@@ -53,12 +51,19 @@ async function doLogin() {
 }
 
 async function doSignup() {
-  let userId = document.getElementById("signupUserId").value;
+  let username = document.getElementById("signupUsername").value;
   let password = document.getElementById("signupPassword").value;
+  let firstName = document.getElementById("signupFirstName").value;
+  let lastName = document.getElementById("signupLastName").value;
 
   document.getElementById("signupError").innerHTML = "";
 
-  let tmp = { userId: userId, password: password };
+  let tmp = {
+    Username: username,
+    Password: password,
+    FirstName: firstName,
+    LastName: lastName,
+  };
   let jsonPayload = JSON.stringify(tmp);
 
   let url = `${urlBase}signup.${extension}`;
@@ -83,20 +88,20 @@ async function doSignup() {
   }
 }
 
-function saveCookie() {
-  let minutes = 20;
-  let date = new Date();
-  date.setTime(date.getTime() + minutes * 60 * 1000);
-  document.cookie =
-    "firstName=" +
-    firstName +
-    ",lastName=" +
-    lastName +
-    ",userId=" +
-    userId +
-    ";expires=" +
-    date.toGMTString();
-}
+// function saveCookie() {
+//   let minutes = 20;
+//   let date = new Date();
+//   date.setTime(date.getTime() + minutes * 60 * 1000);
+//   document.cookie =
+//     "firstName=" +
+//     firstName +
+//     ",lastName=" +
+//     lastName +
+//     ",userId=" +
+//     userId +
+//     ";expires=" +
+//     date.toGMTString();
+// }
 
 function readCookie() {
   userId = -1;
@@ -130,64 +135,374 @@ function doLogout() {
   window.location.href = "index.html";
 }
 
-function addColor() {
-  let newColor = document.getElementById("colorText").value;
-  document.getElementById("colorAddResult").innerHTML = "";
+async function loadContacts() {
+  let url = `${urlBase}SearchContacts.${extension}`;
+  const userId = parseInt(sessionStorage.getItem("userId"), 10);
 
-  let tmp = { color: newColor, userId, userId };
-  let jsonPayload = JSON.stringify(tmp);
+  const payload = {
+    searchTerm: "",
+    userID: userId,
+  };
 
-  let url = urlBase + "/AddColor." + extension;
+  let jsonPayload = JSON.stringify(payload);
 
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
-  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
   try {
-    xhr.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("colorAddResult").innerHTML =
-          "Color has been added";
-      }
-    };
-    xhr.send(jsonPayload);
-  } catch (err) {
-    document.getElementById("colorAddResult").innerHTML = err.message;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: jsonPayload,
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+
+    if (data.results) {
+      sessionStorage.setItem("allContacts", JSON.stringify(data.results));
+      populateContacts(data.results);
+    } else {
+      // Handle the scenario where no contacts are returned
+      console.log("No contacts found");
+    }
+  } catch (error) {
+    console.error("Error:", error);
   }
 }
 
-function searchColor() {
-  let srch = document.getElementById("searchText").value;
-  document.getElementById("colorSearchResult").innerHTML = "";
+function populateContacts(contacts) {
+  const container = document.getElementById("contactCards");
+  container.innerHTML = ""; // Clear any existing content
 
-  let colorList = "";
+  contacts.forEach((contact) => {
+    const contactCard = `
+            <div class="card contact-card" data-contact-id="${contact.ID}">
+                <div class="card-body">
+                    <h5 class="card-title">${contact.FirstName} ${contact.LastName}</h5>
+                    <p class="card-text">Email: ${contact.Email}</p>
+                    <p class="card-text">Phone: ${contact.Phone}</p>
+                </div>
+            </div>
+        `;
+    container.innerHTML += contactCard;
+  });
 
-  let tmp = { search: srch, userId: userId };
-  let jsonPayload = JSON.stringify(tmp);
+  document.querySelectorAll(".contact-card").forEach((card) => {
+    card.addEventListener("click", function () {
+      const contactId = this.getAttribute("data-contact-id");
+      const allContacts = JSON.parse(sessionStorage.getItem("allContacts"));
+      const contact = allContacts.find((c) => c.ID === parseInt(contactId, 10));
 
-  let url = urlBase + "/SearchColors." + extension;
+      // Populate contact details and add Edit and Delete buttons
+      const contactDetailsElement = document.getElementById("contactDetails");
+      contactDetailsElement.innerHTML = `
+                <div class="text-right mb-2">
+                    <button id="editContactBtn" class="btn btn-primary">Edit</button>
+                    <button id="deleteContactBtn" class="btn btn-danger" data-contact-id="${contact.ID}">Delete</button>
+                </div>
+                <div class="row justify-content-center text-center mb-4">
+                    <div class="col">
+                        <img
+                            id="contactImage"
+                            src="images/default_img.png"
+                            alt="Contact Image"
+                            class="rounded-circle"
+                            style="width: 200px; height: 200px; object-fit: cover"
+                        />
+                        <h2 id="contactName">${contact.FirstName} ${contact.LastName}</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 text-left">
+                        <p id="contactPhone" class="contact-detail">
+                            <strong>Phone:</strong> ${contact.Phone}
+                        </p>
+                        <p id="contactEmail" class="contact-detail">
+                            <strong>Email:</strong> ${contact.Email}
+                        </p>
+                    </div>
+                    <div class="col-6 text-left">
+                        <p id="contactUserID" class="contact-detail">
+                            <strong>User ID:</strong> ${contact.UserID}
+                        </p>
+                    </div>
+                </div>
+            `;
 
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
-  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-  try {
-    xhr.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("colorSearchResult").innerHTML =
-          "Color(s) has been retrieved";
-        let jsonObject = JSON.parse(xhr.responseText);
+      document
+        .getElementById("deleteContactBtn")
+        .addEventListener("click", function () {
+          deleteContact(this.getAttribute("data-contact-id"));
+        });
 
-        for (let i = 0; i < jsonObject.results.length; i++) {
-          colorList += jsonObject.results[i];
-          if (i < jsonObject.results.length - 1) {
-            colorList += "<br />\r\n";
-          }
-        }
+      document
+        .getElementById("editContactBtn")
+        .addEventListener("click", function () {
+          // Switch to editable form for contact details
+          contactDetailsElement.innerHTML = `
+                        <div class="row justify-content-center text-center mb-4">
+                            <div class="col">
+                                <img
+                                    id="contactImageDisplay"
+                                    src="images/default_img.png"
+                                    alt="Contact Image"
+                                    class="rounded-circle mb-2"
+                                    style="width: 200px; height: 200px; object-fit: cover"
+                                />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 text-left">
+                                <input type="text" id="editFirstName" class="form-control mb-2" placeholder="First Name" value="${contact.FirstName}">
+                                <input type="text" id="editPhone" class="form-control mb-2" placeholder="Phone" value="${contact.Phone}">
+                                <input type="email" id="editEmail" class="form-control mb-2" placeholder="Email" value="${contact.Email}">
+                            </div>
+                            <div class="col-6 text-left">
+                                <input type="text" id="editLastName" class="form-control mb-2" placeholder="Last Name" value="${contact.LastName}">
+                                <input type="hidden" id="editContactID" value="${contact.ID}">
+                            </div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <button type="button" id="saveEditedContactBtn" class="btn btn-primary">Save Contact</button>
+                        </div>
+                    `;
 
-        document.getElementsByTagName("p")[0].innerHTML = colorList;
+          // Add event listener for the save button
+          document
+            .getElementById("saveEditedContactBtn")
+            .addEventListener("click", async function () {
+              const editedFirstName =
+                document.getElementById("editFirstName").value;
+              const editedLastName =
+                document.getElementById("editLastName").value;
+              const editedPhone = document.getElementById("editPhone").value;
+              const editedEmail = document.getElementById("editEmail").value;
+              const editedContactID =
+                document.getElementById("editContactID").value;
+
+              let url = `${urlBase}UpdateContacts.${extension}`;
+
+              const updatePayload = {
+                FirstName: editedFirstName,
+                LastName: editedLastName,
+                Phone: editedPhone,
+                Email: editedEmail,
+                ID: parseInt(editedContactID, 10),
+              };
+
+              try {
+                const response = await fetch(url, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(updatePayload),
+                });
+
+                if (!response.ok) {
+                  throw new Error("Network response was not ok");
+                }
+
+                // Handle the successful update response
+                // Possibly refresh or update the contact list
+                loadContacts();
+              } catch (error) {
+                console.error("Error:", error);
+                // Handle errors, e.g., show an error message
+              }
+            });
+        });
+    });
+  });
+}
+
+function deleteContact(contactId) {
+  const url = `${urlBase}DeleteContact.${extension}`;
+  const payload = { ID: parseInt(contactId, 10) };
+
+  fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
       }
-    };
-    xhr.send(jsonPayload);
-  } catch (err) {
-    document.getElementById("colorSearchResult").innerHTML = err.message;
+      return response.json();
+    })
+    .then((data) => {
+      if (data.error) {
+        console.error("Error:", data.error);
+      } else {
+        // Successfully deleted, update contact list
+        loadContacts();
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+// Call this function after the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", (event) => {
+  loadContacts();
+  addContactButtonListener();
+
+  // Search button event listener
+  const searchButton = document.getElementById("searchButton");
+  if (searchButton) {
+    searchButton.addEventListener("click", handleSearch);
+  }
+
+  // Enter key event listener for search input
+  const searchInput = document.getElementById("searchContact");
+  if (searchInput) {
+    searchInput.addEventListener("keypress", function (event) {
+      if (event.key === "Enter" && this.value.trim() !== "") {
+        event.preventDefault();
+        handleSearch();
+      }
+    });
+  }
+});
+
+function handleSearch() {
+  const searchTerm = document.getElementById("searchContact").value;
+  searchContacts(searchTerm);
+}
+
+function updateSignedInAs() {
+  document.addEventListener("DOMContentLoaded", () => {
+    const firstName = sessionStorage.getItem("firstName");
+    const lastName = sessionStorage.getItem("lastName");
+    if (firstName && lastName && document.getElementById("username")) {
+      document.getElementById(
+        "username"
+      ).textContent = `${firstName} ${lastName}`;
+    }
+  });
+}
+
+// Function to add an event listener to the "Add Contact" button
+function addContactButtonListener() {
+  const addContactBtn = document.getElementById("addContactBtn");
+  if (addContactBtn) {
+    addContactBtn.addEventListener("click", function () {
+      document.getElementById("contactDetails").innerHTML = `
+    <div class="row justify-content-center text-center mb-4">
+      <div class="col">
+        <img
+          id="contactImageDisplay"
+          src="images/default_img.png"
+          alt="Contact Image"
+          class="rounded-circle mb-2"
+          style="width: 200px; height: 200px; object-fit: cover"
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6 text-left">
+        <input type="text" id="contactFirstName" class="form-control mb-2" placeholder="First Name">
+        <input type="text" id="contactPhoneInput" class="form-control mb-2" placeholder="Phone">
+        <input type="email" id="contactEmailInput" class="form-control mb-2" placeholder="Email">
+      </div>
+      <div class="col-6 text-left">
+        <input type="text" id="contactLastName" class="form-control mb-2" placeholder="Last Name">
+        <input type="text" id="contactUserIDInput" class="form-control mb-2" placeholder="User ID">
+      </div>
+    </div>
+
+    <div class="text-center mt-3">
+      <button type="button" id="saveContactBtn" class="btn btn-primary">Save Contact</button>
+    </div>
+  `;
+
+      document
+        .getElementById("saveContactBtn")
+        .addEventListener("click", async function (e) {
+          e.preventDefault();
+
+          const firstName = document.getElementById("contactFirstName").value;
+          const lastName = document.getElementById("contactLastName").value;
+          const phone = document.getElementById("contactPhoneInput").value;
+          const email = document.getElementById("contactEmailInput").value;
+          const userId = parseInt(
+            document.getElementById("contactUserIDInput").value
+          );
+
+          const payload = {
+            FirstName: firstName,
+            LastName: lastName,
+            Phone: phone,
+            Email: email,
+            UserID: userId,
+          };
+          const jsonPayload = JSON.stringify(payload);
+
+          const url = `${urlBase}AddContacts.${extension}`;
+
+          try {
+            const response = await fetch(url, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json; charset=UTF-8",
+              },
+              body: jsonPayload,
+            });
+
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+
+            const jsonObject = await response.json();
+            // Handle the response here, e.g., show success message, clear the form, etc.
+            loadContacts();
+          } catch (error) {
+            console.error("Error:", error);
+            // Handle the error here, e.g., show error message
+          }
+        });
+    });
+  }
+}
+
+async function searchContacts(searchTerm) {
+  let url = `${urlBase}SearchContacts.${extension}`;
+  const userId = parseInt(sessionStorage.getItem("userId"), 10);
+
+  const payload = {
+    searchTerm: searchTerm,
+    userID: userId,
+  };
+
+  let jsonPayload = JSON.stringify(payload);
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: jsonPayload,
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+
+    if (data.results) {
+      populateContacts(data.results);
+    } else {
+      console.log("No contacts found");
+    }
+  } catch (error) {
+    console.error("Error:", error);
   }
 }

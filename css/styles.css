@@ -82,3 +82,48 @@ a:hover {
   margin-top: 10px; /* Adds space above the error message */
   margin-bottom: 10px; /* Adds space below the error message */
 }
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.contact-detail {
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+  font-size: 20px;
+  /* padding: 50px; */
+}
+
+.contact-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  object-fit: cover;
+}
+
+/* Align the contact-detail labels to the right */
+.contact-detail-label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+/* Add custom styles for the email and phone icons, etc. */
+.icon {
+  margin-right: 5px;
+}
+
+.button {
+  margin-right: 5px;
+}
+
+#addContactBtn {
+  /* margin-top: 10px; */
+  /* margin-bottom: 10px; */
+}
