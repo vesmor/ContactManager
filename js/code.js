@@ -6,14 +6,16 @@ const extension = "php";
 //add logout button
 //add logout function
 //add click effect on contact cards
-async function doLogin(username = null, password = null) {
-  // If username and password are not provided, get them from the input fields
-  let login = username || document.getElementById("loginUsername").value;
-  let password = password || document.getElementById("loginPassword").value;
+async function doLogin(usernameParam = null, passwordParam = null) {
+  // Use parameters if provided; otherwise, get from document
+  let loginUsername =
+    usernameParam || document.getElementById("loginUsername").value;
+  let loginPassword =
+    passwordParam || document.getElementById("loginPassword").value;
 
   document.getElementById("loginError").innerHTML = "";
 
-  let tmp = { login: login, password: password };
+  let tmp = { login: loginUsername, password: loginPassword };
   let jsonPayload = JSON.stringify(tmp);
 
   let url = `${urlBase}login.${extension}`;
@@ -33,25 +35,20 @@ async function doLogin(username = null, password = null) {
 
     const jsonObject = await response.json();
 
-    // Store the user's ID and name in session storage
-    const userId = parseInt(jsonObject.id, 10); // Convert userId to an integer
-    sessionStorage.setItem("userId", userId); // Storing the user's ID as an integer
-    sessionStorage.setItem("firstName", jsonObject.firstName);
-    sessionStorage.setItem("lastName", jsonObject.lastName);
-
-    if (userId < 1) {
+    if (parseInt(jsonObject.id) < 1) {
       document.getElementById("loginError").innerHTML =
         "User/Password combination incorrect";
-      document.getElementById("loginError").classList.remove("hidden");
       return;
     }
 
-    console.log(jsonObject);
+    // Assuming session storage logic here is correct
+    sessionStorage.setItem("userId", parseInt(jsonObject.id));
+    sessionStorage.setItem("firstName", jsonObject.firstName);
+    sessionStorage.setItem("lastName", jsonObject.lastName);
 
     window.location.href = "contacts_manager_page.html";
   } catch (err) {
     document.getElementById("loginError").innerHTML = err.message;
-    document.getElementById("loginError").classList.remove("hidden");
   }
 }
 
