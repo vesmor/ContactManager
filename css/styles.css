@@ -1,5 +1,5 @@
 body {
-  background-color: #f2f2f2; /* Light gray background */
+  background-color: #1d2434 ; /* Light Blue background */
   font-family: "Arial", sans-serif; /* Change the font for the entire page */
 }
 
@@ -8,12 +8,14 @@ body {
 }
 
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Add a subtle box shadow to cards */
+  box-shadow: 0 4px 8px 0 #181719 ; /* Add a subtle box shadow to cards */
+  background-color: #ffdea1; /* Light yellow background */
 }
 
 .card-title {
   font-size: 24px;
   margin-bottom: 10px; /* Adjust spacing below card title */
+  color: #181719; /* Off Black letters */
 }
 
 .form-control {
@@ -24,26 +26,28 @@ body {
 .btn-primary {
   border-radius: 10px;
   padding: 10px 20px; /* Increase padding for buttons */
-  background-color: #007bff; /* Blue primary button color */
+  background-color: #181719; /* Off black primary button color */
   border: none; /* Remove button border */
+  color: #f1b950; /* Dark Yello letters */
 }
 
 .btn-primary:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #f1b950; /* Dark Yellow on hover */
+  color: #181719; /* Dark Yellow letters on hover*/
 }
 
 /* Additional styles for links */
 a {
   text-decoration: none; /* Remove underlines from links */
-  color: #007bff; /* Blue link color */
+  color: #c22a2a; /* Dark Red link color */
 }
 
 a:hover {
-  color: #0056b3; /* Darker blue on hover */
+  color: #e96c6c; /* Light red on hover */
 }
 
 .bg-light-grey {
-  background-color: #d6d8db; /* A slightly darker shade of light grey */
+  background-color: #44496f; /* A slightly darker shade of light grey */
 }
 
 .navbar {
