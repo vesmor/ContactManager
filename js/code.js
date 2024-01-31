@@ -1,7 +1,11 @@
 const urlBase = "http://group23poosd2024.xyz/LAMPAPI/";
 const extension = "php";
 
-//
+//remove user id field when creating contact
+//clear right column after delete success
+//add logout button
+//add logout function
+//add click effect on contact cards
 async function doLogin() {
   let login = document.getElementById("loginUsername").value;
   let password = document.getElementById("loginPassword").value;
@@ -82,6 +86,7 @@ async function doSignup() {
     }
 
     const jsonObject = await response.json();
+    // Handle the response
   } catch (err) {
     document.getElementById("signupError").innerHTML = err.message;
     document.getElementById("signupError").classList.remove("hidden");
