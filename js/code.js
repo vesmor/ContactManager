@@ -86,6 +86,7 @@ async function doSignup() {
     }
 
     const jsonObject = await response.json();
+    // Handle the response
   } catch (err) {
     document.getElementById("signupError").innerHTML = err.message;
     document.getElementById("signupError").classList.remove("hidden");
