@@ -6,9 +6,10 @@ const extension = "php";
 //add logout button
 //add logout function
 //add click effect on contact cards
-async function doLogin() {
-  let login = document.getElementById("loginUsername").value;
-  let password = document.getElementById("loginPassword").value;
+async function doLogin(username = null, password = null) {
+  // If username and password are not provided, get them from the input fields
+  let login = username || document.getElementById("loginUsername").value;
+  let password = password || document.getElementById("loginPassword").value;
 
   document.getElementById("loginError").innerHTML = "";
 
@@ -86,7 +87,14 @@ async function doSignup() {
     }
 
     const jsonObject = await response.json();
-    // Handle the response
+
+    if (jsonObject.error === "") {
+      // Handle signup success
+      await doLogin(username, password);
+    } else {
+      // Handle signup error
+      document.getElementById("signupError").innerHTML = jsonObject.error;
+    }
   } catch (err) {
     document.getElementById("signupError").innerHTML = err.message;
     document.getElementById("signupError").classList.remove("hidden");
