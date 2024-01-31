@@ -6,6 +6,7 @@ const extension = "php";
 //add logout button
 //add logout function
 //add click effect on contact cards
+// make more error returns for signup, like one that same username cant eb created
 async function doLogin(usernameParam = null, passwordParam = null) {
   // Use parameters if provided; otherwise, get from document
   let loginUsername =
@@ -88,6 +89,8 @@ async function doSignup() {
     if (jsonObject.error === "") {
       // Handle signup success
       await doLogin(username, password);
+    } else if (jsonObject.error === "No Records Found") {
+      document.getElementById("signupError").innerHTML = "Invalid login";
     } else {
       // Handle signup error
       document.getElementById("signupError").innerHTML = jsonObject.error;
