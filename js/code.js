@@ -268,6 +268,9 @@ function populateContacts(contacts) {
                         <div class="text-center mt-3">
                             <button type="button" id="saveEditedContactBtn" class="btn btn-primary">Save Contact</button>
                         </div>
+                        <div class="text-center mt-3">
+                            <button type="button" id="discardEditedContactBtn" class="btn btn-primary">Cancel</button>
+                        </div>
                     `;
 
           // Add event listener for the save button
@@ -313,7 +316,48 @@ function populateContacts(contacts) {
                 console.error("Error:", error);
                 // Handle errors, e.g., show an error message
               }
-            });
+          });
+
+
+          //binding discard changes button to actually discard them
+          document
+            .getElementById("discardEditedContactBtn")
+            .addEventListener("click", async function(){
+
+              //switch back to the contact details with previous values?
+              contactDetailsElement.innerHTML = `
+                        <div class="row justify-content-center text-center mb-4">
+                            <div class="col">
+                                <img
+                                    id="contactImageDisplay"
+                                    src="images/default_img.png"
+                                    alt="Contact Image"
+                                    class="rounded-circle mb-2"
+                                    style="width: 200px; height: 200px; object-fit: cover"
+                                />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 text-left">
+                                <input type="text" id="editFirstName" class="form-control mb-2" placeholder="First Name" value="${contact.FirstName}">
+                                <input type="text" id="editPhone" class="form-control mb-2" placeholder="Phone" value="${contact.Phone}">
+                                <input type="email" id="editEmail" class="form-control mb-2" placeholder="Email" value="${contact.Email}">
+                            </div>
+                            <div class="col-6 text-left">
+                                <input type="text" id="editLastName" class="form-control mb-2" placeholder="Last Name" value="${contact.LastName}">
+                                <input type="hidden" id="editContactID" value="${contact.ID}">
+                            </div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <button type="button" id="saveEditedContactBtn" class="btn btn-primary">Save Contact</button>
+                        </div>
+                        <div class="text-center mt-3">
+                            <button type="button" id="discardEditedContactBtn" class="btn btn-primary">Cancel</button>
+                        </div>
+                    `;
+            })
+          ;
+
         });
     });
   });
