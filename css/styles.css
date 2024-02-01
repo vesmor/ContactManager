@@ -8,7 +8,7 @@ body {
 }
 
 .card {
-  background-color: gray;
+  background-color: rgb(56, 55, 55);
   border-radius: 10px;
   cursor: pointer;
   /* height: calc(100vh - 110px);
