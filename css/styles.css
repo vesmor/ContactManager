@@ -8,12 +8,8 @@ body {
 }
 
 .card {
-  background-color: rgb(56, 55, 55);
-  border-radius: 10px;
-  cursor: pointer;
-  /* height: 180px; */
-  /* width: auto; */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Add a subtle box shadow to cards */
+  margin-bottom: 10px; /* Adjust the space between cards */
 }
 
 .card-title {
@@ -58,8 +54,12 @@ a:hover {
   z-index: 1000;
 }
 
-.card {
-  margin-bottom: 10px; /* Adjust the space between cards */
+.contact-card {
+  background-color: rgb(56, 55, 55);
+  border-radius: 10px;
+  cursor: pointer;
+  /* height: 180px; */
+  /* width: auto; */
 }
 
 .contact-cards-container {
