@@ -235,7 +235,12 @@ function populateContacts(contacts) {
       document
         .getElementById("deleteContactBtn")
         .addEventListener("click", function () {
-          deleteContactWrapper(this.getAttribute("data-contact-id"));
+          if (confirm("Are you sure you want to delete this contact?") == true){
+            deleteContact(this.getAttribute("data-contact-id"));
+          }
+          else{
+            //do nothing
+          }
         });
 
       document
