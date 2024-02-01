@@ -54,17 +54,21 @@ a:hover {
   z-index: 1000;
 }
 
+/* How card looks while just sitting there */
 .contact-card {
   background-color: rgb(56, 55, 55);
   border-radius: 10px;
   cursor: pointer;
+  padding: 1px;
   /* height: 180px;
   width: 100px; */
   transition: .5s ease;
 }
 
+/* How card moves when mouse hovers over */
 .contact-card:hover {
-  transform: scale(1.2);
+  transform:translateX(3px);
+  transform: scale(1.05);
   transform: 1s ease;
 }
 
