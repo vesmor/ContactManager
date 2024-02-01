@@ -60,11 +60,11 @@ a:hover {
   cursor: pointer;
   /* height: 180px;
   width: 100px; */
-  transition: 1s ease;
+  transition: .5s ease;
 }
 
 .contact-card:hover {
-  transform: scale(2);
+  transform: scale(1.2);
   transform: 1s ease;
 }
 
