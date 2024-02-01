@@ -1,14 +1,21 @@
 const urlBase = "http://group23poosd2024.xyz/LAMPAPI/";
 const extension = "php";
 
-//
-async function doLogin() {
-  let login = document.getElementById("loginUsername").value;
-  let password = document.getElementById("loginPassword").value;
+//remove user id field when creating contact
+//clear right column after delete success
+//add logout button
+//add logout function
+//add click effect on contact cards
+async function doLogin(usernameParam = null, passwordParam = null) {
+  // Use parameters if provided; otherwise, get from document
+  let loginUsername =
+    usernameParam || document.getElementById("loginUsername").value;
+  let loginPassword =
+    passwordParam || document.getElementById("loginPassword").value;
 
   document.getElementById("loginError").innerHTML = "";
 
-  let tmp = { login: login, password: password };
+  let tmp = { login: loginUsername, password: loginPassword };
   let jsonPayload = JSON.stringify(tmp);
 
   let url = `${urlBase}login.${extension}`;
@@ -28,25 +35,20 @@ async function doLogin() {
 
     const jsonObject = await response.json();
 
-    // Store the user's ID and name in session storage
-    const userId = parseInt(jsonObject.id, 10); // Convert userId to an integer
-    sessionStorage.setItem("userId", userId); // Storing the user's ID as an integer
-    sessionStorage.setItem("firstName", jsonObject.firstName);
-    sessionStorage.setItem("lastName", jsonObject.lastName);
-
-    if (userId < 1) {
+    if (parseInt(jsonObject.id) < 1) {
       document.getElementById("loginError").innerHTML =
         "User/Password combination incorrect";
-      document.getElementById("loginError").classList.remove("hidden");
       return;
     }
 
-    console.log(jsonObject);
+    // Assuming session storage logic here is correct
+    sessionStorage.setItem("userId", parseInt(jsonObject.id));
+    sessionStorage.setItem("firstName", jsonObject.firstName);
+    sessionStorage.setItem("lastName", jsonObject.lastName);
 
     window.location.href = "contacts_manager_page.html";
   } catch (err) {
     document.getElementById("loginError").innerHTML = err.message;
-    document.getElementById("loginError").classList.remove("hidden");
   }
 }
 
@@ -82,6 +84,14 @@ async function doSignup() {
     }
 
     const jsonObject = await response.json();
+
+    if (jsonObject.error === "") {
+      // Handle signup success
+      await doLogin(username, password);
+    } else {
+      // Handle signup error
+      document.getElementById("signupError").innerHTML = jsonObject.error;
+    }
   } catch (err) {
     document.getElementById("signupError").innerHTML = err.message;
     document.getElementById("signupError").classList.remove("hidden");
