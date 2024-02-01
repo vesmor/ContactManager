@@ -9,6 +9,7 @@ body {
 
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Add a subtle box shadow to cards */
+  margin-bottom: 10px; /* Adjust the space between cards */
 }
 
 .card-title {
@@ -53,8 +54,21 @@ a:hover {
   z-index: 1000;
 }
 
-.card {
-  margin-bottom: 10px; /* Adjust the space between cards */
+/* How card looks while just sitting there */
+.contact-card {
+  background-color: rgb(56, 55, 55);
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 1px;
+  /* height: 180px; */
+  width: 380px;
+  transition: .5s ease;
+}
+
+/* How card moves when mouse hovers over */
+.contact-card:hover {
+  transform: scale(1.05) translateX(20px);
+  transform: 1s ease;
 }
 
 .contact-cards-container {

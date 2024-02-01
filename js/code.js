@@ -364,7 +364,7 @@ function populateContacts(contacts) {
             .getElementById("discardEditedContactBtn")
             .addEventListener("click", async function(){
 
-              //switch back to the contact details with previous values?
+              //switch back to the non-editable contact details
               contactDetailsElement.innerHTML =  ` <div class="text-right mb-2">
               <button id="editContactBtn" class="btn btn-primary">Edit</button>
               <button id="deleteContactBtn" class="btn btn-danger" data-contact-id="${contact.ID}">Delete</button>
@@ -401,14 +401,7 @@ function populateContacts(contacts) {
   });
 }
 
-function deleteContactWrapper(contactId){
-  dialog("Are you sure you want to delete this contact?",
-    deleteContact(contactId),
 
-    function(arguments) {}
-      //does nothing so we dont close page or anything
-  );
-}
 
 function deleteContact(contactId) {
   const url = `${urlBase}DeleteContact.${extension}`;
