@@ -355,7 +355,34 @@ function populateContacts(contacts) {
             .addEventListener("click", async function(){
 
               //switch back to the contact details with previous values?
-              contactDetailsElement.innerHTML = contactDetailsHome;
+              contactDetailsElement.innerHTML =  ` <div class="text-right mb-2">
+              <button id="editContactBtn" class="btn btn-primary">Edit</button>
+              <button id="deleteContactBtn" class="btn btn-danger" data-contact-id="${contact.ID}">Delete</button>
+              </div>
+              <div class="row justify-content-center text-center mb-4">
+                  <div class="col">
+                      <img
+                          id="contactImage"
+                          src="images/default_img.png"
+                          alt="Contact Image"
+                          class="rounded-circle"
+                          style="width: 200px; height: 200px; object-fit: cover"
+                      />
+                      <h2 id="contactName">${contact.FirstName} ${contact.LastName}</h2>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-6 text-left">
+                      <p id="contactPhone" class="contact-detail">
+                          <strong>Phone:</strong> ${contact.Phone}
+                      </p>
+                      <p id="contactEmail" class="contact-detail">
+                          <strong>Email:</strong> ${contact.Email}
+                      </p>
+                  </div>
+              </div>
+            `;
+            
             })
           ;
 
