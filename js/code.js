@@ -235,7 +235,7 @@ function populateContacts(contacts) {
       document
         .getElementById("deleteContactBtn")
         .addEventListener("click", function () {
-          deleteContact(this.getAttribute("data-contact-id"));
+          deleteContactWrapper(this.getAttribute("data-contact-id"));
         });
 
       document
@@ -269,7 +269,7 @@ function populateContacts(contacts) {
                             <button type="button" id="saveEditedContactBtn" class="btn btn-primary">Save Contact</button>
                         </div>
                         <div class="text-center mt-3">
-                            <button type="button" id="discardEditedContactBtn" class="btn btn-primary">Cancel</button>
+                            <button type="button" id="discardEditedContactBtn" class="btn btn-danger">Cancel</button>
                         </div>
                     `;
 
@@ -361,6 +361,15 @@ function populateContacts(contacts) {
         });
     });
   });
+}
+
+function deleteContactWrapper(contactId){
+  dialog("Are you sure you want to delete this contact?",
+    deleteContact(contactId),
+
+    function(arguments) {}
+      //does nothing so we dont close page or anything
+  );
 }
 
 function deleteContact(contactId) {
@@ -549,4 +558,18 @@ async function searchContacts(searchTerm) {
   } catch (error) {
     console.error("Error:", error);
   }
+}
+
+function dialog(message, yesCallback, noCallback) {
+  $('.title').html(message);
+  var dialog = $('#modal_dialog').dialog();
+
+  $('#btnYes').click(function() {
+      dialog.dialog('close');
+      yesCallback();
+  });
+  $('#btnNo').click(function() {
+      dialog.dialog('close');
+      noCallback();
+  });
 }
