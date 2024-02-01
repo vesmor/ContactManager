@@ -224,11 +224,6 @@ function populateContacts(contacts) {
                             <strong>Email:</strong> ${contact.Email}
                         </p>
                     </div>
-                    <div class="col-6 text-left">
-                        <p id="contactUserID" class="contact-detail">
-                            <strong>User ID:</strong> ${contact.UserID}
-                        </p>
-                    </div>
                 </div>
             `;
 
@@ -257,11 +252,6 @@ function populateContacts(contacts) {
               </p>
               <p id="contactEmail" class="contact-detail">
                   <strong>Email:</strong> ${contact.Email}
-              </p>
-          </div>
-          <div class="col-6 text-left">
-              <p id="contactUserID" class="contact-detail">
-                  <strong>User ID:</strong> ${contact.UserID}
               </p>
           </div>
       </div>
@@ -477,7 +467,6 @@ function addContactButtonListener() {
       </div>
       <div class="col-6 text-left">
         <input type="text" id="contactLastName" class="form-control mb-2" placeholder="Last Name">
-        <input type="text" id="contactUserIDInput" class="form-control mb-2" placeholder="User ID">
       </div>
     </div>
 
@@ -496,7 +485,7 @@ function addContactButtonListener() {
           const phone = document.getElementById("contactPhoneInput").value;
           const email = document.getElementById("contactEmailInput").value;
           const userId = parseInt(
-            document.getElementById("contactUserIDInput").value
+            sessionStorage.getItem("userId"), 10
           );
 
           const payload = {
@@ -571,16 +560,3 @@ async function searchContacts(searchTerm) {
   }
 }
 
-function dialog(message, yesCallback, noCallback) {
-  $('.title').html(message);
-  var dialog = $('#modal_dialog').dialog();
-
-  $('#btnYes').click(function() {
-      dialog.dialog('close');
-      yesCallback();
-  });
-  $('#btnNo').click(function() {
-      dialog.dialog('close');
-      noCallback();
-  });
-}
