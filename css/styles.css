@@ -8,6 +8,11 @@ body {
 }
 
 .card {
+  background-color: gray;
+  border-radius: 10px;
+  cursor: pointer;
+  /* height: calc(100vh - 110px);
+  width: auto; */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Add a subtle box shadow to cards */
 }
 
