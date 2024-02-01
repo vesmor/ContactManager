@@ -58,8 +58,14 @@ a:hover {
   background-color: rgb(56, 55, 55);
   border-radius: 10px;
   cursor: pointer;
-  /* height: 180px; */
-  /* width: auto; */
+  /* height: 180px;
+  width: 100px; */
+  transition: 1s ease;
+}
+
+.contact-card:hover {
+  transform: scale(2);
+  transform: 1s ease;
 }
 
 .contact-cards-container {
