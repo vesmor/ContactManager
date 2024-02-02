@@ -6,7 +6,7 @@ body {
 
 .container {
   margin-top: 5%; /* Add some top margin for the content */
-  background-color: #181719
+  background-color: #44496f
 }
 
 .card {
@@ -144,6 +144,10 @@ a:hover {
 
 .col-md-8 {
   background-color: #44496f
+}
+
+.col-md-4 {
+  background-color: #1d2434
 }
 
 #addContactBtn {
