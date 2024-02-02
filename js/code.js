@@ -7,6 +7,7 @@ const extension = "php";
 //add logout function
 //add click effect on contact cards
 // make more error returns for signup, like one that same username cant eb created
+// no errors pops up for incorrect login rn
 async function doLogin(usernameParam = null, passwordParam = null) {
   // Use parameters if provided; otherwise, get from document
   let loginUsername =
