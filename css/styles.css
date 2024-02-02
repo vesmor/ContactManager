@@ -15,8 +15,13 @@ body {
 }
 
 .card-title {
-  font-size: 24px;
+  font-size: 30px;
   margin-bottom: 10px; /* Adjust spacing below card title */
+}
+
+.card-text {
+  font-size: 12px;
+  margin-bottom: 5px
 }
 
 .form-control {
@@ -54,7 +59,13 @@ a:hover {
   top: 0;
   width: 100%;
   z-index: 1000;
-  background-color: #007bff;
+  background-color: #181719;
+}
+
+.navbar-brand {
+  max-width: 10%;
+  max-height: 10%;
+  
 }
 
 /* How card looks while just sitting there */
