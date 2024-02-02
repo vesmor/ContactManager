@@ -62,10 +62,10 @@ a:hover {
   background-color: #181719;
 }
 
-.navbar-brand {
+#logophoto {
   max-width: 10%;
   max-height: 10%;
-  
+
 }
 
 /* How card looks while just sitting there */
