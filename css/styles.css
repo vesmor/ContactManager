@@ -52,6 +52,7 @@ a:hover {
   top: 0;
   width: 100%;
   z-index: 1000;
+  background-color: #007bff;
 }
 
 /* How card looks while just sitting there */
