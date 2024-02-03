@@ -69,6 +69,13 @@ a:hover {
   object-fit: cover;
 }
 
+#signout-btn {
+  background-image: "images/bat_symbol_red.png";
+  background-size: 100px 130px;
+  height: 134px;
+  width: 104px;
+}
+
 #logophoto {
   width: auto;
   height: 100px;
