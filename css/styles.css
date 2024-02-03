@@ -32,12 +32,13 @@ body {
 .btn-primary {
   border-radius: 10px;
   padding: 10px 20px; /* Increase padding for buttons */
-  background-color: #007bff; /* Blue primary button color */
+  background-color: #f1b950; /* Yellow dark button color */
+  color: #181719;
   border: none; /* Remove button border */
 }
 
 .btn-primary:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #f7a50d; /* Darker yellow on hover */
 }
 
 /* Additional styles for links */
