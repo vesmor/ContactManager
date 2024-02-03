@@ -1,20 +1,27 @@
 body {
-  background-color: #f2f2f2; /* Light gray background */
+  background-color: #44496f; /* Light blue background */
+  color: #ffdea1;
   font-family: "Arial", sans-serif; /* Change the font for the entire page */
 }
 
 .container {
   margin-top: 5%; /* Add some top margin for the content */
+  background-color: #44496f
 }
 
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Add a subtle box shadow to cards */
-  margin-bottom: 10px; /* Adjust the space between cards */
+  box-shadow: 0 4px 8px 0 rgb(250 55 2 / 16%); /* Add a subtle box shadow to cards */
+  margin-bottom: 14px; /* Adjust the space between cards */
 }
 
 .card-title {
-  font-size: 24px;
+  font-size: 30px;
   margin-bottom: 10px; /* Adjust spacing below card title */
+}
+
+.card-text {
+  font-size: 12px;
+  margin-bottom: 5px
 }
 
 .form-control {
@@ -44,25 +51,52 @@ a:hover {
 }
 
 .bg-light-grey {
-  background-color: #d6d8db; /* A slightly darker shade of light grey */
+  background-color: #44496f; /* A slightly darker shade of light grey */
 }
 
 .navbar {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1000;
-  background-color: #007bff;
+  z-index: 2;
+  background-color: #181719;
+  height: 30;
+  
 }
+
+
+.navbar-brand {
+  overflow: hidden;
+  object-fit: cover;
+}
+
+#logophoto {
+  width: auto;
+  height: 100px;
+  /* float: left; */
+  /* padding-left: 2%; */
+  /* margin: 0; */
+  /* padding: 10px 0; */
+  /* overflow: hidden; */
+}
+
+#logophoto img{
+  /* object-fit:cover;
+  overflow: hidden; */
+  height: 100%;
+  width: 100%;
+}
+
+
 
 /* How card looks while just sitting there */
 .contact-card {
-  background-color: rgb(56, 55, 55);
+  background-color: #181719 ;
   border-radius: 10px;
   cursor: pointer;
   padding: 1px;
   /* height: 180px; */
-  width: 380px;
+  width: 95%;
   transition: .5s ease;
 }
 
@@ -72,8 +106,10 @@ a:hover {
   transform: 1s ease;
 }
 
+
 .contact-cards-container {
   overflow-y: hidden;
+  background-color: #1d2434
 }
 
 .form-container {
@@ -136,6 +172,14 @@ a:hover {
 
 .button {
   margin-right: 5px;
+}
+
+.col-md-8 {
+  background-color: #44496f
+}
+
+.col-md-4 {
+  background-color: #1d2434
 }
 
 #addContactBtn {
