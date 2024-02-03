@@ -70,10 +70,17 @@ a:hover {
 }
 
 #signout-btn {
-  background-image: "images/bat_symbol_red.png";
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  
+}
+
+#signout-btn img {
+  background-image: url('../images/bat_symbol_red.png');
   background-size: 100px 130px;
-  height: 134px;
-  width: 104px;
+  height: 130px;
+  width: 100px;
 }
 
 #logophoto {
