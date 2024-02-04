@@ -1,15 +1,17 @@
 body {
-  background-color: #44496f; /* Light blue background */
+  background-color: #44496f ; /* Light blue background */
   color: #ffdea1;
   font-family: "Arial", sans-serif; /* Change the font for the entire page */
 }
 
 .container {
   margin-top: 5%; /* Add some top margin for the content */
-  background-color: #44496f;
+  background-color: #44496f ;
+
 }
 
 .card {
+  background-color: #ffdea1;
   box-shadow: 0 4px 8px 0 rgb(250 55 2 / 16%); /* Add a subtle box shadow to cards */
   margin-bottom: 14px; /* Adjust the space between cards */
 }
@@ -17,6 +19,7 @@ body {
 .card-title {
   font-size: 30px;
   margin-bottom: 10px; /* Adjust spacing below card title */
+  color: #181719; /* Off Black letters */
 }
 
 .card-text {
@@ -27,6 +30,7 @@ body {
 .form-control {
   border-radius: 10px;
   padding: 10px 20px; /* Increase padding for text inputs */
+  /*color: #f1b950;*/
 }
 
 .btn-primary {
@@ -34,11 +38,13 @@ body {
   padding: 10px 20px; /* Increase padding for buttons */
   background-color: #f1b950; /* Yellow dark button color */
   color: #181719;
+  font-weight: bold;
   border: none; /* Remove button border */
+  /*//color: #f1b950;  Dark Yellow letters */
 }
 
 .btn-primary:hover {
-  background-color: #f7a50d; /* Darker yellow on hover */
+  background-color: #f1b95080; /* Light yellow on hover */
 }
 
 .btn-secondary {
@@ -50,17 +56,17 @@ body {
 }
 
 .btn-secondary:hover {
-  background-color: #f7a50d;
+  background-color: #ffdea1; /*light yellow on hover*/
 }
 
 /* Additional styles for links */
 a {
   text-decoration: none; /* Remove underlines from links */
-  color: #007bff; /* Blue link color */
+  color: #c22a2a; /* Dark Red link color */
 }
 
 a:hover {
-  color: #0056b3; /* Darker blue on hover */
+  color: #e96c6c; /* Light red on hover */
 }
 
 .bg-light-grey {
@@ -73,6 +79,7 @@ a:hover {
   width: 100%;
   background-color: #181719;
   height: 100px;
+  color:#f1b950
 }
 
 .navbar-brand {
@@ -91,18 +98,40 @@ a:hover {
   background-image: url("../images/bat_symbol_red.png");
   background-repeat: no-repeat;
   background-color: transparent;
-  background-size: 100% 100%;
-  vertical-align: bottom;
+  background-position-y: bottom;
+  background-size: 100% 85%;
+  border: none; /* Remove button border */
+  vertical-align: -10%;
   justify-content: center;
-  font-size: 14px;
+  font-size: 15px;
+  text-align: center;
   text-align: center;
   border: 1;
+  color: #f1b950;
+  /* height: 45px;
+  width: 100px; */
+  height: 50px;
+  width: 100px;
+}
 
+#signout-btn:hover {
+  background-image: url("../images/bat_symbol_pink.png");
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-position-y: bottom;
+  background-size: 100% 85%;
+  border: none; /* Remove button border */
+  vertical-align: -10%;
+  justify-content: center;
+  font-size: 15px;
+  text-align: center;
+  text-align: center;
+  border: 1;
   color: #ffdea1;
   /* height: 45px;
   width: 100px; */
-  height: 40px;
-  width: 80px;
+  height: 50px;
+  width: 100px;
 }
 
 #logophoto {
@@ -152,10 +181,13 @@ a:hover {
 }
 .form-toggle {
   cursor: pointer;
-  font-weight: bold;
+  font-weight: normal;
+  color:#181917;
 }
 .form-group {
   margin-top: 15px;
+  color:#181719;
+  
 }
 .hidden {
   display: none;
