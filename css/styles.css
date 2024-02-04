@@ -41,6 +41,18 @@ body {
   background-color: #f7a50d; /* Darker yellow on hover */
 }
 
+.btn-secondary {
+  border-radius: 10px;
+  /* padding: 10px 20px; */
+  background-color: #f1b950;
+  color: #181719;
+  border: none;
+}
+
+.btn-secondary:hover {
+  background-color: #f7a50d;
+}
+
 /* Additional styles for links */
 a {
   text-decoration: none; /* Remove underlines from links */
