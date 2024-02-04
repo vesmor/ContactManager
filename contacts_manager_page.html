@@ -11,55 +11,123 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
 
-  <body class="d-flex flex-column vh-100">
-    
+  <body>
     <!-- Main Container -->
     <div
-    class="container-fluid flex-fill"
-    style="padding-top: 56px; overflow: hidden"
+      class="container-fluid"
+      style="height: 100vh; overflow-y: hidden; margin: 0"
     >
-    <!-- Adjust for navbar height -->
-    <div class="row h-100">
-        
-      <!-- Navbar -->
+      <!-- Navbar Row -->
+      <div class="row">
         <nav class="navbar">
-          <a class="navbar-brand" id = "logophoto" href="#"><img src="images/BatPhoneLogo.PNG" alt="BatPhone Logo"></a>
+          <a id="logophoto" href="#"
+            ><img src="images/BatPhoneLogo.PNG" alt="BatPhone Logo"
+          /></a>
           <div>
-            <span class="navbar-text">Signed in as: <span id="username">User</span></span>
+            <span class="navbar-text"
+              >Signed in as: <span id="username">User</span></span
+            >
             <button id="signout-btn">Sign out</button>
           </div>
-          </nav>
+        </nav>
+      </div>
 
-        <div class="col-md-4">
-          <div class="d-flex align-items-center py-2">
+      <!-- Content Row -->
+      <div class="row" style="overflow: hidden">
+        <!-- Left Column (Contact List) -->
+        <div
+          class="col-md-4 p-3"
+          style="background-color: #1d2434; height: calc(100vh - 100px)"
+        >
+          <div class="input-group mb-3">
             <input
-              class="form-control mr-2"
-              id="searchContact"
               type="search"
+              class="form-control"
+              id="searchContact"
               placeholder="Search Contacts"
+              aria-label="Search Contacts"
             />
-            <button class="btn btn-primary mr-2" id="searchButton">
-              <i class="fas fa-search"></i>
-            </button>
-            <button class="btn btn-primary" id="addContactBtn">
-              <i class="fas fa-plus"></i>
-            </button>
+            <div class="input-group-append">
+              <button class="btn btn-secondary ml-2" id="searchButton">
+                <i class="fas fa-search"></i>
+              </button>
+              <button class="btn btn-secondary ml-2" id="addContactBtn">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
           </div>
-          <!-- Contact Cards Container -->
+          <!-- Adjusted Contact Cards Container for Scrolling -->
           <div
-            class="contact-cards-container"
             id="contactCards"
+            style="overflow-y: auto; height: calc(100vh - 186px)"
           >
             <!-- Contact Cards will be dynamically inserted here -->
+            <!-- Example Contact Card (repeat as needed) -->
+            <div class="card contact-card" data-contact-id="${contact.ID}">
+              <div class="card-body">
+                <h5 class="card-title">Bruh Man</h5>
+                <p class="card-text">Email: ${contact.Email}</p>
+                <p class="card-text">Phone: ${contact.Phone}</p>
+              </div>
+            </div>
+            <div class="card contact-card" data-contact-id="${contact.ID}">
+              <div class="card-body">
+                <h5 class="card-title">Bruh Man</h5>
+                <p class="card-text">Email: ${contact.Email}</p>
+                <p class="card-text">Phone: ${contact.Phone}</p>
+              </div>
+            </div>
+            <div class="card contact-card" data-contact-id="${contact.ID}">
+              <div class="card-body">
+                <h5 class="card-title">Bruh Man</h5>
+                <p class="card-text">Email: ${contact.Email}</p>
+                <p class="card-text">Phone: ${contact.Phone}</p>
+              </div>
+            </div>
+            <div class="card contact-card" data-contact-id="${contact.ID}">
+              <div class="card-body">
+                <h5 class="card-title">Bruh Man</h5>
+                <p class="card-text">Email: ${contact.Email}</p>
+                <p class="card-text">Phone: ${contact.Phone}</p>
+              </div>
+            </div>
+            <div class="card contact-card" data-contact-id="${contact.ID}">
+              <div class="card-body">
+                <h5 class="card-title">Bruh Man</h5>
+                <p class="card-text">Email: ${contact.Email}</p>
+                <p class="card-text">Phone: ${contact.Phone}</p>
+              </div>
+            </div>
+            <div class="card contact-card" data-contact-id="${contact.ID}">
+              <div class="card-body">
+                <h5 class="card-title">Bruh Man</h5>
+                <p class="card-text">Email: ${contact.Email}</p>
+                <p class="card-text">Phone: ${contact.Phone}</p>
+              </div>
+            </div>
+            <div class="card contact-card" data-contact-id="${contact.ID}">
+              <div class="card-body">
+                <h5 class="card-title">Bruh Man</h5>
+                <p class="card-text">Email: ${contact.Email}</p>
+                <p class="card-text">Phone: ${contact.Phone}</p>
+              </div>
+            </div>
+
+            <!-- Additional cards can be added here -->
           </div>
         </div>
 
         <!-- Right Column -->
-        <div class="col-md-8">
-          <!-- Use inline style for bg-light-grey -->
+        <div
+          class="col-md-8"
+          style="background-color: #44496f; overflow-y: auto"
+        >
           <div id="contactDetails" class="container">
             <!-- Contact Information will be displayed here -->
-            <img src="images/flying_bats_black.png">
+            <img
+              src="images/flying_bats_black.png"
+              style="height: 90%; width: 90%"
+            />
           </div>
         </div>
       </div>

@@ -1,12 +1,17 @@
 body {
-  background-color: #44496f; /* Light blue background */
+  background-color: #44496f;
   color: #ffdea1;
-  font-family: "Arial", sans-serif; /* Change the font for the entire page */
+  font-family: "Arial", sans-serif;
+}
+
+.main-container {
+  max-height: 100vh;
+  overflow-y: hidden;
 }
 
 .container {
   margin-top: 5%; /* Add some top margin for the content */
-  background-color: #44496f
+  /* background-color: #44496f; */
 }
 
 .card {
@@ -21,7 +26,7 @@ body {
 
 .card-text {
   font-size: 12px;
-  margin-bottom: 5px
+  margin-bottom: 5px;
 }
 
 .form-control {
@@ -41,6 +46,18 @@ body {
   background-color: #f7a50d; /* Darker yellow on hover */
 }
 
+.btn-secondary {
+  border-radius: 10px;
+  /* padding: 10px 20px; */
+  background-color: #f1b950;
+  color: #181719;
+  border: none;
+}
+
+.btn-secondary:hover {
+  background-color: #f7a50d;
+}
+
 /* Additional styles for links */
 a {
   text-decoration: none; /* Remove underlines from links */
@@ -56,34 +73,20 @@ a:hover {
 }
 
 .navbar {
-  position: fixed;
-  top: 0;
+  /* position: fixed;
+  top: 0; */
   width: 100%;
+  /* z-index: 1000; */
   background-color: #181719;
-  height: 100px;
-  
 }
-
-
-.navbar-brand {
-  overflow: hidden;
-  object-fit: cover;
-}
-
-/* #signout-btn {
-  display: inline-block;
-  padding: 0;
-  margin: 0;
-  
-} */
 
 #signout-btn {
-  background-image: url('../images/bat_symbol_red.png');
+  background-image: url("../images/bat_symbol_red.png");
   background-repeat: no-repeat;
   background-color: transparent;
   background-size: 100% 100%;
   vertical-align: bottom;
-  justify-content:center;
+  justify-content: center;
   font-size: 14px;
   text-align: center;
   border: 1;
@@ -96,7 +99,7 @@ a:hover {
 }
 
 #logophoto {
-  width: auto;
+  /* width: auto; */
   height: 100px;
   /* float: left; */
   /* padding-left: 2%; */
@@ -105,37 +108,42 @@ a:hover {
   /* overflow: hidden; */
 }
 
-#logophoto img{
+#logophoto img {
   /* object-fit:cover;
   overflow: hidden; */
-  height: 90%;
+  height: 100%;
   width: 100%;
 }
 
+.navbar-brand {
+  overflow: hidden;
+  object-fit: cover;
+}
 
+.card {
+  margin-bottom: 10px; /* Adjust the space between cards */
+}
 
-/* How card looks while just sitting there */
+/* .contact-cards-container {
+  height: calc(100vh - 116px);
+  overflow-y: auto;
+  background-color: #1d2434;
+} */
+
 .contact-card {
-  background-color: #181719 ;
+  background-color: #181719;
   border-radius: 10px;
   cursor: pointer;
   padding: 1px;
   /* height: 180px; */
   width: 95%;
-  transition: .5s ease;
+  transition: 0.5s ease;
 }
 
 /* How card moves when mouse hovers over */
 .contact-card:hover {
-  transform: scale(1.05) translateX(20px);
+  transform: scale(1.01) translateX(20px);
   transform: 1s ease;
-}
-
-
-.contact-cards-container {
-  height: calc(100vh - 116px);
-  overflow-y: auto;
-  background-color: #1d2434
 }
 
 .form-container {
@@ -143,6 +151,7 @@ a:hover {
   width: 100%;
   transition: all 0.6s ease-in-out;
 }
+
 .form-toggle {
   cursor: pointer;
   font-weight: bold;
@@ -198,16 +207,6 @@ a:hover {
 
 .button {
   margin-right: 5px;
-}
-
-.col-md-8 {
-  margin-top: 40px;
-  background-color: #44496f
-}
-
-.col-md-4 {
-  margin-top: 40px;
-  background-color: #1d2434
 }
 
 #addContactBtn {
