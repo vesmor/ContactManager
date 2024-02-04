@@ -6,7 +6,7 @@ body {
 
 .container {
   margin-top: 5%; /* Add some top margin for the content */
-  background-color: #44496f
+  background-color: #44496f;
 }
 
 .card {
@@ -21,7 +21,7 @@ body {
 
 .card-text {
   font-size: 12px;
-  margin-bottom: 5px
+  margin-bottom: 5px;
 }
 
 .form-control {
@@ -32,12 +32,13 @@ body {
 .btn-primary {
   border-radius: 10px;
   padding: 10px 20px; /* Increase padding for buttons */
-  background-color: #007bff; /* Blue primary button color */
+  background-color: #f1b950; /* Yellow dark button color */
+  color: #181719;
   border: none; /* Remove button border */
 }
 
 .btn-primary:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #f7a50d; /* Darker yellow on hover */
 }
 
 /* Additional styles for links */
@@ -55,19 +56,41 @@ a:hover {
 }
 
 .navbar {
-  position: fixed;
-  top: 0;
+  /* position: fixed;
+  top: 0; */
   width: 100%;
-  z-index: 2;
   background-color: #181719;
-  height: 30;
-  
+  height: 100px;
 }
-
 
 .navbar-brand {
   overflow: hidden;
   object-fit: cover;
+}
+
+/* #signout-btn {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  
+} */
+
+#signout-btn {
+  background-image: url("../images/bat_symbol_red.png");
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-size: 100% 100%;
+  vertical-align: bottom;
+  justify-content: center;
+  font-size: 14px;
+  text-align: center;
+  border: 1;
+
+  color: #ffdea1;
+  /* height: 45px;
+  width: 100px; */
+  height: 40px;
+  width: 80px;
 }
 
 #logophoto {
@@ -80,24 +103,22 @@ a:hover {
   /* overflow: hidden; */
 }
 
-#logophoto img{
+#logophoto img {
   /* object-fit:cover;
   overflow: hidden; */
-  height: 100%;
+  height: 90%;
   width: 100%;
 }
 
-
-
 /* How card looks while just sitting there */
 .contact-card {
-  background-color: #181719 ;
+  background-color: #181719;
   border-radius: 10px;
   cursor: pointer;
   padding: 1px;
   /* height: 180px; */
   width: 95%;
-  transition: .5s ease;
+  transition: 0.5s ease;
 }
 
 /* How card moves when mouse hovers over */
@@ -106,10 +127,10 @@ a:hover {
   transform: 1s ease;
 }
 
-
 .contact-cards-container {
-  overflow-y: hidden;
-  background-color: #1d2434
+  height: calc(100vh - 116px);
+  overflow-y: auto;
+  background-color: #1d2434;
 }
 
 .form-container {
@@ -138,7 +159,7 @@ a:hover {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 20px;
+  /* padding: 20px; */
 }
 
 .contact-detail {
@@ -174,13 +195,15 @@ a:hover {
   margin-right: 5px;
 }
 
-.col-md-8 {
-  background-color: #44496f
-}
+/* .col-md-8 {
+  margin-top: 40px;
+  background-color: #44496f;
+} */
 
-.col-md-4 {
-  background-color: #1d2434
-}
+/* .col-md-4 {
+  margin-top: 40px;
+  background-color: #1d2434;
+} */
 
 #addContactBtn {
   /* margin-top: 10px; */
