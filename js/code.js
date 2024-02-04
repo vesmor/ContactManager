@@ -221,7 +221,7 @@ function populateContacts(contacts) {
                     <div class="col">
                         <img
                             id="contactImage"
-                            src="images/default_img.png"
+                            src="images/batman_shadow_black.png"
                             alt="Contact Image"
                             class="rounded-circle"
                             style="width: 200px; height: 200px; object-fit: cover"
@@ -238,18 +238,48 @@ function populateContacts(contacts) {
                             <strong>Email:</strong> ${contact.Email}
                         </p>
                     </div>
-                    <div class="col-6 text-left">
-                        <p id="contactUserID" class="contact-detail">
-                            <strong>User ID:</strong> ${contact.UserID}
-                        </p>
-                    </div>
                 </div>
             `;
+
+      //reusable html for the non-editing version of contact details
+      const contactDetailsHome = ` <div class="text-right mb-2">
+      <button id="editContactBtn" class="btn btn-primary">Edit</button>
+      <button id="deleteContactBtn" class="btn btn-danger" data-contact-id="${contact.ID}">Delete</button>
+      </div>
+      <div class="row justify-content-center text-center mb-4">
+          <div class="col">
+              <img
+                  id="contactImage"
+                  src="images/default_img.png"
+                  alt="Contact Image"
+                  class="rounded-circle"
+                  style="width: 200px; height: 200px; object-fit: cover"
+              />
+              <h2 id="contactName">${contact.FirstName} ${contact.LastName}</h2>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-6 text-left">
+              <p id="contactPhone" class="contact-detail">
+                  <strong>Phone:</strong> ${contact.Phone}
+              </p>
+              <p id="contactEmail" class="contact-detail">
+                  <strong>Email:</strong> ${contact.Email}
+              </p>
+          </div>
+      </div>
+    `;
 
       document
         .getElementById("deleteContactBtn")
         .addEventListener("click", function () {
-          deleteContact(this.getAttribute("data-contact-id"));
+          if (
+            confirm("Are you sure you want to delete this contact?") == true
+          ) {
+            deleteContact(this.getAttribute("data-contact-id"));
+          } else {
+            //do nothing
+          }
         });
 
       document
@@ -281,6 +311,9 @@ function populateContacts(contacts) {
                         </div>
                         <div class="text-center mt-3">
                             <button type="button" id="saveEditedContactBtn" class="btn btn-primary">Save Contact</button>
+                        </div>
+                        <div class="text-center mt-3">
+                            <button type="button" id="discardEditedContactBtn" class="btn btn-danger">Cancel</button>
                         </div>
                     `;
 
@@ -327,6 +360,40 @@ function populateContacts(contacts) {
                 console.error("Error:", error);
                 // Handle errors, e.g., show an error message
               }
+            });
+
+          //binding discard changes button to actually discard them
+          document
+            .getElementById("discardEditedContactBtn")
+            .addEventListener("click", async function () {
+              //switch back to the non-editable contact details
+              contactDetailsElement.innerHTML = ` <div class="text-right mb-2">
+              <button id="editContactBtn" class="btn btn-primary">Edit</button>
+              <button id="deleteContactBtn" class="btn btn-danger" data-contact-id="${contact.ID}">Delete</button>
+              </div>
+              <div class="row justify-content-center text-center mb-4">
+                  <div class="col">
+                      <img
+                          id="contactImage"
+                          src="images/default_img.png"
+                          alt="Contact Image"
+                          class="rounded-circle"
+                          style="width: 200px; height: 200px; object-fit: cover"
+                      />
+                      <h2 id="contactName">${contact.FirstName} ${contact.LastName}</h2>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-6 text-left">
+                      <p id="contactPhone" class="contact-detail">
+                          <strong>Phone:</strong> ${contact.Phone}
+                      </p>
+                      <p id="contactEmail" class="contact-detail">
+                          <strong>Email:</strong> ${contact.Email}
+                      </p>
+                  </div>
+              </div>
+            `;
             });
         });
     });
@@ -427,7 +494,6 @@ function addContactButtonListener() {
       </div>
       <div class="col-6 text-left">
         <input type="text" id="contactLastName" class="form-control mb-2" placeholder="Last Name">
-        <input type="text" id="contactUserIDInput" class="form-control mb-2" placeholder="User ID">
       </div>
     </div>
 
@@ -445,9 +511,7 @@ function addContactButtonListener() {
           const lastName = document.getElementById("contactLastName").value;
           const phone = document.getElementById("contactPhoneInput").value;
           const email = document.getElementById("contactEmailInput").value;
-          const userId = parseInt(
-            document.getElementById("contactUserIDInput").value
-          );
+          const userId = parseInt(sessionStorage.getItem("userId"), 10);
 
           const payload = {
             FirstName: firstName,

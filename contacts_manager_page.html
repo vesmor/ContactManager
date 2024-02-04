@@ -18,18 +18,26 @@
     >
       <!-- Navbar Row -->
       <div class="row">
-        <nav class="navbar navbar-dark">
-          <a class="navbar-brand" href="#">Contacts Manager</a>
-          <span class="navbar-text"
-            >Signed in as: <span id="username">User</span></span
-          >
+        <nav class="navbar">
+          <a id="logophoto" href="#"
+            ><img src="images/BatPhoneLogo.PNG" alt="BatPhone Logo"
+          /></a>
+          <div>
+            <span class="navbar-text"
+              >Signed in as: <span id="username">User</span></span
+            >
+            <button id="signout-btn">Sign out</button>
+          </div>
         </nav>
       </div>
 
       <!-- Content Row -->
       <div class="row" style="overflow: hidden">
         <!-- Left Column (Contact List) -->
-        <div class="col-md-4 bg-light p-3">
+        <div
+          class="col-md-4 p-3"
+          style="background-color: #1d2434; height: calc(100vh - 116px)"
+        >
           <div class="input-group mb-3">
             <input
               type="search"
@@ -39,10 +47,10 @@
               aria-label="Search Contacts"
             />
             <div class="input-group-append">
-              <button class="btn btn-primary" id="searchButton" type="button">
+              <button class="btn btn-secondary ml-2" id="searchButton">
                 <i class="fas fa-search"></i>
               </button>
-              <button class="btn btn-primary" id="addContactBtn" type="button">
+              <button class="btn btn-secondary ml-2" id="addContactBtn">
                 <i class="fas fa-plus"></i>
               </button>
             </div>
@@ -50,7 +58,7 @@
           <!-- Adjusted Contact Cards Container for Scrolling -->
           <div
             id="contactCards"
-            style="overflow-y: auto; height: calc(100vh - 136px)"
+            style="overflow-y: auto; height: calc(100vh - 196px)"
           >
             <!-- Contact Cards will be dynamically inserted here -->
             <!-- Example Contact Card (repeat as needed) -->
@@ -112,13 +120,17 @@
         <div
           class="col-md-8"
           style="
-            background-color: #d6d8db;
+            background-color: #44496f;
             height: calc(100vh - 56px);
             overflow-y: auto;
           "
         >
           <div id="contactDetails" class="container">
             <!-- Contact Information will be displayed here -->
+            <img
+              src="images/flying_bats_black.png"
+              style="height: 90%; width: 90%"
+            />
           </div>
         </div>
       </div>
