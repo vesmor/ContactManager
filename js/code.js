@@ -57,6 +57,54 @@ async function doLogin(usernameParam = null, passwordParam = null) {
   }
 }
 
+async function doSignup() {
+  let username = document.getElementById("signupUsername").value;
+  let password = document.getElementById("signupPassword").value;
+  let firstName = document.getElementById("signupFirstName").value;
+  let lastName = document.getElementById("signupLastName").value;
+
+  document.getElementById("signupError").innerHTML = "";
+
+  let tmp = {
+    Username: username,
+    Password: password,
+    FirstName: firstName,
+    LastName: lastName,
+  };
+  let jsonPayload = JSON.stringify(tmp);
+
+  let url = `${urlBase}signup.${extension}`;
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+      body: jsonPayload,
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const jsonObject = await response.json();
+
+    if (jsonObject.error === "") {
+      // Handle signup success
+      await doLogin(username, password);
+    } else if (jsonObject.error === "No Records Found") {
+      document.getElementById("signupError").innerHTML = "Invalid login";
+    } else {
+      // Handle signup error
+      document.getElementById("signupError").innerHTML = jsonObject.error;
+    }
+  } catch (err) {
+    document.getElementById("signupError").innerHTML = err.message;
+    document.getElementById("signupError").classList.remove("hidden");
+  }
+}
+
 async function doSignup(
   usernameParam = null,
   passwordParam = null,
@@ -93,14 +141,14 @@ async function doSignup(
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
+      signupErrorDiv.classList.remove("hidden"); // Show the error div
+      signupErrorDiv.classList.add("alert", "alert-danger"); // Ensure Bootstrap classes are applied
+      signupErrorDiv.innerHTML = "Error message based on jsonObject.error";
     }
 
     const jsonObject = await response.json();
 
     if (jsonObject.error === "") {
-      signupErrorDiv.classList.remove("hidden"); // Show the error div
-      signupErrorDiv.classList.add("alert", "alert-danger"); // Ensure Bootstrap classes are applied
-      signupErrorDiv.innerHTML = "Error message based on jsonObject.error";
       await doLogin(username, password);
       return;
     }
