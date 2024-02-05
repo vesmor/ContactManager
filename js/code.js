@@ -199,7 +199,7 @@ function populateContacts(contacts) {
       contactDetailsElement.innerHTML = `
                 <div class="text-right mb-2">
                     <button id="editContactBtn" class="btn btn-primary">Edit</button>
-                    <button id="deleteContactBtn" class="btn btn-primary btn-delete" data-contact-id="${contact.ID}">Delete</button>
+                    <button id="deleteContactBtn" class="btn btn-primary btn-delete" style="background-color: #c22a2a" #data-contact-id="${contact.ID}">Delete</button>
                 </div>
                 <div class="row justify-content-center text-center mb-4">
                     <div class="col">
