@@ -202,27 +202,6 @@ a:hover {
   margin-right: 5px;
 }
 
-.button {
-  margin-right: 5px;
-}
-
-/* .col-md-8 {
-  margin-top: 40px;
-  background-color: #44496f;
-} */
-
-/* .col-md-4 {
-  margin-top: 40px;
-  background-color: #1d2434;
-} */
-
-#addContactBtn {
-  /* margin-top: 10px; */
-  /* margin-bottom: 10px; */
-}
-
 #loginError.alert.alert-danger {
-  /* your styles here */
   color: red; /* example */
-  /* display: block !important; */
 }
