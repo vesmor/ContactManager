@@ -62,20 +62,22 @@ async function doSignup(
   passwordParam = null,
   otherParam = null
 ) {
-  let signupUsername =
-    usernameParam || document.getElementById("signupUsername").value;
-  let signupPassword =
-    passwordParam || document.getElementById("signupPassword").value;
-  // Include other parameters as needed
+  let username = document.getElementById("signupUsername").value;
+  let password = document.getElementById("signupPassword").value;
+  let firstName = document.getElementById("signupFirstName").value;
+  let lastName = document.getElementById("signupLastName").value;
 
   let signupErrorDiv = document.getElementById("signupError");
   signupErrorDiv.innerHTML = ""; // Clear previous messages
   signupErrorDiv.classList.add("hidden"); // Hide error div by default
 
   let tmp = {
-    username: signupUsername,
-    password: signupPassword /*, other keys as needed */,
+    Username: username,
+    Password: password,
+    FirstName: firstName,
+    LastName: lastName,
   };
+
   let jsonPayload = JSON.stringify(tmp);
 
   let url = `${urlBase}signup.${extension}`;
@@ -99,10 +101,9 @@ async function doSignup(
       signupErrorDiv.classList.remove("hidden"); // Show the error div
       signupErrorDiv.classList.add("alert", "alert-danger"); // Ensure Bootstrap classes are applied
       signupErrorDiv.innerHTML = "Error message based on jsonObject.error";
+      await doLogin(username, password);
       return;
     }
-
-    // Handle successful signup, possibly by calling doLogin() directly if the user should be logged in immediately
   } catch (err) {
     signupErrorDiv.classList.remove("hidden");
     signupErrorDiv.classList.add("alert", "alert-danger");
