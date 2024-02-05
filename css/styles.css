@@ -221,3 +221,9 @@ a:hover {
   /* margin-top: 10px; */
   /* margin-bottom: 10px; */
 }
+
+#loginError.alert.alert-danger {
+  /* your styles here */
+  color: red; /* example */
+  /* display: block !important; */
+}

@@ -9,13 +9,14 @@ const extension = "php";
 // make more error returns for signup, like one that same username cant eb created
 // no errors pops up for incorrect login rn
 async function doLogin(usernameParam = null, passwordParam = null) {
-  // Use parameters if provided; otherwise, get from document
   let loginUsername =
     usernameParam || document.getElementById("loginUsername").value;
   let loginPassword =
     passwordParam || document.getElementById("loginPassword").value;
 
-  document.getElementById("loginError").innerHTML = "";
+  let loginErrorDiv = document.getElementById("loginError");
+  loginErrorDiv.innerHTML = ""; // Clear previous messages
+  loginErrorDiv.classList.add("hidden"); // Hide error div by default
 
   let tmp = { login: loginUsername, password: loginPassword };
   let jsonPayload = JSON.stringify(tmp);
@@ -38,35 +39,42 @@ async function doLogin(usernameParam = null, passwordParam = null) {
     const jsonObject = await response.json();
 
     if (parseInt(jsonObject.id) < 1) {
-      document.getElementById("loginError").innerHTML =
-        "User/Password combination incorrect";
+      loginErrorDiv.classList.remove("hidden"); // Show the error div
+      loginErrorDiv.classList.add("alert", "alert-danger"); // Ensure Bootstrap classes are applied
+      loginErrorDiv.innerHTML = "User/Password combination incorrect";
       return;
     }
 
-    // Assuming session storage logic here is correct
     sessionStorage.setItem("userId", parseInt(jsonObject.id));
     sessionStorage.setItem("firstName", jsonObject.firstName);
     sessionStorage.setItem("lastName", jsonObject.lastName);
 
     window.location.href = "contacts_manager_page.html";
   } catch (err) {
-    document.getElementById("loginError").innerHTML = err.message;
+    loginErrorDiv.classList.remove("hidden"); // Show the error div
+    loginErrorDiv.classList.add("alert", "alert-danger"); // Apply Bootstrap classes
+    loginErrorDiv.innerHTML = err.message;
   }
 }
 
-async function doSignup() {
-  let username = document.getElementById("signupUsername").value;
-  let password = document.getElementById("signupPassword").value;
-  let firstName = document.getElementById("signupFirstName").value;
-  let lastName = document.getElementById("signupLastName").value;
+async function doSignup(
+  usernameParam = null,
+  passwordParam = null,
+  otherParam = null
+) {
+  let signupUsername =
+    usernameParam || document.getElementById("signupUsername").value;
+  let signupPassword =
+    passwordParam || document.getElementById("signupPassword").value;
+  // Include other parameters as needed
 
-  document.getElementById("signupError").innerHTML = "";
+  let signupErrorDiv = document.getElementById("signupError");
+  signupErrorDiv.innerHTML = ""; // Clear previous messages
+  signupErrorDiv.classList.add("hidden"); // Hide error div by default
 
   let tmp = {
-    Username: username,
-    Password: password,
-    FirstName: firstName,
-    LastName: lastName,
+    username: signupUsername,
+    password: signupPassword /*, other keys as needed */,
   };
   let jsonPayload = JSON.stringify(tmp);
 
@@ -88,17 +96,17 @@ async function doSignup() {
     const jsonObject = await response.json();
 
     if (jsonObject.error === "") {
-      // Handle signup success
-      await doLogin(username, password);
-    } else if (jsonObject.error === "No Records Found") {
-      document.getElementById("signupError").innerHTML = "Invalid login";
-    } else {
-      // Handle signup error
-      document.getElementById("signupError").innerHTML = jsonObject.error;
+      signupErrorDiv.classList.remove("hidden"); // Show the error div
+      signupErrorDiv.classList.add("alert", "alert-danger"); // Ensure Bootstrap classes are applied
+      signupErrorDiv.innerHTML = "Error message based on jsonObject.error";
+      return;
     }
+
+    // Handle successful signup, possibly by calling doLogin() directly if the user should be logged in immediately
   } catch (err) {
-    document.getElementById("signupError").innerHTML = err.message;
-    document.getElementById("signupError").classList.remove("hidden");
+    signupErrorDiv.classList.remove("hidden");
+    signupErrorDiv.classList.add("alert", "alert-danger");
+    signupErrorDiv.innerHTML = err.message;
   }
 }
 
