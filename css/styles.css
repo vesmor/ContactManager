@@ -16,10 +16,44 @@ body {
   margin-bottom: 14px; /* Adjust the space between cards */
 }
 
+.card-image {
+  background-image: url("../images/offblackflatbat.png");
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-position-y: bottom;
+  background-size: 100% 85%;
+  /*border: none;  Remove button border */
+  vertical-align: -10%;
+  justify-content: center;
+  font-size: 15px;
+  text-align: center;
+  text-align: center;
+  border: 1;
+  color: #f1b950;
+  /* height: 45px;
+  width: 100px; */
+  height: 100px;
+  width: 300px;
+}
+
 .card-title {
   font-size: 30px;
   margin-bottom: 10px; /* Adjust spacing below card title */
-  color: #181719; /* Off Black letters */
+}
+
+.card-title-login {
+  font-size: 30px;
+  margin-bottom: -40px; /* Adjust spacing below card title */
+  color: #f1b950; /* Off Black letters */
+  padding-top: 8px;
+  background-image: url("../images/offblackflatbat.png");
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-position-y: 80%; 
+  background-position-x: center;
+  background-size: 50% 120%;
+  text-align: center;
+  height: 70px;
 }
 
 .card-text {
