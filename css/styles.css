@@ -48,8 +48,7 @@ body {
 }
 
 .btn-secondary {
-  border-radius: 10px;
-  /* padding: 10px 20px; */
+  border-radius: 5px;
   background-color: #f1b950;
   color: #181719;
   border: none;
