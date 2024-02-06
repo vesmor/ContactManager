@@ -1,14 +1,31 @@
 const urlBase = "http://group23poosd2024.xyz/LAMPAPI/";
 const extension = "php";
 
-//
-async function doLogin() {
-  let login = document.getElementById("loginUsername").value;
-  let password = document.getElementById("loginPassword").value;
+//remove user id field when creating contact
+//clear right column after delete success
+//add logout button
+//add logout function
+//add click effect on contact cards
+// make more error returns for signup, like one that same username cant eb created
+// no errors pops up for incorrect login rn
+async function doLogin(usernameParam = null, passwordParam = null) {
+  let loginUsername =
+    usernameParam || document.getElementById("loginUsername").value;
+  let loginPassword =
+    passwordParam || document.getElementById("loginPassword").value;
 
-  document.getElementById("loginError").innerHTML = "";
+  if (!loginUsername || !loginPassword) {
+    document.getElementById("loginError").classList.remove("hidden");
+    document.getElementById("loginError").innerHTML =
+      "Please fill in all fields.";
+    return;
+  }
 
-  let tmp = { login: login, password: password };
+  let loginErrorDiv = document.getElementById("loginError");
+  loginErrorDiv.innerHTML = ""; // Clear previous messages
+  loginErrorDiv.classList.add("hidden"); // Hide error div by default
+
+  let tmp = { login: loginUsername, password: loginPassword };
   let jsonPayload = JSON.stringify(tmp);
 
   let url = `${urlBase}login.${extension}`;
@@ -28,35 +45,45 @@ async function doLogin() {
 
     const jsonObject = await response.json();
 
-    // Store the user's ID and name in session storage
-    const userId = parseInt(jsonObject.id, 10); // Convert userId to an integer
-    sessionStorage.setItem("userId", userId); // Storing the user's ID as an integer
-    sessionStorage.setItem("firstName", jsonObject.firstName);
-    sessionStorage.setItem("lastName", jsonObject.lastName);
-
-    if (userId < 1) {
-      document.getElementById("loginError").innerHTML =
-        "User/Password combination incorrect";
-      document.getElementById("loginError").classList.remove("hidden");
+    if (parseInt(jsonObject.id) < 1) {
+      loginErrorDiv.classList.remove("hidden"); // Show the error div
+      loginErrorDiv.classList.add("alert", "alert-danger"); // Ensure Bootstrap classes are applied
+      loginErrorDiv.innerHTML = "User/Password combination incorrect";
       return;
     }
 
-    console.log(jsonObject);
+    sessionStorage.setItem("userId", parseInt(jsonObject.id));
+    sessionStorage.setItem("firstName", jsonObject.firstName);
+    sessionStorage.setItem("lastName", jsonObject.lastName);
 
     window.location.href = "contacts_manager_page.html";
   } catch (err) {
-    document.getElementById("loginError").innerHTML = err.message;
-    document.getElementById("loginError").classList.remove("hidden");
+    loginErrorDiv.classList.remove("hidden"); // Show the error div
+    loginErrorDiv.classList.add("alert", "alert-danger"); // Apply Bootstrap classes
+    loginErrorDiv.innerHTML = err.message;
   }
 }
 
-async function doSignup() {
+async function doSignup(
+  usernameParam = null,
+  passwordParam = null,
+  otherParam = null
+) {
   let username = document.getElementById("signupUsername").value;
   let password = document.getElementById("signupPassword").value;
   let firstName = document.getElementById("signupFirstName").value;
   let lastName = document.getElementById("signupLastName").value;
 
-  document.getElementById("signupError").innerHTML = "";
+  if (!username || !password || !firstName || !lastName) {
+    document.getElementById("signupError").classList.remove("hidden");
+    document.getElementById("signupError").innerHTML =
+      "Please fill in all fields.";
+    return;
+  }
+
+  let signupErrorDiv = document.getElementById("signupError");
+  signupErrorDiv.innerHTML = ""; // Clear previous messages
+  signupErrorDiv.classList.add("hidden"); // Hide error div by default
 
   let tmp = {
     Username: username,
@@ -64,6 +91,7 @@ async function doSignup() {
     FirstName: firstName,
     LastName: lastName,
   };
+
   let jsonPayload = JSON.stringify(tmp);
 
   let url = `${urlBase}signup.${extension}`;
@@ -79,59 +107,29 @@ async function doSignup() {
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
+      signupErrorDiv.classList.remove("hidden"); // Show the error div
+      signupErrorDiv.classList.add("alert", "alert-danger"); // Ensure Bootstrap classes are applied
+      signupErrorDiv.innerHTML = "Error message based on jsonObject.error";
     }
 
     const jsonObject = await response.json();
-  } catch (err) {
-    document.getElementById("signupError").innerHTML = err.message;
-    document.getElementById("signupError").classList.remove("hidden");
-  }
-}
 
-// function saveCookie() {
-//   let minutes = 20;
-//   let date = new Date();
-//   date.setTime(date.getTime() + minutes * 60 * 1000);
-//   document.cookie =
-//     "firstName=" +
-//     firstName +
-//     ",lastName=" +
-//     lastName +
-//     ",userId=" +
-//     userId +
-//     ";expires=" +
-//     date.toGMTString();
-// }
-
-function readCookie() {
-  userId = -1;
-  let data = document.cookie;
-  let splits = data.split(",");
-  for (var i = 0; i < splits.length; i++) {
-    let thisOne = splits[i].trim();
-    let tokens = thisOne.split("=");
-    if (tokens[0] == "firstName") {
-      firstName = tokens[1];
-    } else if (tokens[0] == "lastName") {
-      lastName = tokens[1];
-    } else if (tokens[0] == "userId") {
-      userId = parseInt(tokens[1].trim());
+    if (jsonObject.error === "") {
+      await doLogin(username, password);
+      return;
     }
-  }
-
-  if (userId < 0) {
-    window.location.href = "index.html";
-  } else {
-    document.getElementById("userName").innerHTML =
-      "Logged in as " + firstName + " " + lastName;
+  } catch (err) {
+    signupErrorDiv.classList.remove("hidden");
+    signupErrorDiv.classList.add("alert", "alert-danger");
+    signupErrorDiv.innerHTML = err.message;
   }
 }
 
 function doLogout() {
-  userId = 0;
-  firstName = "";
-  lastName = "";
-  document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+  // Clear session storage
+  sessionStorage.clear();
+
+  // Redirect to login page
   window.location.href = "index.html";
 }
 
@@ -201,13 +199,13 @@ function populateContacts(contacts) {
       contactDetailsElement.innerHTML = `
                 <div class="text-right mb-2">
                     <button id="editContactBtn" class="btn btn-primary">Edit</button>
-                    <button id="deleteContactBtn" class="btn btn-danger" data-contact-id="${contact.ID}">Delete</button>
+                    <button id="deleteContactBtn" class="btn btn-primary btn-delete" style="background-color: #c22a2a" #data-contact-id="${contact.ID}">Delete</button>
                 </div>
                 <div class="row justify-content-center text-center mb-4">
                     <div class="col">
                         <img
                             id="contactImage"
-                            src="images/default_img.png"
+                            src="images/batman_shadow_black.png"
                             alt="Contact Image"
                             class="rounded-circle"
                             style="width: 200px; height: 200px; object-fit: cover"
@@ -220,22 +218,56 @@ function populateContacts(contacts) {
                         <p id="contactPhone" class="contact-detail">
                             <strong>Phone:</strong> ${contact.Phone}
                         </p>
-                        <p id="contactEmail" class="contact-detail">
-                            <strong>Email:</strong> ${contact.Email}
                         </p>
                     </div>
                     <div class="col-6 text-left">
-                        <p id="contactUserID" class="contact-detail">
-                            <strong>User ID:</strong> ${contact.UserID}
+                        <p id="contactEmail" class="contact-detail">
+                            <strong>Email:</strong> ${contact.Email}
                         </p>
                     </div>
                 </div>
             `;
 
+      //reusable html for the non-editing version of contact details
+      const contactDetailsHome = ` <div class="text-right mb-2">
+      <button id="editContactBtn" class="btn btn-primary">Edit</button>
+      <button id="deleteContactBtn" class="btn btn-danger" data-contact-id="${contact.ID}">Delete</button>
+      </div>
+      <div class="row justify-content-center text-center mb-4">
+          <div class="col">
+              <img
+                  id="contactImage"
+                  src="images/default_img.png"
+                  alt="Contact Image"
+                  class="rounded-circle"
+                  style="width: 200px; height: 200px; object-fit: cover"
+              />
+              <h2 id="contactName">${contact.FirstName} ${contact.LastName}</h2>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-6 text-left">
+              <p id="contactPhone" class="contact-detail">
+                  <strong>Phone:</strong> ${contact.Phone}
+              </p>
+              <p id="contactEmail" class="contact-detail">
+                  <strong>Email:</strong> ${contact.Email}
+              </p>
+          </div>
+      </div>
+    `;
+
       document
         .getElementById("deleteContactBtn")
         .addEventListener("click", function () {
-          deleteContact(this.getAttribute("data-contact-id"));
+          if (
+            confirm("Are you sure you want to delete this contact?") == true
+          ) {
+            deleteContact(contact.ID);
+            document.getElementById("contactDetails").innerHTML = "";
+          } else {
+            //do nothing
+          }
         });
 
       document
@@ -247,7 +279,7 @@ function populateContacts(contacts) {
                             <div class="col">
                                 <img
                                     id="contactImageDisplay"
-                                    src="images/default_img.png"
+                                    src="images/batman_shadow_black.png"
                                     alt="Contact Image"
                                     class="rounded-circle mb-2"
                                     style="width: 200px; height: 200px; object-fit: cover"
@@ -267,6 +299,9 @@ function populateContacts(contacts) {
                         </div>
                         <div class="text-center mt-3">
                             <button type="button" id="saveEditedContactBtn" class="btn btn-primary">Save Contact</button>
+                        </div>
+                        <div class="text-center mt-3">
+                            <button type="button" id="discardEditedContactBtn" class="btn btn-danger">Cancel</button>
                         </div>
                     `;
 
@@ -309,10 +344,19 @@ function populateContacts(contacts) {
                 // Handle the successful update response
                 // Possibly refresh or update the contact list
                 loadContacts();
+                document.getElementById("contactDetails").innerHTML = "";
               } catch (error) {
                 console.error("Error:", error);
                 // Handle errors, e.g., show an error message
               }
+            });
+
+          //binding discard changes button to actually discard them
+          document
+            .getElementById("discardEditedContactBtn")
+            .addEventListener("click", async function () {
+              //switch back to the non-editable contact details
+              document.getElementById("contactDetails").innerHTML = "";
             });
         });
     });
@@ -397,7 +441,7 @@ function addContactButtonListener() {
       <div class="col">
         <img
           id="contactImageDisplay"
-          src="images/default_img.png"
+          src="images/batman_shadow_black.png"
           alt="Contact Image"
           class="rounded-circle mb-2"
           style="width: 200px; height: 200px; object-fit: cover"
@@ -409,11 +453,10 @@ function addContactButtonListener() {
       <div class="col-6 text-left">
         <input type="text" id="contactFirstName" class="form-control mb-2" placeholder="First Name">
         <input type="text" id="contactPhoneInput" class="form-control mb-2" placeholder="Phone">
-        <input type="email" id="contactEmailInput" class="form-control mb-2" placeholder="Email">
       </div>
       <div class="col-6 text-left">
         <input type="text" id="contactLastName" class="form-control mb-2" placeholder="Last Name">
-        <input type="text" id="contactUserIDInput" class="form-control mb-2" placeholder="User ID">
+        <input type="email" id="contactEmailInput" class="form-control mb-2" placeholder="Email">
       </div>
     </div>
 
@@ -431,9 +474,7 @@ function addContactButtonListener() {
           const lastName = document.getElementById("contactLastName").value;
           const phone = document.getElementById("contactPhoneInput").value;
           const email = document.getElementById("contactEmailInput").value;
-          const userId = parseInt(
-            document.getElementById("contactUserIDInput").value
-          );
+          const userId = parseInt(sessionStorage.getItem("userId"), 10);
 
           const payload = {
             FirstName: firstName,
@@ -462,6 +503,7 @@ function addContactButtonListener() {
             const jsonObject = await response.json();
             // Handle the response here, e.g., show success message, clear the form, etc.
             loadContacts();
+            document.getElementById("contactDetails").innerHTML = "";
           } catch (error) {
             console.error("Error:", error);
             // Handle the error here, e.g., show error message
@@ -497,7 +539,9 @@ async function searchContacts(searchTerm) {
 
     const data = await response.json();
 
-    if (data.results) {
+    if (data.error === "No Contacts Found") {
+      document.getElementById("contactCards").innerHTML = "";
+    } else if (data.results) {
       populateContacts(data.results);
     } else {
       console.log("No contacts found");

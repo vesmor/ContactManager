@@ -10,22 +10,26 @@
 		- [POST](#post-1)
 			- [Request](#request-1)
 			- [Returns](#returns-1)
-	- [AddContacts](#addcontacts)
+	- [delete](#delete)
 		- [POST](#post-2)
 			- [Request](#request-2)
 			- [Returns](#returns-2)
-	- [DeleteContacts](#deletecontacts)
+	- [AddContacts](#addcontacts)
 		- [POST](#post-3)
 			- [Request](#request-3)
 			- [Returns](#returns-3)
-	- [SearchContacts](#searchcontacts)
+	- [DeleteContact](#deletecontact)
 		- [POST](#post-4)
 			- [Request](#request-4)
 			- [Returns](#returns-4)
-	- [UpdateContacts](#updatecontacts)
+	- [SearchContacts](#searchcontacts)
 		- [POST](#post-5)
 			- [Request](#request-5)
 			- [Returns](#returns-5)
+	- [UpdateContacts](#updatecontacts)
+		- [POST](#post-6)
+			- [Request](#request-6)
+			- [Returns](#returns-6)
 
 ## login
 ### POST
@@ -74,6 +78,29 @@ Empty error string
 }
 ```
   
+<br>
+
+## delete
+
+### POST
+#### Request
+Delete the User with the ID number passed in.
+```json 
+{
+	"ID": int,
+}
+
+```
+#### Returns
+json body \
+Empty error string
+```json 
+{
+	"error": ""
+}
+
+```
+
 <br>
 
 ## AddContacts
@@ -128,8 +155,9 @@ Empty error string
 
 ## SearchContacts
 
-Searches for Contact entries that belong to userID, and match partially with a searchTerm. \ 
-For example if looking for all contacts that contain an "a" but belong to userID 4. \
+Searches for Contact entries that belong to userID, and match partially the First OR Last name with the passed in searchTerm. \
+Is NOT Case-Sensitive. \
+For example, you can look up all contacts that contain an "a" but belong to userID 4. \
 ProTip: It's possible to load all contacts available to a certain user by passing an empty searchTerm string "" and the UserID it belongs to.
 ### POST
 #### Request
@@ -199,3 +227,4 @@ Empty error string
 }
 
 ```
+

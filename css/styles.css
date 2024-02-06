@@ -1,64 +1,239 @@
 body {
-  background-color: #f2f2f2; /* Light gray background */
+  background-color: #44496f; /* Light blue background */
+  color: #ffdea1;
   font-family: "Arial", sans-serif; /* Change the font for the entire page */
+}
+
+.bg-logo {
+  background-image: url("../images/Capture4.png");
+  background-repeat: no-repeat;
+  margin-bottom: -50px;
+  background-color: transparent;
+  background-position-y: top;
+  background-position-x: center;
+  background-size: auto 110%;
+  /*background-size: 80% 100%;
+  text-align: center;*/
+  height: 150px;
+}
+
+.bg-city {
+  background-image: url("../images/Capture5.png");
+  background-repeat: repeat-x;
+  background-color: transparent;
+  background-position-y: bottom;
+  background-position-x: center;
+  background-size: auto 400px;
+  /*background-size: 80% 100%;
+  text-align: center;*/
+  height: 400px;
+}
+
+html,
+body {
+  overflow: hidden;
+  height: 100%;
 }
 
 .container {
   margin-top: 5%; /* Add some top margin for the content */
+  background-color: #44496f;
 }
 
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Add a subtle box shadow to cards */
+  background-color: #ffdea1;
+  box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.7); /* Add a subtle box shadow to cards */
+  margin-bottom: 14px; /* Adjust the space between cards */
+  border-radius: 20px;
+}
+
+.card-image {
+  background-image: url("../images/offblackflatbat.png");
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-position-y: bottom;
+  background-size: 100% 85%;
+  /*border: none;  Remove button border */
+  vertical-align: -10%;
+  justify-content: center;
+  font-size: 15px;
+  text-align: center;
+  color: #f1b950;
+  /* height: 45px;
+  width: 100px; */
+  height: 100px;
+  width: 300px;
 }
 
 .card-title {
-  font-size: 24px;
+  font-size: 30px;
   margin-bottom: 10px; /* Adjust spacing below card title */
+}
+
+.card-title-login {
+  font-size: 30px;
+  margin-bottom: -40px; /* Adjust spacing below card title */
+  color: #f1b950; /* Off Black letters */
+  padding-top: 8px;
+  background-image: url("../images/offblackflatbat.png");
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-position-y: 80%;
+  background-position-x: center;
+  background-size: 50% 120%;
+  text-align: center;
+  height: 70px;
+}
+
+.card-text {
+  font-size: 12px;
+  margin-bottom: 5px;
 }
 
 .form-control {
   border-radius: 10px;
   padding: 10px 20px; /* Increase padding for text inputs */
+  /*color: #f1b950;*/
 }
 
 .btn-primary {
   border-radius: 10px;
   padding: 10px 20px; /* Increase padding for buttons */
-  background-color: #007bff; /* Blue primary button color */
+  background-color: #f1b950; /* Yellow dark button color */
+  color: #181719;
+  font-weight: bold;
   border: none; /* Remove button border */
+  /*//color: #f1b950;  Dark Yellow letters */
 }
 
 .btn-primary:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #f1b95080; /* Light yellow on hover */
+}
+
+.btn-secondary {
+  border-radius: 5px;
+  background-color: #f1b950;
+  color: #181719;
+  border: none;
+}
+
+.btn-secondary:hover {
+  background-color: #ffdea1; /*light yellow on hover*/
 }
 
 /* Additional styles for links */
 a {
   text-decoration: none; /* Remove underlines from links */
-  color: #007bff; /* Blue link color */
+  color: #c22a2a; /* Dark Red link color */
 }
 
 a:hover {
-  color: #0056b3; /* Darker blue on hover */
+  color: #e96c6c; /* Light red on hover */
 }
 
 .bg-light-grey {
-  background-color: #d6d8db; /* A slightly darker shade of light grey */
+  background-color: #44496f; /* A slightly darker shade of light grey */
 }
 
 .navbar {
-  position: fixed;
-  top: 0;
+  /* position: fixed;
+  top: 0; */
   width: 100%;
-  z-index: 1000;
+  background-color: #181719;
+  height: 100px;
+  color: #f1b950;
 }
 
-.card {
-  margin-bottom: 10px; /* Adjust the space between cards */
+.navbar-brand {
+  overflow: hidden;
+  object-fit: cover;
+}
+
+/* #signout-btn {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  
+} */
+
+#signout-btn {
+  background-image: url("../images/bat_symbol_red.png");
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-position-y: bottom;
+  background-size: 100% 85%;
+  border: none; /* Remove button border */
+  vertical-align: -10%;
+  justify-content: center;
+  font-size: 15px;
+  text-align: center;
+  text-align: center;
+  border: 1;
+  color: #f1b950;
+  /* height: 45px;
+  width: 100px; */
+  height: 50px;
+  width: 100px;
+}
+
+#signout-btn:hover {
+  background-image: url("../images/bat_symbol_pink.png");
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-position-y: bottom;
+  background-size: 100% 85%;
+  border: none; /* Remove button border */
+  vertical-align: -10%;
+  justify-content: center;
+  font-size: 15px;
+  text-align: center;
+  text-align: center;
+  border: 1;
+  color: #ffdea1;
+  /* height: 45px;
+  width: 100px; */
+  height: 50px;
+  width: 100px;
+}
+
+#logophoto {
+  width: auto;
+  height: 100px;
+  /* float: left; */
+  /* padding-left: 2%; */
+  /* margin: 0; */
+  /* padding: 10px 0; */
+  /* overflow: hidden; */
+}
+
+#logophoto img {
+  /* object-fit:cover;
+  overflow: hidden; */
+  height: 90%;
+  width: 100%;
+}
+
+/* How card looks while just sitting there */
+.contact-card {
+  background-color: #181719;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 1px;
+  /* height: 180px; */
+  width: 95%;
+  transition: 0.5s ease;
+}
+
+/* How card moves when mouse hovers over */
+.contact-card:hover {
+  transform: scale(1.01) translateX(10px);
+  transform: 1s ease;
 }
 
 .contact-cards-container {
-  overflow-y: hidden;
+  height: calc(100vh - 116px);
+  overflow-y: auto;
+  background-color: #1d2434;
 }
 
 .form-container {
@@ -68,10 +243,12 @@ a:hover {
 }
 .form-toggle {
   cursor: pointer;
-  font-weight: bold;
+  font-weight: normal;
+  color: #181917;
 }
 .form-group {
   margin-top: 15px;
+  color: #181719;
 }
 .hidden {
   display: none;
@@ -87,12 +264,12 @@ a:hover {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 20px;
+  /* padding: 20px; */
 }
 
 .contact-detail {
-  margin-left: 100px;
-  margin-right: 100px;
+  margin-left: 50px;
+  margin-right: 50px;
   margin-top: 20px;
   margin-bottom: 20px;
   line-height: 1.5;
@@ -119,11 +296,6 @@ a:hover {
   margin-right: 5px;
 }
 
-.button {
-  margin-right: 5px;
-}
-
-#addContactBtn {
-  /* margin-top: 10px; */
-  /* margin-bottom: 10px; */
+#loginError.alert.alert-danger {
+  color: red; /* example */
 }
