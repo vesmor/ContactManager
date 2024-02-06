@@ -239,6 +239,7 @@ function populateContacts(contacts) {
           ) {
             deleteContact(contact.ID);
             document.getElementById("contactDetails").innerHTML = "";
+            loadContacts();
           } else {
             //do nothing
           }
