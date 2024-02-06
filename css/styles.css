@@ -323,3 +323,33 @@ a:hover {
 #loginError.alert.alert-danger {
   color: red; /* example */
 }
+
+
+.cardLabel {
+  position: relative;
+  font-weight: bold;
+  color: gray;
+  top: -38px;
+  /* top: 2px; */
+  left: 20px;
+  transition: .2s;
+}
+
+.cardInput:focus + .cardLabel,
+.cardInput:not(:placeholder-shown) + .cardLabel{
+  color: gray;
+  top: 2px;
+  left: 20px;
+}
+
+.cardInput:placeholder-shown + .cardLabel{
+
+  color: gray;
+
+}
+
+/* .cardInput:invalid + .cardLabel{
+  color: red;
+  top: 2px;
+  left: 20px;
+} */

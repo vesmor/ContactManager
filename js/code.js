@@ -450,13 +450,18 @@ function addContactButtonListener() {
     </div>
 
     <div class="row">
-      <div class="col-6 text-left">
-        <input type="text" id="contactFirstName" class="form-control mb-2" placeholder="First Name">
-        <input type="text" id="contactPhoneInput" class="form-control mb-2" placeholder="Phone">
+      <div class="col-6 text-left addContactField">
+      <input type="text" id="contactFirstName" class="form-control cardInput mb-2" placeholder=" ">
+        <label for="contactFirstName" class="cardLabel">First Name</label>
+        <input type="text" id="contactPhoneInput" class="form-control cardInput mb-2" placeholder=" ">
+        <label for="contactPhoneInput" class="cardLabel">Phone Number</label>
       </div>
+        
       <div class="col-6 text-left">
-        <input type="text" id="contactLastName" class="form-control mb-2" placeholder="Last Name">
-        <input type="email" id="contactEmailInput" class="form-control mb-2" placeholder="Email">
+      <input type="text" id="contactLastName" class="form-control cardInput mb-2" placeholder=" ">
+      <label for="contactLastName" class="cardLabel">Last Name</label>
+      <input type="email" id="contactEmailInput" class="form-control cardInput mb-2" placeholder=" ">
+      <label for="contactEmailInput" class="cardLabel">Email</label>
       </div>
     </div>
 
