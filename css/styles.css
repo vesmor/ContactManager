@@ -38,6 +38,7 @@ body {
   background-color: #ffdea1;
   box-shadow: 0 4px 8px 0 rgb(250 55 2 / 16%); /* Add a subtle box shadow to cards */
   margin-bottom: 14px; /* Adjust the space between cards */
+  border-radius: 20px;
 }
 
 .card-image {
