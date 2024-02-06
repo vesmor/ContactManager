@@ -80,7 +80,22 @@ body {
 }
 
 .card-title-login {
-  font-size: 30px;
+  font-size: 25px;
+  margin-bottom: -40px; /* Adjust spacing below card title */
+  color: #f1b950; /* Off Black letters */
+  padding-top: 8px;
+  background-image: url("../images/offblackflatbat.png");
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-position-y: 80%;
+  background-position-x: center;
+  background-size: 50% 120%;
+  text-align: center;
+  height: 70px;
+}
+
+.card-title-signup {
+  font-size: 25px;
   margin-bottom: -40px; /* Adjust spacing below card title */
   color: #f1b950; /* Off Black letters */
   padding-top: 8px;
