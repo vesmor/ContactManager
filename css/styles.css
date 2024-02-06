@@ -1,7 +1,7 @@
 body {
-  background-color: #44496f; /* Light blue background */
+  background-color: #44496f;
   color: #ffdea1;
-  font-family: "Arial", sans-serif; /* Change the font for the entire page */
+  font-family: "Arial", sans-serif;
 }
 
 .bg-logo {
@@ -15,6 +15,15 @@ body {
   /*background-size: 80% 100%;
   text-align: center;*/
   height: 150px;
+}
+
+.container-fluid {
+  background-image: url("../images/Capture5.png");
+  background-repeat: repeat-x;
+  background-position: bottom;
+  background-size: auto 40%;
+  overflow: hidden;
+  min-height: 100vh;
 }
 
 .bg-city {
@@ -132,7 +141,7 @@ a:hover {
 }
 
 .bg-light-grey {
-  background-color: #44496f; /* A slightly darker shade of light grey */
+  background-color: #44496f;
 }
 
 .navbar {
