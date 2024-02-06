@@ -9,13 +9,21 @@ const extension = "php";
 // make more error returns for signup, like one that same username cant eb created
 // no errors pops up for incorrect login rn
 async function doLogin(usernameParam = null, passwordParam = null) {
-  // Use parameters if provided; otherwise, get from document
   let loginUsername =
     usernameParam || document.getElementById("loginUsername").value;
   let loginPassword =
     passwordParam || document.getElementById("loginPassword").value;
 
-  document.getElementById("loginError").innerHTML = "";
+  if (!loginUsername || !loginPassword) {
+    document.getElementById("loginError").classList.remove("hidden");
+    document.getElementById("loginError").innerHTML =
+      "Please fill in all fields.";
+    return;
+  }
+
+  let loginErrorDiv = document.getElementById("loginError");
+  loginErrorDiv.innerHTML = ""; // Clear previous messages
+  loginErrorDiv.classList.add("hidden"); // Hide error div by default
 
   let tmp = { login: loginUsername, password: loginPassword };
   let jsonPayload = JSON.stringify(tmp);
@@ -38,29 +46,44 @@ async function doLogin(usernameParam = null, passwordParam = null) {
     const jsonObject = await response.json();
 
     if (parseInt(jsonObject.id) < 1) {
-      document.getElementById("loginError").innerHTML =
-        "User/Password combination incorrect";
+      loginErrorDiv.classList.remove("hidden"); // Show the error div
+      loginErrorDiv.classList.add("alert", "alert-danger"); // Ensure Bootstrap classes are applied
+      loginErrorDiv.innerHTML = "User/Password combination incorrect";
       return;
     }
 
-    // Assuming session storage logic here is correct
     sessionStorage.setItem("userId", parseInt(jsonObject.id));
     sessionStorage.setItem("firstName", jsonObject.firstName);
     sessionStorage.setItem("lastName", jsonObject.lastName);
 
     window.location.href = "contacts_manager_page.html";
   } catch (err) {
-    document.getElementById("loginError").innerHTML = err.message;
+    loginErrorDiv.classList.remove("hidden"); // Show the error div
+    loginErrorDiv.classList.add("alert", "alert-danger"); // Apply Bootstrap classes
+    loginErrorDiv.innerHTML = err.message;
   }
 }
 
-async function doSignup() {
+async function doSignup(
+  usernameParam = null,
+  passwordParam = null,
+  otherParam = null
+) {
   let username = document.getElementById("signupUsername").value;
   let password = document.getElementById("signupPassword").value;
   let firstName = document.getElementById("signupFirstName").value;
   let lastName = document.getElementById("signupLastName").value;
 
-  document.getElementById("signupError").innerHTML = "";
+  if (!username || !password || !firstName || !lastName) {
+    document.getElementById("signupError").classList.remove("hidden");
+    document.getElementById("signupError").innerHTML =
+      "Please fill in all fields.";
+    return;
+  }
+
+  let signupErrorDiv = document.getElementById("signupError");
+  signupErrorDiv.innerHTML = ""; // Clear previous messages
+  signupErrorDiv.classList.add("hidden"); // Hide error div by default
 
   let tmp = {
     Username: username,
@@ -68,6 +91,7 @@ async function doSignup() {
     FirstName: firstName,
     LastName: lastName,
   };
+
   let jsonPayload = JSON.stringify(tmp);
 
   let url = `${urlBase}signup.${extension}`;
@@ -83,22 +107,21 @@ async function doSignup() {
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
+      signupErrorDiv.classList.remove("hidden"); // Show the error div
+      signupErrorDiv.classList.add("alert", "alert-danger"); // Ensure Bootstrap classes are applied
+      signupErrorDiv.innerHTML = "Error message based on jsonObject.error";
     }
 
     const jsonObject = await response.json();
 
     if (jsonObject.error === "") {
-      // Handle signup success
       await doLogin(username, password);
-    } else if (jsonObject.error === "No Records Found") {
-      document.getElementById("signupError").innerHTML = "Invalid login";
-    } else {
-      // Handle signup error
-      document.getElementById("signupError").innerHTML = jsonObject.error;
+      return;
     }
   } catch (err) {
-    document.getElementById("signupError").innerHTML = err.message;
-    document.getElementById("signupError").classList.remove("hidden");
+    signupErrorDiv.classList.remove("hidden");
+    signupErrorDiv.classList.add("alert", "alert-danger");
+    signupErrorDiv.innerHTML = err.message;
   }
 }
 
@@ -176,7 +199,7 @@ function populateContacts(contacts) {
       contactDetailsElement.innerHTML = `
                 <div class="text-right mb-2">
                     <button id="editContactBtn" class="btn btn-primary">Edit</button>
-                    <button id="deleteContactBtn" class="btn btn-danger" data-contact-id="${contact.ID}">Delete</button>
+                    <button id="deleteContactBtn" class="btn btn-primary btn-delete" style="background-color: #c22a2a" #data-contact-id="${contact.ID}">Delete</button>
                 </div>
                 <div class="row justify-content-center text-center mb-4">
                     <div class="col">
@@ -195,6 +218,9 @@ function populateContacts(contacts) {
                         <p id="contactPhone" class="contact-detail">
                             <strong>Phone:</strong> ${contact.Phone}
                         </p>
+                        </p>
+                    </div>
+                    <div class="col-6 text-left">
                         <p id="contactEmail" class="contact-detail">
                             <strong>Email:</strong> ${contact.Email}
                         </p>
@@ -254,7 +280,7 @@ function populateContacts(contacts) {
                             <div class="col">
                                 <img
                                     id="contactImageDisplay"
-                                    src="images/default_img.png"
+                                    src="images/batman_shadow_black.png"
                                     alt="Contact Image"
                                     class="rounded-circle mb-2"
                                     style="width: 200px; height: 200px; object-fit: cover"
@@ -428,10 +454,10 @@ function addContactButtonListener() {
       <div class="col-6 text-left">
         <input type="text" id="contactFirstName" class="form-control mb-2" placeholder="First Name">
         <input type="text" id="contactPhoneInput" class="form-control mb-2" placeholder="Phone">
-        <input type="email" id="contactEmailInput" class="form-control mb-2" placeholder="Email">
       </div>
       <div class="col-6 text-left">
         <input type="text" id="contactLastName" class="form-control mb-2" placeholder="Last Name">
+        <input type="email" id="contactEmailInput" class="form-control mb-2" placeholder="Email">
       </div>
     </div>
 
@@ -478,6 +504,7 @@ function addContactButtonListener() {
             const jsonObject = await response.json();
             // Handle the response here, e.g., show success message, clear the form, etc.
             loadContacts();
+            document.getElementById("contactDetails").innerHTML = "";
           } catch (error) {
             console.error("Error:", error);
             // Handle the error here, e.g., show error message
@@ -515,8 +542,7 @@ async function searchContacts(searchTerm) {
 
     if (data.error === "No Contacts Found") {
       document.getElementById("contactCards").innerHTML = "";
-    }
-    else if(data.results) {
+    } else if (data.results) {
       populateContacts(data.results);
     } else {
       console.log("No contacts found");
