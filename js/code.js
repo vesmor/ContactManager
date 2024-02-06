@@ -218,6 +218,9 @@ function populateContacts(contacts) {
                         <p id="contactPhone" class="contact-detail">
                             <strong>Phone:</strong> ${contact.Phone}
                         </p>
+                        </p>
+                    </div>
+                    <div class="col-6 text-left">
                         <p id="contactEmail" class="contact-detail">
                             <strong>Email:</strong> ${contact.Email}
                         </p>
@@ -276,7 +279,7 @@ function populateContacts(contacts) {
                             <div class="col">
                                 <img
                                     id="contactImageDisplay"
-                                    src="images/default_img.png"
+                                    src="images/batman_shadow_black.png"
                                     alt="Contact Image"
                                     class="rounded-circle mb-2"
                                     style="width: 200px; height: 200px; object-fit: cover"
@@ -450,10 +453,10 @@ function addContactButtonListener() {
       <div class="col-6 text-left">
         <input type="text" id="contactFirstName" class="form-control mb-2" placeholder="First Name">
         <input type="text" id="contactPhoneInput" class="form-control mb-2" placeholder="Phone">
-        <input type="email" id="contactEmailInput" class="form-control mb-2" placeholder="Email">
       </div>
       <div class="col-6 text-left">
         <input type="text" id="contactLastName" class="form-control mb-2" placeholder="Last Name">
+        <input type="email" id="contactEmailInput" class="form-control mb-2" placeholder="Email">
       </div>
     </div>
 
@@ -500,6 +503,7 @@ function addContactButtonListener() {
             const jsonObject = await response.json();
             // Handle the response here, e.g., show success message, clear the form, etc.
             loadContacts();
+            document.getElementById("contactDetails").innerHTML = "";
           } catch (error) {
             console.error("Error:", error);
             // Handle the error here, e.g., show error message
@@ -537,8 +541,7 @@ async function searchContacts(searchTerm) {
 
     if (data.error === "No Contacts Found") {
       document.getElementById("contactCards").innerHTML = "";
-    }
-    else if(data.results) {
+    } else if (data.results) {
       populateContacts(data.results);
     } else {
       console.log("No contacts found");
