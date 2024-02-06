@@ -111,8 +111,7 @@ body {
 }
 
 .btn-secondary {
-  border-radius: 10px;
-  /* padding: 10px 20px; */
+  border-radius: 5px;
   background-color: #f1b950;
   color: #181719;
   border: none;
@@ -227,7 +226,7 @@ a:hover {
 
 /* How card moves when mouse hovers over */
 .contact-card:hover {
-  transform: scale(1.05) translateX(20px);
+  transform: scale(1.01) translateX(20px);
   transform: 1s ease;
 }
 
@@ -297,21 +296,6 @@ a:hover {
   margin-right: 5px;
 }
 
-.button {
-  margin-right: 5px;
-}
-
-/* .col-md-8 {
-  margin-top: 40px;
-  background-color: #44496f;
-} */
-
-/* .col-md-4 {
-  margin-top: 40px;
-  background-color: #1d2434;
-} */
-
-#addContactBtn {
-  /* margin-top: 10px; */
-  /* margin-bottom: 10px; */
+#loginError.alert.alert-danger {
+  color: red; /* example */
 }
