@@ -226,7 +226,7 @@ a:hover {
 
 /* How card moves when mouse hovers over */
 .contact-card:hover {
-  transform: scale(1.01) translateX(20px);
+  transform: scale(1.01) translateX(10px);
   transform: 1s ease;
 }
 
