@@ -30,114 +30,116 @@
     <script src="js/code.js"></script>
   </head>
   <body>
-    <div class="container">
-      <h3 class="bg-logo"></h3>
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <div class="card my-5">
-            <div class="card-body">
-              <!-- Login Form -->
-              <div id="login-form" class="form-container">
-                <h3 class="card-title-login text-center">Login</h3>
-                <!--<h3 class="card-image"></h3>-->
-                <form onsubmit="event.preventDefault(); doLogin();">
-                  <div class="form-group">
-                    <label for="loginUsername">Username</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="loginUsername"
-                      placeholder="Username"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="loginPassword">Password</label>
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="loginPassword"
-                      placeholder="Password"
-                    />
-                  </div>
+    <div class="container-fluid p-0 m-0" style="overflow: hidden">
+      <div class="col-md-12 m-0">
+        <div class="row bg-logo mt-5"></div>
+        <div class="row justify-content-center">
+          <div class="col-md-3">
+            <div class="card my-5 login-card">
+              <div class="card-body">
+                <!-- Login Form -->
+                <div id="login-form" class="form-container">
+                  <h3 class="card-title-login text-center">Login</h3>
+                  <!--<h3 class="card-image"></h3>-->
+                  <form onsubmit="event.preventDefault(); doLogin();">
+                    <div class="form-group">
+                      <label for="loginUsername">Username</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="loginUsername"
+                        placeholder="Username"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="loginPassword">Password</label>
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="loginPassword"
+                        placeholder="Password"
+                      />
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                      Login
+                    </button>
+                    <div
+                      id="loginError"
+                      class="alert alert-danger hidden"
+                      role="alert"
+                    ></div>
+                    <div
+                      class="text-center form-toggle mt-3"
+                      onclick="toggleForms();"
+                    >
+                      Sign Up
+                    </div>
+                  </form>
+                </div>
 
-                  <div
-                    id="loginError"
-                    class="alert alert-danger hidden"
-                    role="alert"
-                  ></div>
+                <!-- Signup Form -->
+                <div id="signup-form" class="form-container hidden">
+                  <h3 class="card-title text-center">Sign Up</h3>
+                  <form onsubmit="event.preventDefault(); doSignup();">
+                    <div class="form-group">
+                      <label for="signupFirstName">First Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="signupFirstName"
+                        placeholder="Enter your first name"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="signupLastName">Last Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="signupLastName"
+                        placeholder="Enter your last name"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="signupUsername">Username</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="signupUsername"
+                        placeholder="Choose a Username"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="signupPassword">Password</label>
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="signupPassword"
+                        placeholder="Choose a password"
+                      />
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                      Sign Up
+                    </button>
 
-                  <button type="submit" class="btn btn-primary btn-block">
-                    Login
-                  </button>
+                    <div
+                      id="signupError"
+                      class="alert alert-danger hidden"
+                      role="alert"
+                    ></div>
 
-                  <div
-                    class="text-center form-toggle mt-3"
-                    onclick="toggleForms();"
-                  >
-                    Sign Up
-                  </div>
-                </form>
-              </div>
-
-              <!-- Signup Form -->
-              <div id="signup-form" class="form-container hidden">
-                <h3 class="card-title text-center">Sign Up</h3>
-                <form onsubmit="event.preventDefault(); doSignup();">
-                  <div class="form-group">
-                    <label for="signupFirstName">First Name</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="signupFirstName"
-                      placeholder="Enter your first name"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="signupLastName">Last Name</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="signupLastName"
-                      placeholder="Enter your last name"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="signupUsername">Username</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="signupUsername"
-                      placeholder="Choose a Username"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="signupPassword">Password</label>
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="signupPassword"
-                      placeholder="Choose a password"
-                    />
-                  </div>
-                  <div
-                    id="signupError"
-                    class="alert alert-danger hidden"
-                    role="alert"
-                  ></div>
-                  <button type="submit" class="btn btn-primary btn-block">
-                    Sign Up
-                  </button>
-                  <div
-                    class="text-center form-toggle mt-3"
-                    onclick="toggleForms();"
-                  >
-                    Back to Login
-                  </div>
-                </form>
+                    <div
+                      class="text-center form-toggle mt-3"
+                      onclick="toggleForms();"
+                    >
+                      Back to Login
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <div class="row bg-city"></row>
       </div>
     </div>
 
@@ -154,6 +156,5 @@
         }
       }
     </script>
-    <h3 class="bg-city"></h3>
   </body>
 </html>

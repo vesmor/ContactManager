@@ -1,13 +1,13 @@
 body {
-  background-color: #44496f ; /* Light blue background */
+  background-color: #44496f; /* Light blue background */
   color: #ffdea1;
   font-family: "Arial", sans-serif; /* Change the font for the entire page */
 }
 
-.bg-logo{
+.bg-logo {
   background-image: url("../images/Capture4.png");
   background-repeat: no-repeat;
-  margin-bottom: -50px; 
+  margin-bottom: -50px;
   background-color: transparent;
   background-position-y: top;
   background-position-x: center;
@@ -23,10 +23,16 @@ body {
   background-color: transparent;
   background-position-y: bottom;
   background-position-x: center;
-  background-size: auto 300px;
+  background-size: auto 400px;
   /*background-size: 80% 100%;
   text-align: center;*/
-  height: 300px;
+  height: 400px;
+}
+
+html,
+body {
+  overflow: hidden;
+  height: 100%;
 }
 
 .container {
@@ -36,8 +42,9 @@ body {
 
 .card {
   background-color: #ffdea1;
-  box-shadow: 0 4px 8px 0 rgb(250 55 2 / 16%); /* Add a subtle box shadow to cards */
+  box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.7); /* Add a subtle box shadow to cards */
   margin-bottom: 14px; /* Adjust the space between cards */
+  border-radius: 20px;
 }
 
 .card-image {
@@ -71,7 +78,7 @@ body {
   background-image: url("../images/offblackflatbat.png");
   background-repeat: no-repeat;
   background-color: transparent;
-  background-position-y: 80%; 
+  background-position-y: 80%;
   background-position-x: center;
   background-size: 50% 120%;
   text-align: center;
@@ -134,7 +141,7 @@ a:hover {
   width: 100%;
   background-color: #181719;
   height: 100px;
-  color:#f1b950
+  color: #f1b950;
 }
 
 .navbar-brand {
@@ -237,12 +244,11 @@ a:hover {
 .form-toggle {
   cursor: pointer;
   font-weight: normal;
-  color:#181917;
+  color: #181917;
 }
 .form-group {
   margin-top: 15px;
-  color:#181719;
-  
+  color: #181719;
 }
 .hidden {
   display: none;
