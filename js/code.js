@@ -159,7 +159,9 @@ async function loadContacts() {
 
     const data = await response.json();
 
-    if (data.results) {
+    if (data.error === "No Contacts Found") {
+      document.getElementById("contactCards").innerHTML = "";
+    } else if (data.results) {
       sessionStorage.setItem("allContacts", JSON.stringify(data.results));
       populateContacts(data.results);
     } else {
