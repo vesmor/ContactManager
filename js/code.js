@@ -161,9 +161,12 @@ async function loadContacts() {
 
     if (data.error === "No Contacts Found") {
       document.getElementById("contactCards").innerHTML = "";
+      sessionStorage.clear();
     } else if (data.results) {
+      sessionStorage.setItem("allContacts", JSON.stringify(data.results));
       populateContacts(data.results);
     } else {
+      // Handle the scenario where no contacts are returned
       console.log("No contacts found");
     }
   } catch (error) {
@@ -265,7 +268,6 @@ function populateContacts(contacts) {
           ) {
             deleteContact(contact.ID);
             document.getElementById("contactDetails").innerHTML = "";
-            loadContacts();
           } else {
             //do nothing
           }
